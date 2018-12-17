@@ -1,16 +1,17 @@
 <?php
 require_once "connect.php";
 
-$e_sql = "EXEC dbo.sp_evenement_select_all";
+print_r($_POST);
 
-$e_query = $conn->prepare($e_sql);
-$e_query->execute();
+if (isset($_POST['E_NAAM'])) {
+    $e_sql = 'EXEC dbo.sp_evenement_add @E_NAAM = \'' . $_POST['E_NAAM'] . '\', @E_DATUM = \'' . $_POST['E_DATUM'] . '\', @LOCATIENAAM = \'' . $_POST['LOCATIENAAM'] . '\', @PLAATSNAAM = \'' . $_POST['PLAATSNAAM'] . '\', ' . '@ADRES = \'' . $_POST['ADRES'] . '\', @HUISNUMMER = ' . $_POST['HUISNUMMER'];
+    print_r($e_sql);
+    $e_query = $conn->prepare($e_sql);
+    $e_query->execute();
 
-if(isset($_GET['m'])) {
-   if ($_GET['m'] = 'succes') {
-       $message = "Een evenement is succesvol toegevoegd";
-   }
+    header("Location:evenement.php?m=succes");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -165,40 +166,46 @@ if(isset($_GET['m'])) {
 
             <div id="main">
                 <div class="w3-container">
-                    <h1>Evenementen</h1>
-                    <p>Overzicht van alle evenementen</p>
-                    <p><?php echo $message ?></p>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Naam</th>
-                            <th>Datum</th>
-                            <th>Locatie</th>
-                            <th>Startdatum</th>
-                            <th>Einddatum</th>
-                        </tr>
-                        <?php
-                        while ($e_row = $e_query->fetch(PDO::FETCH_ASSOC)) {
-                            $e_id = $e_row["E_ID"];
-                            $e_naam = $e_row["E_NAAM"];
-                            $e_locatie = $e_row["LOCATIENAAM"];
-                            $e_datum = $e_row["E_DATUM"];
-                            $startdatum = $e_row["STARTDATUM"];
-                            $einddatum = $e_row["EINDDATUM"];
+                    <h1>Evenement toevoegen</h1>
+                    <p>Geef hieronder de evenementgegevens</p>
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Evenement aanmaken
+                            </header>
+                            <div class="panel-body">
+                                <form method="POST" action="" role="form">
+                                    <div class="form-group">
+                                        <label for="E_NAAM">Evenementnaam</label>
+                                        <input type="text" class="form-control" id="E_NAAM" name="E_NAAM">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="E_DATUM">Evenementdatum</label>
+                                        <input type="date" class="form-control" id="E_DATUM_" name="E_DATUM">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="LOCATIENAAM">Locatie</label>
+                                        <input type="text" class="form-control" id="LOCATIENAAM" name="LOCATIENAAM">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="PLAATSNAAM">Plaats</label>
+                                        <input type="text" class="form-control" id="PLAATSNAAM" name="PLAATSNAAM">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ADRES">Adres</label>
+                                        <input type="text" class="form-control" id="ADRES" name="ADRES">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="HUISNUMMER">Huisnummer</label>
+                                        <input type="number" class="form-control" id="HUISNUMMER" name="HUISNUMMER">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Aanmaken</button>
+                                    <a class="btn btn-danger" href="evenement.php">Annuleer</a>
+                                </form>
 
-                            echo "<tr>
-                            <td><a class='list-group-item' href='evenementgegevens.php?id=$e_id'>$e_naam</a></td>
-                            <td>$e_datum</td>
-                            <td>$e_locatie</td>
-                            <td>$startdatum</td>
-                            <td>$einddatum</td>
-                        </tr>";
-                        }
-                        ?>
-
-                    </table>
-                </div>
-                <div class="w3-container">
-                    <a class="btn btn-primary btn-lg" href="evenementAanmaken.php">Voeg evenement toe</a>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
             <!-- page end-->

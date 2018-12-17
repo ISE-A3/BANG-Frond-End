@@ -1,16 +1,30 @@
 <?php
 require_once "connect.php";
 
-$e_sql = "EXEC dbo.sp_evenement_select_all";
+$error = '';
 
-$e_query = $conn->prepare($e_sql);
-$e_query->execute();
-
-if(isset($_GET['m'])) {
-   if ($_GET['m'] = 'succes') {
-       $message = "Een evenement is succesvol toegevoegd";
-   }
+if (isset($_GET['id'])) {
+    $e_id = $_GET['id'];
+    $e_sql = "EXEC dbo.sp_evenement_select @e_id = " . $e_id;
+    $e_query = $conn->prepare($e_sql);
+    $e_query->execute();
+    $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
+    $e_naam = $e_row["E_NAAM"];
+    $e_datum = $e_row["E_DATUM"];
+} else {
+    header('location:evenement.php');
 }
+
+print_r($_POST);
+
+if (isset($_POST["Startdatum"])) {
+    $top_sql = 'EXEC dbo.sp_top100_insert @E_ID = ' . $_GET['id'] . ', @Startdatum = \'' . $_POST['Startdatum'] . '\', @Einddatum = \'' . $_POST['Einddatum'] . '\'';
+    $top_query = $conn->prepare($top_sql);
+    $top_query->execute();
+
+    header("Location:evenementgegevens.php?id=" . $_GET['id']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +36,7 @@ if(isset($_GET['m'])) {
     <meta name="author" content="GeeksLabs">
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
 
-    <title>BANG! - Evenementenoverzicht</title>
+    <title>Blank | Creative - Bootstrap 3 Responsive Admin Template</title>
 
     <!-- Bootstrap CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -165,40 +179,30 @@ if(isset($_GET['m'])) {
 
             <div id="main">
                 <div class="w3-container">
-                    <h1>Evenementen</h1>
-                    <p>Overzicht van alle evenementen</p>
-                    <p><?php echo $message ?></p>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Naam</th>
-                            <th>Datum</th>
-                            <th>Locatie</th>
-                            <th>Startdatum</th>
-                            <th>Einddatum</th>
-                        </tr>
-                        <?php
-                        while ($e_row = $e_query->fetch(PDO::FETCH_ASSOC)) {
-                            $e_id = $e_row["E_ID"];
-                            $e_naam = $e_row["E_NAAM"];
-                            $e_locatie = $e_row["LOCATIENAAM"];
-                            $e_datum = $e_row["E_DATUM"];
-                            $startdatum = $e_row["STARTDATUM"];
-                            $einddatum = $e_row["EINDDATUM"];
+                    <h1>Top 100 voor het evenement <?php echo $e_naam ?></h1>
+                    <p>Geef hieronder de inzendingsperiode door voor het evenement <?php echo $e_naam?> op <?php echo $e_datum?></p>
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Top 100 aanmaken
+                            </header>
+                            <div class="panel-body">
+                                <form method="POST" action="" role="form">
+                                    <div class="form-group">
+                                        <label for="Startdatum">Startdatum</label>
+                                        <input type="date" class="form-control" id="Startdatum" name="Startdatum">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Einddatum">Einddatum</label>
+                                        <input type="date" class="form-control" id="Einddatum" name="Einddatum">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Aanmaken</button>
+                                    <a class="btn btn-danger" href="evenementgegevens.php?id=<?php echo $e_id?>">Annuleer</a>
+                                </form>
 
-                            echo "<tr>
-                            <td><a class='list-group-item' href='evenementgegevens.php?id=$e_id'>$e_naam</a></td>
-                            <td>$e_datum</td>
-                            <td>$e_locatie</td>
-                            <td>$startdatum</td>
-                            <td>$einddatum</td>
-                        </tr>";
-                        }
-                        ?>
-
-                    </table>
-                </div>
-                <div class="w3-container">
-                    <a class="btn btn-primary btn-lg" href="evenementAanmaken.php">Voeg evenement toe</a>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
             <!-- page end-->
@@ -232,4 +236,3 @@ if(isset($_GET['m'])) {
 </body>
 
 </html>
-
