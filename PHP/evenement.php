@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD:PHP/evenement.php
 require_once "connect.php";
 
 $e_sql = "EXEC dbo.sp_evenement_select_all";
@@ -12,7 +11,7 @@ if(isset($_GET['m'])) {
        $message = "Een evenement is succesvol toegevoegd";
    }
 }
-=======
+
 /**
  * Created by PhpStorm.
  * User: anouk
@@ -20,7 +19,7 @@ if(isset($_GET['m'])) {
  * Time: 10:58
  */
 
->>>>>>> origin/U.T.4:PHP/poc_download.php
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,12 +59,11 @@ include_once "header.php";
         </div>
     </header>
     <!--header end-->
-<<<<<<< HEAD:PHP/evenement.php
+
     <!--sidebar start-->
     <?php
     include_once "sidebar.php";
     ?>
-=======
     <style>
 
     </style>
@@ -139,7 +137,7 @@ include_once "header.php";
             </div>
         </div>
     </aside>
->>>>>>> origin/U.T.4:PHP/poc_download.php
+
     <!--sidebar end-->
     <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
     <!--main content start-->
@@ -163,7 +161,6 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-<<<<<<< HEAD:PHP/evenement.php
                     <h1><i class="icon_house_alt"></i> Evenementen</h1>
                     <p>Overzicht van alle evenementen</p>
                     <p><?php if(isset($_GET['m'])){echo $message;}?></p>
@@ -197,13 +194,10 @@ include_once "header.php";
                         ?>
 
                     </table>
-=======
                     <h1>Navigatiebar test</h1>
                     <p>Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD.</p>
                     <p>Klik linksboven om de navigatiebalk uit te klappen</p>
                     <td><a class="btn btn-default btn-lg" href="poc_downloadtop100v2.php" title="Bootstrap 3 themes generator">Download Top100</a></td>
-                    <img src="../NiceAdmin/spaceShip.jpg" alt="Allahu Spacebar" style="width:100%;">
->>>>>>> origin/U.T.4:PHP/poc_download.php
                 </div>
                 <div class="w3-container">
                     <a class="btn btn-primary btn-lg" href="evenementAanmaken.php">Voeg evenement toe</a>

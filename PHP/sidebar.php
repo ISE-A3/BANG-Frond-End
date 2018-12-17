@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="" href="chart-chartjs.html" style="border-bottom: none;border-right: none;">
+                    <a class="" href="" style="border-bottom: none;border-right: none;">
                         <i class="icon_question_alt2"></i>
                         <span>Vragen</span>
 
@@ -47,7 +47,7 @@
                 </li>
 
                 <li class="sub-menu">
-                    <a href="tablestructures.php" class="" style="border-bottom: none;border-right: none;">
+                    <a href="nummers.php" class="" style="border-bottom: none;border-right: none;">
                         <i class="icon_music"></i>
                         <span>Nummers</span>
                     </a>
