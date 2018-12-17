@@ -2,7 +2,7 @@
 require_once "phpfunctions.php";
 require_once "connect.php";
 
-$evenement = $_GET['ID'];
+$evenement = 1;
 
 if(isset($_POST['verwerk'])) {
     $email = checkInput($_POST['mailadres']);
@@ -18,27 +18,30 @@ if(isset($_POST['verwerk'])) {
     $artiest4 = checkInput($_POST['artiest4']);
     $nummer5 = checkInput($_POST['nummer5']);
     $artiest5 = checkInput($_POST['artiest5']);
-
+    echo $email;
     $naam = $voornaam . ' ' . $achternaam;
     $sql = '';
+    $error = '';
+
 // /*
     if(empty($nummer1)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 5, @titel = NULL, @artiest = $artiest1";
+       // $sql = "EXECUTE sp_verwerkStem @E_ID = 1, @mail = '$email', naam = '$naam', weging = 5, titel = NULL, artiest = '$artiest1'";
+        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 5, @titel = 'NULL', @artiest = '$artiest1'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     else if(empty($artiest1)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 5, @titel = $nummer1, @artiest = NULL";
+        $sql = "EXECUTE sp_verwerkStem '@E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 5, @titel = '$nummer1', @artiest = 'NULL'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     else {
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 5, @titel = $nummer1, @artiest = $artiest1";
+        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email'', @naam = '$naam', @weging = 5, @titel = '$nummer1', @artiest = '$artiest1'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     if(empty($nummer2)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 4, @titel = NULL, @artiest = $artiest2";
+        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 4, @titel = 'NULL', @artiest = '$artiest2'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
@@ -53,7 +56,7 @@ if(isset($_POST['verwerk'])) {
         $query->execute();
     }
     if(empty($nummer3)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 3, @titel = NULL, @artiest = $artiest3";
+        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 3, @titel = 'NULL', @artiest = '$artiest3'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
@@ -68,12 +71,12 @@ if(isset($_POST['verwerk'])) {
         $query->execute();
     }
     if(empty($nummer4)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 2, @titel = NULL, @artiest = $artiest4";
+        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 2, @titel = 'NULL', @artiest = '$artiest4'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     else if(empty($artiest4)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 2, @titel = $nummer4, @artiest = NULL";
+        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 2, @titel = '$nummer4', @artiest = 'NULL'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
@@ -83,12 +86,12 @@ if(isset($_POST['verwerk'])) {
         $query->execute();
     }
     if(empty($nummer5)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 1, @titel = NULL, @artiest = $artiest5";
+        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 1, @titel = 'NULL', @artiest = '$artiest5'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     else if(empty($artiest5)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = $email, @naam = $naam, @weging = 1, @titel = $nummer5, @artiest = NULL";
+        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 1, @titel = '$nummer5', @artiest = 'NULL'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
@@ -100,5 +103,4 @@ if(isset($_POST['verwerk'])) {
     // */
 }
 
-$error = '';
 ?>
