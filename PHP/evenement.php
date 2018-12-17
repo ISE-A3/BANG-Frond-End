@@ -16,7 +16,7 @@ $e_query->execute();
     <meta name="author" content="GeeksLabs">
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
 
-    <title>BANG! - Evenementenoverzicht</title>
+    <title>Blank | Creative - Bootstrap 3 Responsive Admin Template</title>
 
     <!-- Bootstrap CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

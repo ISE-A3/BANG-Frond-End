@@ -35,7 +35,7 @@ if (isset($_GET['id'])) {
     <meta name="author" content="GeeksLabs">
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
 
-    <title>BANG! - Evenementgegevens</title>
+    <title>Blank | Creative - Bootstrap 3 Responsive Admin Template</title>
 
     <!-- Bootstrap CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -178,45 +178,79 @@ if (isset($_GET['id'])) {
 
             <div id="main">
                 <div class="w3-container">
-                    <h1>Evenenementgegevens van <?php echo $e_naam ?></h1>
-                    <p>Gegevens van <?php echo $e_naam?></p>
-                    <table class="table table-striped">
-                        <thead>
+                    <h1>Evenementen</h1>
+                    <p>Overzicht van alle evenementen</p>
+                    <table>
                         <tr>
-                            <th>Detail</th>
-                            <th>Gegevens</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Naam:</td>
-                            <td><?php echo $e_naam; ?></td>
-                        </tr>
-                        <tr>
-                            <td>Datum:</td>
-                            <td><?php echo $e_datum; ?></td>
+                            <th>
+                                Naam:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_naam;
+                                ?>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Locatie:</td>
-                            <td><?php echo $e_locatie; ?></td>
+                            <th>
+                                Datum:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_datum;
+                                ?>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Plaats:</td>
-                            <td><?php echo $e_plaats; ?></td>
+                            <th>
+                                Locatie:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_locatie;
+                                ?>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Adres:</td>
-                            <td><?php echo $e_adres ?></td>
+                            <th>
+                                Plaats:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_plaats;
+                                ?>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Startdatum inzendingsperiode:</td>
-                            <td><?php echo $startdatum; ?></td>
+                            <th>
+                                Adres:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_adres
+                                ?>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Einddatum inzendingsperiode:</td>
-                            <td><?php echo $einddatum; ?></td>
+                            <th>
+                                Startdatum:
+                            </th>
+                            <td>
+                                <?php
+                                echo $startdatum;
+                                ?>
+                            </td>
                         </tr>
-                        </tbody>
+                        <tr>
+                            <th>
+                                Einddatum:
+                            </th>
+                            <td>
+                                <?php
+                                echo $einddatum;
+                                ?>
+                            </td>
+                        </tr>
                     </table>
                 </div>
 
