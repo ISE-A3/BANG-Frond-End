@@ -1,45 +1,10 @@
-<?php
-//include_once "header.php";
-require_once('scripts/checkinzending.php'); // Inzending check script
-?>
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <title>Top 5</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
-    <meta name="author" content="GeeksLabs">
-    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
-
-    <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- bootstrap theme -->
-    <link href="css/bootstrap-theme.css" rel="stylesheet">
-    <!--external css-->
-    <!-- font icon -->
-    <link href="css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <!-- Custom styles -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-responsive.css" rel="stylesheet" />
-    <!-- Navbar style css -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
-    <!--[if lt IE 9]>
-    <![endif]-->
-
-    <!-- =======================================================
-      Theme Name: NiceAdmin
-      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-      Author: BootstrapMade
-      Author URL: https://bootstrapmade.com
-    ======================================================= -->
-</head>
-
+<?php
+$titel = 'Top 5';
+include_once "header.php";
+require_once('scripts/checkinzending.php'); // Inzending check script
+?>
 <body>
 <!-- container section start -->
 <section id="container" class="">
@@ -179,7 +144,6 @@ require_once('scripts/checkinzending.php'); // Inzending check script
                                 <header class="panel-heading">
                                     Top 5   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php
                                     if(isset($_POST['verwerk'])) {
-
                                         if(empty($error)) {
                                             echo "<b style='color: green;'>De vorige inzending is succesvol verwerkt</b>";
                                         }
@@ -191,7 +155,7 @@ require_once('scripts/checkinzending.php'); // Inzending check script
                                     <form role="form" method="POST" action="inzendingen.php">
                                         <div class="form-group">
                                             <label for="mailadres">E-mailadres</label>
-                                            <input type="email" class="form-control" name="mailadres" placeholder="E-mailadres">
+                                            <input type="email" class="form-control" name="mailadres" placeholder="E-mailadres" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="voornaam">Voornaam</label>
