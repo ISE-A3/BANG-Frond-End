@@ -167,7 +167,10 @@ if(isset($_GET['m'])) {
                 <div class="w3-container">
                     <h1>Evenementen</h1>
                     <p>Overzicht van alle evenementen</p>
-                    <p><?php echo $message ?></p>
+                    <p><?php
+                        if(isset($_GET['m'])) {
+                        echo $message;
+                    }?></p>
                     <table class="table table-striped">
                         <tr>
                             <th>Naam</th>
