@@ -1,10 +1,29 @@
 <?php
 require_once "scripts/connect.php";
 
-$e_sql = "EXEC dbo.sp_evenement_select_all";
+if (isset($_GET['id'])) {
+    $e_id = $_GET['id'];
+    $e_sql = "EXEC dbo.sp_evenement_select @e_id = " . $e_id;
+    $e_query = $conn->prepare($e_sql);
+    $e_query->execute();
+    $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
+    $e_naam = $e_row["E_NAAM"];
+    $e_datum = $e_row["E_DATUM"];
+    $e_locatie = $e_row["LOCATIENAAM"];
+    $e_plaats = $e_row["PLAATSNAAM"];
+    $e_adres = $e_row["ADRES"] . " " .  $e_row["HUISNUMMER"];
+    $startdatum = $e_row["STARTDATUM"];
+    $einddatum = $e_row["EINDDATUM"];
+} else {
+    $e_naam = NULL;
+    $e_datum = NULL;
+    $e_locatie = NULL;
+    $e_plaats = NULL;
+    $e_adres = NULL;
+    $startdatum = NULL;
+    $einddatum = NULL;
+}
 
-$e_query = $conn->prepare($e_sql);
-$e_query->execute();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -161,34 +180,83 @@ $e_query->execute();
                 <div class="w3-container">
                     <h1>Evenementen</h1>
                     <p>Overzicht van alle evenementen</p>
-                    <table class="table table-striped">
+                    <table>
                         <tr>
-                            <th>Naam</th>
-                            <th>Datum</th>
-                            <th>Locatie</th>
-                            <th>Startdatum</th>
-                            <th>Einddatum</th>
+                            <th>
+                                Naam:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_naam;
+                                ?>
+                            </td>
                         </tr>
-                        <?php
-                        while ($e_row = $e_query->fetch(PDO::FETCH_ASSOC)) {
-                            $e_id = $e_row["E_ID"];
-                            $e_naam = $e_row["E_NAAM"];
-                            $e_locatie = $e_row["LOCATIENAAM"];
-                            $e_datum = $e_row["E_DATUM"];
-                            $startdatum = $e_row["STARTDATUM"];
-                            $einddatum = $e_row["EINDDATUM"];
-
-                            echo "<tr>
-                            <td><a class='list-group-item' href='evenementgegevens.php?id=$e_id'>$e_naam</a></td>
-                            <td>$e_datum</td>
-                            <td>$e_locatie</td>
-                            <td>$startdatum</td>
-                            <td>$einddatum</td>
-                        </tr>";
-                        }
-                        ?>
-
+                        <tr>
+                            <th>
+                                Datum:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_datum;
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Locatie:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_locatie;
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Plaats:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_plaats;
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Adres:
+                            </th>
+                            <td>
+                                <?php
+                                echo $e_adres
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Startdatum:
+                            </th>
+                            <td>
+                                <?php
+                                echo $startdatum;
+                                ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Einddatum:
+                            </th>
+                            <td>
+                                <?php
+                                echo $einddatum;
+                                ?>
+                            </td>
+                        </tr>
                     </table>
+                </div>
+
+                <div class="w3-container">
+                    <a class="btn btn-primary btn-lg" href="pubquizaanmaken.php?id=<?php echo $e_id ?>">Voeg Pubquiz toe</a>
+                    <a class="btn btn-primary btn-lg" href="top100aanmaken.php?id=<?php echo $e_id ?>">Voeg Top 100 toe</a>
                 </div>
             </div>
             <!-- page end-->
@@ -222,4 +290,3 @@ $e_query->execute();
 </body>
 
 </html>
-
