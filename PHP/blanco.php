@@ -2,6 +2,9 @@
 <html lang="en">
 
 <?php
+//$today = date("Y-m-d");       voor de open/gesloten inzendingen op evenement.php
+//echo $today;
+
 $titel = 'Blanco';
 include_once "header.php";
 require_once('scripts/checkinzending.php'); // Inzending check script
