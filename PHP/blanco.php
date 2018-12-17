@@ -1,49 +1,11 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: diego
- * Date: 10-12-2018
- * Time: 15:37
- */
-?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
-    <meta name="author" content="GeeksLabs">
-    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
-
-    <title>Blank | Creative - Bootstrap 3 Responsive Admin Template</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- bootstrap theme -->
-    <link href="css/bootstrap-theme.css" rel="stylesheet">
-    <!--external css-->
-    <!-- font icon -->
-    <link href="css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
-    <!-- Custom styles -->
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-responsive.css" rel="stylesheet" />
-    <!-- Navbar style css -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
-    <!--[if lt IE 9]>
-    <![endif]-->
-
-    <!-- =======================================================
-      Theme Name: NiceAdmin
-      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-      Author: BootstrapMade
-      Author URL: https://bootstrapmade.com
-    ======================================================= -->
-</head>
+<?php
+$titel = 'Blanco';
+include_once "header.php";
+require_once('scripts/checkinzending.php'); // Inzending check script
+?>
 
 <body>
 <!-- container section start -->
@@ -75,79 +37,10 @@
         </div>
     </header>
     <!--header end-->
-    <style>
-
-    </style>
-
     <!--sidebar start-->
-    <aside>
-        <div class="w3-sidebar w3-bar-block w3-animate-left" style="display:none;z-index:5;background-color: #394a59" id="mySidebar">
-            <div id="sidebar" class="nav-collapse ">
-                <!-- sidebar menu start-->
-                <ul class="sidebar-menu">
-                    <li class="">
-                        <a class="" href="index.php"style="border-right: none;">
-                            <i class="icon_house_alt" style="font-size: 30px;"></i>
-                            <span style="font-size: 25px; padding-top: 10px;">Home</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;" class="" style="border-bottom: none;border-right: none;">
-                            <span style="font-size: 25px;">Pubquiz</span>
-                            <span class="menu-arrow arrow_carrot-down"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="tables.html" style="border-bottom: none;border-right: none;">
-                            <i class="icon_genius"></i>
-                            <span>Quizzen</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="chart-chartjs.html" style="border-bottom: none;border-right: none;">
-                            <i class="icon_question"></i>
-                            <span>Vragen</span>
-
-                        </a>
-
-                    </li>
-
-<br>
-
-                    <li>
-                        <a class="" href="buttons.php" style="border-bottom: none;border-right: none;">
-                            <span style="font-size: 25px;">Top 100</span>
-                            <span class="menu-arrow arrow_carrot-down"></span>
-                        </a>
-
-                    </li>
-
-                    <li class="sub-menu">
-                        <a href="tablestructures.php" class="" style="border-bottom: none;border-right: none;">
-                            <i class="icon_table"></i>
-                            <span>Tables</span>
-                        </a>
-                    </li>
-
-                    <li class="sub-menu ">
-                        <a href="javascript:;" class="" style="border-bottom: none;border-right: none;">
-                            <i class="icon_documents_alt"></i>
-                            <span>Pages</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a class="" href="buttons.php">Buttons</a></li>
-                            <li><a class="" href="login.php"><span>Login</span></a></li>
-                            <li><a class="" href="contact.html"><span>Contact Page</span></a></li>
-                            <li><a class="active" href="blank.html">Blank Page</a></li>
-                            <li><a class="" href="404.html">404 Error</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-                <!-- sidebar menu end-->
-            </div>
-        </div>
-    </aside>
+    <?php
+    include_once "sidebar.php";
+    ?>
     <!--sidebar end-->
     <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
     <!--main content start-->
