@@ -4,7 +4,7 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu">
                 <li class="">
-                    <a class="" href="index.php"style="border-right: none;">
+                    <a class="" href="evenement.php" style="border-right: none;">
                         <i class="icon_house_alt" style="font-size: 30px;"></i>
                         <span style="font-size: 25px; padding-top: 10px;">Home</span>
                     </a>
@@ -16,14 +16,14 @@
                     </a>
                 </li>
                 <li>
-                    <a class="" href="tables.html" style="border-bottom: none;border-right: none;">
+                    <a class="" href="evenement.php" style="border-bottom: none;border-right: none;">
                         <i class="icon_genius"></i>
                         <span>Quizzen</span>
                     </a>
                 </li>
                 <li>
                     <a class="" href="chart-chartjs.html" style="border-bottom: none;border-right: none;">
-                        <i class="icon_question"></i>
+                        <i class="icon_question_alt2"></i>
                         <span>Vragen</span>
 
                     </a>
@@ -48,11 +48,17 @@
 
                 <li class="sub-menu">
                     <a href="tablestructures.php" class="" style="border-bottom: none;border-right: none;">
-                        <i class="icon_table"></i>
-                        <span>Tables</span>
+                        <i class="icon_music"></i>
+                        <span>Nummers</span>
                     </a>
                 </li>
-
+                <li class="sub-menu">
+                    <a href="tablestructures.php" class="" style="border-bottom: none;border-right: none;">
+                        <i class="icon_documents_alt"></i>
+                        <span>Lijsten</span>
+                    </a>
+                </li>
+                <!--
                 <li class="sub-menu ">
                     <a href="javascript:;" class="" style="border-bottom: none;border-right: none;">
                         <i class="icon_documents_alt"></i>
@@ -66,7 +72,7 @@
                         <li><a class="" href="404.html">404 Error</a></li>
                     </ul>
                 </li>
-
+                -->
             </ul>
             <!-- sidebar menu end-->
         </div>

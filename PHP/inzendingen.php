@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+if(!isset($_GET['id'])){
+    header('location: evenement.php');
+}
+
 $titel = 'Top 5';
 include_once "header.php";
 require_once('scripts/checkinzending.php'); // Inzending check script
+require_once "scripts/connect.php";
+
 ?>
 <body>
 <!-- container section start -->
@@ -77,7 +83,7 @@ include_once "sidebar.php";
                                     ?>
                                 </header>
                                 <div class="panel-body">
-                                    <form role="form" method="POST" action="inzendingen.php">
+                                    <form role="form" method="POST" action="">
                                         <div class="form-group">
                                             <label for="mailadres">E-mailadres</label>
                                             <input type="email" class="form-control" name="mailadres" placeholder="E-mailadres" required>
