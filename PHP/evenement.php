@@ -194,9 +194,6 @@ include_once "header.php";
                         ?>
 
                     </table>
-                    <h1>Navigatiebar test</h1>
-                    <p>Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD.</p>
-                    <p>Klik linksboven om de navigatiebalk uit te klappen</p>
                     <td><a class="btn btn-default btn-lg" href="poc_downloadtop100v2.php" title="Bootstrap 3 themes generator">Download Top100</a></td>
                 </div>
                 <div class="w3-container">
