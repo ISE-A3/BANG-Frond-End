@@ -4,6 +4,7 @@ require_once "connect.php";
 
 $evenement = $_GET['id'];
 
+
 if(isset($_POST['verwerk'])) {
     $email = checkInput($_POST['mailadres']);
     $voornaam = checkInput($_POST['voornaam']);

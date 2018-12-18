@@ -33,7 +33,7 @@
                 <br>
 
                 <li>
-                    <a class="" href="buttons.php" style="border-bottom: none;border-right: none;">
+                    <a class="" href="evenement.php" style="border-bottom: none;border-right: none;">
                         <span style="font-size: 25px;">Top 100</span>
                         <span class="menu-arrow arrow_carrot-down"></span>
                     </a>

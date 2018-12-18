@@ -15,6 +15,7 @@ if (isset($_GET['id'])) {
     $startdatum = $e_row["STARTDATUM"];
     $einddatum = $e_row["EINDDATUM"];
 } else {
+    $e_id = NULL;
     $e_naam = NULL;
     $e_datum = NULL;
     $e_locatie = NULL;
@@ -48,16 +49,8 @@ include_once "header.php";
             </button>
         </div>
 
-        <div class="top-nav notification-row">
-            <!-- notificatoin dropdown start-->
-            <ul class="nav pull-right top-menu">
-
-            </ul>
-
-        </div>
     </header>
     <!--header end-->
-
     <!--sidebar start-->
     <?php
     include_once "sidebar.php";
@@ -130,7 +123,7 @@ include_once "header.php";
                     <a class="btn btn-primary btn-lg" href="evenementgegevens.php?id=<?php echo $e_id ?>">Voeg Pubquiz toe</a>
                     <?php
                     if (!isset($startdatum)) {
-                        echo "<a class='btn btn-primary btn-lg' href='top100Aanmaken.php?id=$e_id'>Voeg Top 100 toe</a>";
+                        echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?id=$e_id'>Voeg Top 100 toe</a>";
                     }
                     ?>
                 </div>

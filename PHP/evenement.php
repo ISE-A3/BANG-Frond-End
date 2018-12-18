@@ -11,14 +11,7 @@ if(isset($_GET['m'])) {
        $message = "Een evenement is succesvol toegevoegd";
    }
 }
-
-/**
- * Created by PhpStorm.
- * User: anouk
- * Date: 14-12-2018
- * Time: 10:58
- */
-
+$today = date("Y-m-d");       //voor de open/gesloten inzendingen op evenement.php
 
 ?>
 <!DOCTYPE html>
@@ -64,79 +57,6 @@ include_once "header.php";
     <?php
     include_once "sidebar.php";
     ?>
-    <style>
-
-    </style>
-
-    <!--sidebar start-->
-    <aside>
-        <div class="w3-sidebar w3-bar-block w3-animate-left" style="display:none;z-index:5;background-color: #394a59" id="mySidebar">
-            <div id="sidebar" class="nav-collapse ">
-                <!-- sidebar menu start-->
-                <ul class="sidebar-menu">
-                    <li class="">
-                        <a class="" href="index.php"style="border-right: none;">
-                            <i class="icon_house_alt" style="font-size: 30px;"></i>
-                            <span style="font-size: 25px; padding-top: 10px;">Home</span>
-                        </a>
-                    </li>
-                    <li class="sub-menu">
-                        <a href="javascript:;" class="" style="border-bottom: none;border-right: none;">
-                            <span style="font-size: 25px;">Pubquiz</span>
-                            <span class="menu-arrow arrow_carrot-down"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="tables.html" style="border-bottom: none;border-right: none;">
-                            <i class="icon_genius"></i>
-                            <span>Quizzen</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="" href="chart-chartjs.html" style="border-bottom: none;border-right: none;">
-                            <i class="icon_question"></i>
-                            <span>Vragen</span>
-
-                        </a>
-
-                    </li>
-
-                    <br>
-
-                    <li>
-                        <a class="" href="buttons.php" style="border-bottom: none;border-right: none;">
-                            <span style="font-size: 25px;">Top 100</span>
-                            <span class="menu-arrow arrow_carrot-down"></span>
-                        </a>
-
-                    </li>
-
-                    <li class="sub-menu">
-                        <a href="tablestructures.php" class="" style="border-bottom: none;border-right: none;">
-                            <i class="icon_table"></i>
-                            <span>Tables</span>
-                        </a>
-                    </li>
-
-                    <li class="sub-menu ">
-                        <a href="javascript:;" class="" style="border-bottom: none;border-right: none;">
-                            <i class="icon_documents_alt"></i>
-                            <span>Pages</span>
-                        </a>
-                        <ul class="sub">
-                            <li><a class="" href="buttons.php">Buttons</a></li>
-                            <li><a class="" href="login.php"><span>Login</span></a></li>
-                            <li><a class="" href="contact.html"><span>Contact Page</span></a></li>
-                            <li><a class="active" href="blank.html">Blank Page</a></li>
-                            <li><a class="" href="404.html">404 Error</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-                <!-- sidebar menu end-->
-            </div>
-        </div>
-    </aside>
 
     <!--sidebar end-->
     <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
@@ -172,6 +92,7 @@ include_once "header.php";
                             <th>Startdatum</th>
                             <th>Einddatum</th>
                             <th>Inzendingen</th>
+                            <th>Downloads</th>
                         </tr>
                         <?php
                         while ($e_row = $e_query->fetch(PDO::FETCH_ASSOC)) {
@@ -183,18 +104,32 @@ include_once "header.php";
                             $einddatum = $e_row["EINDDATUM"];
 
                             echo "<tr>
-                            <td><a class='list-group-item' href='evenementgegevens.php?id=$e_id'>$e_naam</a></td>
+                            <td><a style='font-size: 15px;' href='evenementgegevens.php?id=$e_id'>$e_naam</a></td>
                             <td>$e_datum</td>
                             <td>$e_locatie</td>
                             <td>$startdatum</td>
-                            <td>$einddatum</td>
-                            <td><a href='inzendingen.php?id=$e_id'<b style='color:green;'>Open</b><i class=\"icon_pencil-edit\"></i></td>
+                            <td>$einddatum</td>";
+                            if(empty($startdatum) && empty($einddatum)){
+                                echo "<td><a href='evenementgegevens.php?id=$e_id'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>
+                                      <td></td>";
+                            }
+                            else {
+                             if($today > $einddatum){
+                                echo "<td><a href='evenementgegevens.php?id=$e_id'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
+                             }
+                             else if(($today < $einddatum) && ($today > $startdatum)) {
+                                 echo "<td><a href='inzendingen.php?id=$e_id'<b style='color:green;'>Open</b><i class=\"icon_pencil-edit\"></i></td>";
+                             }
+                             else {
+                                echo "<td><a href='evenementgegevens.php?id=$e_id'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
+                            }
+                             echo "<td><a href='poc_downloadtop100v2.php' style='color: #005cbf'>Download<i class='icon_download'></i></a></td>
                         </tr>";
-                        }
+                            }
+                        }      //achter de inzendingen kolom, nog een download kolom ipv op de gehele pagina
                         ?>
 
                     </table>
-                    <td><a class="btn btn-default btn-lg" href="poc_downloadtop100v2.php" title="Bootstrap 3 themes generator">Download Top100</a></td>
                 </div>
                 <div class="w3-container">
                     <a class="btn btn-primary btn-lg" href="evenementAanmaken.php">Voeg evenement toe</a>

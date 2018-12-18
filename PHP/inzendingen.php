@@ -31,14 +31,6 @@ require_once "scripts/connect.php";
         <!--logo start-->
 
         <!--logo end-->
-
-        <div class="top-nav notification-row">
-            <!-- notificatoin dropdown start-->
-            <ul class="nav pull-right top-menu">
-
-            </ul>
-
-        </div>
     </header>
     <!--header end-->
     <!--sidebar start-->

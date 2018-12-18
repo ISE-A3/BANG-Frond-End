@@ -2,12 +2,9 @@
 <html lang="en">
 
 <?php
-//$today = date("Y-m-d");       voor de open/gesloten inzendingen op evenement.php
-//echo $today;
-
+include_once "scripts/phpfunctions.php";
 $titel = 'Blanco';
 include_once "header.php";
-require_once('scripts/checkinzending.php'); // Inzending check script
 ?>
 
 <body>
@@ -30,14 +27,6 @@ require_once('scripts/checkinzending.php'); // Inzending check script
         <!--logo start-->
 
         <!--logo end-->
-
-        <div class="top-nav notification-row">
-            <!-- notificatoin dropdown start-->
-            <ul class="nav pull-right top-menu">
-
-            </ul>
-
-        </div>
     </header>
     <!--header end-->
     <!--sidebar start-->
@@ -70,7 +59,6 @@ require_once('scripts/checkinzending.php'); // Inzending check script
                     <h1>Navigatiebar test</h1>
                     <p>Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD. Dit is tekst om testen xD.</p>
                     <p>Klik linksboven om de navigatiebalk uit te klappen</p>
-                    <img src="../NiceAdmin/spaceShip.jpg" alt="Allahu Spacebar" style="width:100%;">
                 </div>
             </div>
             <!-- page end-->
