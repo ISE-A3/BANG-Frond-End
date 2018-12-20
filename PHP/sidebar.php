@@ -45,11 +45,23 @@
                         <span>Inzendingen</span>
                     </a>
                 </li>
-
-                <li class="sub-menu">
+                <li>
                     <a href="nummers.php" class="" style="border-bottom: none;border-right: none;">
                         <i class="icon_music"></i>
                         <span>Nummers</span>
+                    </a>
+                </li>
+                <br>
+                <li>
+                    <a class="" href="evenement.php?beheerder=1" style="border-bottom: none;border-right: none;">
+                        <span style="font-size: 25px;">Beheer</span>
+                        <span class="menu-arrow arrow_carrot-down"></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="evenement.php?beheerder=1" style="border-bottom: none;border-right: none;">
+                        <i class="icon_calendar"></i>
+                        <span>Evenementen</span>
                     </a>
                 </li>
                 <!--

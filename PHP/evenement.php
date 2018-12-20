@@ -96,9 +96,14 @@ include_once "header.php";
                             $startdatum = $e_row["STARTDATUM"];
                             $einddatum = $e_row["EINDDATUM"];
 
-                            echo "<tr>
-                            <td><a href='evenementgegevens.php?evenement=$e_naam_url'>$e_naam</a></td>
-                            <td>$e_datum</td>
+                            echo "<tr>";
+                            if(isset($_GET['beheerder'])) {
+                               echo "<td ><a href = 'evenementgegevens.php?beheerder=1&evenement=$e_naam_url' > $e_naam</a ></td >";
+                                }
+                                else {
+                                    echo "<td ><a href = 'evenementgegevens.php?evenement=$e_naam_url' > $e_naam</a ></td >";
+                                }
+                            echo "<td>$e_datum</td>
                             <td>$e_locatie</td>
                             <td>$startdatum</td>
                             <td>$einddatum</td>";
@@ -124,9 +129,13 @@ include_once "header.php";
 
                     </table>
                 </div>
-                <div class="w3-container">
-                    <a class="btn btn-primary btn-lg" href="evenementAanmaken.php">Voeg evenement toe</a>
-                </div>
+                <?php if(isset($_GET['beheerder'])) {
+                    echo "
+                <div class=\"w3-container\">
+                    <a class=\"btn btn-primary btn-lg\" href=\"evenementAanmaken.php\">Voeg evenement toe</a>
+                    <a class=\"btn btn-danger btn-lg\" href=\"evenement.php\">Verwijder evenement</a>
+                </div>";
+                }?>
             </div>
             <!-- page end-->
         </section>

@@ -127,6 +127,9 @@ include_once "header.php";
                     if (!isset($startdatum)) {
                         echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>";
                     }
+                    if(isset($_GET['beheerder'])){
+                       echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$e_naam_url\">Evenement aanpassen</a>";
+                    }
                     ?>
                 </div>
             </div>
