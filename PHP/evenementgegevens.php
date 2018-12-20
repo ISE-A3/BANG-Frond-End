@@ -122,7 +122,7 @@ include_once "header.php";
                 </div>
 
                 <div class="w3-container">
-                    <a class="btn btn-primary btn-lg" href="evenementgegevens.php?evenement=<?php echo $e_naam_url; ?>">Voeg Pubquiz toe</a>
+                    <a class="btn btn-primary btn-lg" href="evenementgegevens.php?evenement=<?php echo $e_naam_url;?>">Voeg Pubquiz toe</a>
                     <?php
                     if (!isset($startdatum)) {
                         echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>";
