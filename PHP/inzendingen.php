@@ -5,7 +5,6 @@
 $titel = 'Top 5';
 include_once "header.php";
 require_once('scripts/checkinzending.php'); // Inzending check script
-require_once "scripts/connect.php";
 
 if(!isset($_GET['evenement'])){
     header('location: evenement.php');

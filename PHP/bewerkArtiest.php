@@ -1,6 +1,5 @@
 <?php
 
-require_once "scripts/connect.php";
 require_once "scripts/artiestBewerking.php";
 
 if (isset($_GET['artiest'])) {

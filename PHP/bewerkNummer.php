@@ -1,6 +1,5 @@
 <?php
 
-require_once "scripts/connect.php";
 require_once "scripts/nummerBewerking.php";
 
 if (isset($_GET['titel'])) {
