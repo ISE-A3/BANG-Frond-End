@@ -1,31 +1,14 @@
 <?php
+require_once "scripts/connect.php";
 
-if (isset($_GET['evenement'])) {
-    $evenement = $_GET['evenement'];
-    $e_sql = "EXEC dbo.usp_Evenement_Select @EVENEMENT_NAAM = '$evenement'";
+
+if (isset($_POST['E_NAAM'])) {
+    $e_sql = 'EXEC dbo.usp_Evenement_Insert @EVENEMENT_NAAM = \'' . $_POST['E_NAAM'] . '\', @EVENEMENT_DATUM = \'' . $_POST['E_DATUM'] . '\', @LOCATIENAAM = \'' . $_POST['LOCATIENAAM'] . '\', @PLAATSNAAM = \'' . $_POST['PLAATSNAAM'] . '\', ' . '@ADRES = \'' . $_POST['ADRES'] . '\', @HUISNUMMER = ' . $_POST['HUISNUMMER'];
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
-    $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
-    $e_id = $e_row["EVENEMENT_ID"];
-    $e_naam = $e_row["EVENEMENT_NAAM"];
-    $e_naam_url = urlencode($e_naam);
-    $e_datum = $e_row["EVENEMENT_DATUM"];
-    $e_locatie = $e_row["LOCATIENAAM"];
-    $e_plaats = $e_row["PLAATSNAAM"];
-    $e_adres = $e_row["ADRES"] . " " .  $e_row["HUISNUMMER"];
-    $startdatum = $e_row["STARTDATUM"];
-    $einddatum = $e_row["EINDDATUM"];
-} else {
-    $e_id = NULL;
-    $e_naam = NULL;
-    $e_datum = NULL;
-    $e_locatie = NULL;
-    $e_plaats = NULL;
-    $e_adres = NULL;
-    $startdatum = NULL;
-    $einddatum = NULL;
-}
 
+    header("Location:evenement.php?m=succes");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +63,7 @@ include_once "header.php";
             <div id="main">
                 <div class="w3-container">
                     <h1 style="margin-left: 17px;">Evenement toevoegen</h1>
-                    <p style="margin-left: 16px;">Hieronder staan de evenementgegevens</p>
+                    <p style="margin-left: 16px;">Via onderstaand formulier kan een evenement worden aangemaakt</p>
                     <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">

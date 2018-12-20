@@ -1,5 +1,8 @@
 <?php
 
+require_once "scripts/connect.php";
+
+
 if (isset($_GET['evenement'])) {
     $evenement = $_GET['evenement'];
     $e_sql = "EXEC dbo.usp_Evenement_Select @EVENEMENT_NAAM = '$evenement'";
@@ -119,18 +122,20 @@ include_once "header.php";
                         </tbody>
                     </table>
                 </div>
-
+            <?php if(isset($_GET['beheerder'])){ ?>
                 <div class="w3-container">
-                    <a class="btn btn-primary btn-lg" href="evenementgegevens.php?evenement=<?php echo $e_naam_url; ?>">Voeg Pubquiz toe</a>
+                    <a class="btn btn-primary btn-lg" href="evenementgegevens.php?evenement=<?php echo $e_naam_url; ?>">Voeg
+                        Pubquiz toe</a>
                     <?php
                     if (!isset($startdatum)) {
-                        echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>";
+                        echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>&nbsp;";
                     }
-                    if(isset($_GET['beheerder'])){
-                       echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$e_naam_url\">Evenement aanpassen</a>";
+
+                    echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$e_naam_url\">Evenement aanpassen</a>
+                             <a class=\"btn btn-danger btn-lg\" href=\"scripts/evenementVerwijdering.php?evenement=$e_naam_url\">Verwijder evenement</a>
+                             </div>";
                     }
                     ?>
-                </div>
             </div>
             <!-- page end-->
         </section>

@@ -1,5 +1,8 @@
 <?php
 
+require_once "scripts/connect.php";
+
+
 $e_sql = "EXEC dbo.usp_Evenement_SelectAll";
 
 $e_query = $conn->prepare($e_sql);
@@ -7,7 +10,13 @@ $e_query->execute();
 
 if(isset($_GET['m'])) {
    if ($_GET['m'] = 'succes') {
-       $message = "Een evenement is succesvol toegevoegd";
+       $message = "<b>Een evenement is succesvol toegevoegd</b>";
+   }
+   if($_GET['m'] = 'aangepast'){
+       $message = "<b>Het evenement is succesvol aangepast</b>";
+   }
+   if($_GET['m'] = 'deleted'){
+       $message = "<b>Het evenement is succesvol verwijderd</b>";
    }
 }
 $today = date("Y-m-d");       //voor de open/gesloten inzendingen op evenement.php
@@ -132,7 +141,6 @@ include_once "header.php";
                     echo "
                 <div class=\"w3-container\">
                     <a class=\"btn btn-primary btn-lg\" href=\"evenementAanmaken.php\">Voeg evenement toe</a>
-                    <a class=\"btn btn-danger btn-lg\" href=\"evenement.php\">Verwijder evenement</a>
                 </div>";
                 }?>
             </div>
