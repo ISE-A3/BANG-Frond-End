@@ -1,1 +1,1 @@
-# BANG-Front-End
+# BANG-Frond-End
