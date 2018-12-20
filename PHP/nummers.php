@@ -4,6 +4,21 @@
 <?php
 $titel = 'Nummers';
 include_once "header.php";
+
+if(isset($_GET['deleted'])){
+    $deleted = urldecode($_GET['deleted']);
+    $message = "Het nummer '$deleted' is succesvol verwijderd!";
+}
+
+if(isset($_GET['replaced'])){
+    $replaced = urldecode($_GET['replaced']);
+    $message = "De artiest van het nummer '$replaced' is vervangen!";
+}
+
+else {
+    $message = '';
+}
+
 ?>
 
 
@@ -40,7 +55,6 @@ include_once "header.php";
         <section class="wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header" style="margin-left: 17px;"><i class="icon_house_alt"></i>Header komt hier</h3>
                     <!--
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
@@ -57,7 +71,7 @@ include_once "header.php";
             <div id="main">
                 <div class="w3-container">
                     <h1>Nummers</h1>
-
+                    <?php echo "<p style='color: green'>$message</p>"; ?>
                     <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
@@ -67,23 +81,24 @@ include_once "header.php";
                                         <th><i class="icon_profile"></i> Artiest</th>
                                         <th><i class="icon_cog" style="padding-left: 12px;font-size: 15px;"></i></th>
                                         <th><i class="icon_music"></i> Titel</th>
-                                        <th><i class="icon_toolbox" style="padding-left: 21%;font-size: 17px;"></i></th>
+                                        <th><i class="icon_toolbox" style="padding-left: 16%;font-size: 17px;"></i></th>
                                     </tr>
 
                                     <?php
                                     include ("connect.php");
-                                    $e_sql = "EXEC dbo.sp_SelectAlleNummers_select";
+                                    $e_sql = "EXEC dbo.usp_Nummer_SelectAll";
                                     $e_query = $conn->prepare($e_sql);
                                     $e_query->execute();
                                     if ($e_query->rowCount() != 0) {
                                         // output data of each row
                                         while($e_row = $e_query->fetch(PDO::FETCH_ASSOC)){
-                                            $e_titel = $e_row["TITEL"];
-                                            $e_artiest = $e_row["A_NAAM"];
+                                            $e_titel = $e_row["NUMMER_TITEL"];
+                                            $e_artiest = $e_row["ARTIEST_NAAM"];
                                             $artiest = urlencode($e_artiest);
+                                            $titel = urlencode($e_titel);
                                             echo"
                                                 <tr>
-                                                    <td>$e_titel</td>
+                                                    <td>$e_artiest</td>
                                                     <td>
                                                            <div class=\"btn-group\">
                                                                 <a class=\"btn btn-primary\" href=\"bewerkArtiest.php?artiest=$artiest\" data-toggle=\"tooltip\" title=\"Bewerk artiest\">
@@ -91,12 +106,12 @@ include_once "header.php";
                                                                 </a>
                                                             </div>
                                                     </td>
-                                                    <td>$e_artiest</td>
+                                                    <td>$e_titel</td>
                                                     <td>
                                                         <div class=\"btn-group\">
-                                                            <a class=\"btn btn-primary\" href=\"#\" data-toggle=\"tooltip\" title=\"Vervang artiest\"><i class=\"icon_plus_alt2\"></i></a>
-                                                            <a class=\"btn btn-success\" href=\"#\" data-toggle=\"tooltip\" title=\"Bewerk Nummer\"><i class=\"icon_check_alt2\"></i></a>
-                                                            <a class=\"btn btn-danger\" href=\"#\" data-toggle=\"tooltip\" title=\"Verwijder Nummer\"><i class=\"icon_close_alt2\"></i></a>
+                                                            <a class=\"btn btn-primary\" href=\"vervangArtiest.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Vervang artiest\"><i class=\"icon_plus_alt2\"></i></a>
+                                                            <a class=\"btn btn-success\" href=\"bewerkNummer.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Bewerk Nummer\"><i class=\"icon_check_alt2\"></i></a>
+                                                            <a class=\"btn btn-danger\" href=\"scripts/nummerVerwijdering.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Verwijder Nummer\"><i class=\"icon_close_alt2\"></i></a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -123,24 +138,6 @@ include_once "header.php";
         </div>
     </div>
 </section>
-<script>
-    function w3_open() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.width = "11.9%";
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("openNav").style.display = 'none';
-        document.getElementById("mySidebar").style.borderRight = "1px solid #D7D7D7";
-        document.getElementById("myOverlay").style.display = "block";
-        document.getElementById("closeNav").style.display = "block";
-    }
-    function w3_close() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("openNav").style.display = "inline-block";
-        document.getElementById("myOverlay").style.display = "none";
-        document.getElementById("closeNav").style.display = "none";
-    }
-</script>
 
 </body>
 

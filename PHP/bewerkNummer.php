@@ -1,12 +1,14 @@
 <?php
 
 require_once "scripts/connect.php";
-require_once "scripts/artiestBewerking.php";
+require_once "scripts/nummerBewerking.php";
 
-if (isset($_GET['artiest'])) {
+if (isset($_GET['titel'])) {
+    $nummer = $_GET['titel'];
     $artiest = $_GET['artiest'];
 
 } else {
+    $nummer = NULL;
     $artiest = NULL;
 }
 
@@ -15,7 +17,7 @@ if (isset($_GET['artiest'])) {
 <html lang="en">
 
 <?php
-$titel = 'Bewerk Artiest - ' . $artiest;
+$titel = 'Bewerk Nummer - ' . $nummer;
 include_once "header.php";
 ?>
 
@@ -62,21 +64,21 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 325px;">Bewerk artiest</h1>
-                    <p style="margin-left: 327px;">Verander de naam van een artiest via onderstaand formulier</p>
+                    <h1 style="margin-left: 325px;">Bewerk nummer</h1>
+                    <p style="margin-left: 327px;">Verander de titel van een nummer via onderstaand formulier</p>
                     <div class="col-lg-4" style="position: fixed;margin-left: 310px;">
                         <section class="panel">
                             <header class="panel-heading">
-                                <b><?php echo $artiest; ?></b>
+                                <b><?php echo $nummer; ?></b>
                             </header>
                             <div class="panel-body">
                                 <form method="POST" role="form">
                                     <div class="form-group">
-                                        <label for="nieuweNaam">Nieuwe naam</label>
+                                        <label for="nieuweNaam">Nieuwe titel</label>
                                         <input type="text" class="form-control" name='nieuweNaam' id="nieuweNaam">
                                     </div>
                                     <div class="form-group">
-                                        <label for="nieuweNaamB">Bevestig nieuwe naam</label>
+                                        <label for="nieuweNaamB">Bevestig nieuwe titel</label>
                                         <input type="text" class="form-control" name='nieuweNaamB' id="nieuweNaamB">
                                     </div>
                                     <a class="btn btn-danger" href="nummers.php">Annuleer</a>

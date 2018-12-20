@@ -1,14 +1,16 @@
 <?php
 require_once "connect.php";
 
-if (isset($_GET['id'])) {
-    $e_id = $_GET['id'];
-    $e_sql = "EXEC dbo.sp_evenement_select @e_id = " . $e_id;
+if (isset($_GET['evenement'])) {
+    $evenement = $_GET['evenement'];
+    $e_sql = "EXEC dbo.usp_Evenement_Select @EVENEMENT_NAAM = '$evenement'";
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
     $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
-    $e_naam = $e_row["E_NAAM"];
-    $e_datum = $e_row["E_DATUM"];
+    $e_id = $e_row["EVENEMENT_ID"];
+    $e_naam = $e_row["EVENEMENT_NAAM"];
+    $e_naam_url = urlencode($e_naam);
+    $e_datum = $e_row["EVENEMENT_DATUM"];
     $e_locatie = $e_row["LOCATIENAAM"];
     $e_plaats = $e_row["PLAATSNAAM"];
     $e_adres = $e_row["ADRES"] . " " .  $e_row["HUISNUMMER"];
@@ -120,10 +122,10 @@ include_once "header.php";
                 </div>
 
                 <div class="w3-container">
-                    <a class="btn btn-primary btn-lg" href="evenementgegevens.php?id=<?php echo $e_id ?>">Voeg Pubquiz toe</a>
+                    <a class="btn btn-primary btn-lg" href="evenementgegevens.php?evenement=<?php echo $e_naam_url; ?>">Voeg Pubquiz toe</a>
                     <?php
                     if (!isset($startdatum)) {
-                        echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?id=$e_id'>Voeg Top 100 toe</a>";
+                        echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>";
                     }
                     ?>
                 </div>
@@ -138,24 +140,7 @@ include_once "header.php";
         </div>
     </div>
 </section>
-<script>
-    function w3_open() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.width = "11.9%";
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("openNav").style.display = 'none';
-        document.getElementById("mySidebar").style.borderRight = "1px solid #D7D7D7";
-        document.getElementById("myOverlay").style.display = "block";
-        document.getElementById("closeNav").style.display = "block";
-    }
-    function w3_close() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("openNav").style.display = "inline-block";
-        document.getElementById("myOverlay").style.display = "none";
-        document.getElementById("closeNav").style.display = "none";
-    }
-</script>
+
 </body>
 
 </html>

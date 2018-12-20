@@ -10,7 +10,7 @@
                     </a>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;" class="" style="border-bottom: none;border-right: none;">
+                    <a class="" href="evenement.php" style="border-bottom: none;border-right: none;">
                         <span style="font-size: 25px;">Pubquiz</span>
                         <span class="menu-arrow arrow_carrot-down"></span>
                     </a>
@@ -52,12 +52,6 @@
                         <span>Nummers</span>
                     </a>
                 </li>
-                <li class="sub-menu">
-                    <a href="tablestructures.php" class="" style="border-bottom: none;border-right: none;">
-                        <i class="icon_documents_alt"></i>
-                        <span>Lijsten</span>
-                    </a>
-                </li>
                 <!--
                 <li class="sub-menu ">
                     <a href="javascript:;" class="" style="border-bottom: none;border-right: none;">
@@ -75,6 +69,25 @@
                 -->
             </ul>
             <!-- sidebar menu end-->
+
         </div>
     </div>
 </aside>
+<script>
+    function w3_open() {
+        document.getElementById("main").style.marginLeft = "0%";
+        document.getElementById("mySidebar").style.width = "11.9%";
+        document.getElementById("mySidebar").style.display = "block";
+        document.getElementById("openNav").style.display = 'none';
+        document.getElementById("mySidebar").style.borderRight = "1px solid #D7D7D7";
+        document.getElementById("myOverlay").style.display = "block";
+        document.getElementById("closeNav").style.display = "block";
+    }
+    function w3_close() {
+        document.getElementById("main").style.marginLeft = "0%";
+        document.getElementById("mySidebar").style.display = "none";
+        document.getElementById("openNav").style.display = "inline-block";
+        document.getElementById("myOverlay").style.display = "none";
+        document.getElementById("closeNav").style.display = "none";
+    }
+</script>

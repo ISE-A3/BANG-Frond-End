@@ -19,12 +19,12 @@ $plaatsnaam = $e_row['PLAATSNAAM'];
 $adres = $e_row['ADRES'];
 $huisnummer = $e_row['HUISNUMMER'];
 
-$sqlNummer = "EXECUTE usp_Top100_SelectTop100 @Evenementnaam = '$evenementnaam', @Evenementdatum = '$evenementdatum', @Plaatsnaam = '$plaatsnaam', @Adres = '$adres', @Huisnummer = $huisnummer ";
+$sqlNummer = "EXECUTE usp_Top100Artiest_SelectTop100 @Evenementnaam = '$evenementnaam', @Evenementdatum = '$evenementdatum', @Plaatsnaam = '$plaatsnaam', @Adres = '$adres', @Huisnummer = $huisnummer ";
 $query = $conn->prepare($sqlNummer);
 $query->execute();
 
 header("Content-type: application/vnd.ms-excel");
-header("Content-Disposition: attachement; filename=$evenementnaam (Nummer) - Top100.xls");
+header("Content-Disposition: attachement; filename=$evenementnaam (Artiest) - Top100.xls");
 /**
  * Evenementnaam ophalen met PHP. Rang Nummer en Artiest staan vast? De rest wordt uit SQL gehaald. Aan de hand van een php formule
  * zou ik dit eenvoudig in een html tabel moeten kunnen laden aan de hand van loops.
@@ -33,8 +33,8 @@ echo "<h1>Evenementnaam: $evenementnaam</h1>
 <table>
     <tr>
         <th>Rang</th>
-        <th>Nummer</th>
         <th>Artiest</th>
+        <th>Nummer</th>
         <th>Score</th>
     </tr>";
 $rangorde = 1;
@@ -46,8 +46,8 @@ while($row = $query->fetch(PDO::FETCH_ASSOC)) {
 <!-- Je ziet de pagina niet dus het is niet storend -->
     <tr>
         <td>$rangorde</td>
-        <td>$row[NUMMER_TITEL]</td>
         <td>$row[ARTIEST_NAAM]</td>
+        <td>$row[NUMMER_TITEL]</td>
         <td>$row[score]</td>
     </tr>
 ";

@@ -2,14 +2,14 @@
 require_once "scripts/connect.php";
 require_once "scripts/top100AanEvenement.php";
 
-if (isset($_GET['id'])) {
-    $e_id = $_GET['id'];
-    $e_sql = "EXEC dbo.sp_evenement_select @e_id = " . $e_id;
+if (isset($_GET['evenement'])) {
+    $evenement = $_GET['evenement'];
+    $e_sql = "EXEC dbo.usp_Evenement_Select @EVENEMENT_NAAM = '$evenement'";
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
     $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
-    $e_naam = $e_row["E_NAAM"];
-    $e_datum = $e_row["E_DATUM"];
+    $e_naam = $e_row["EVENEMENT_NAAM"];
+    $e_datum = $e_row["EVENEMENT_DATUM"];
     $e_locatie = $e_row["LOCATIENAAM"];
     $e_plaats = $e_row["PLAATSNAAM"];
     $e_adres = $e_row["ADRES"] . " " .  $e_row["HUISNUMMER"];
@@ -80,15 +80,15 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1>Top 100</h1>
-                    <p>Toevoegen van een Top 100 aan een evenement</p>
+                    <h1 style="margin-left: 12px;">Top 100</h1>
+                    <p style="margin-left: 16px;">Toevoegen van een Top 100 aan het evenement '<?php echo $e_naam;?>'</p>
                     <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
                                 Top 100 aanmaken
                             </header>
                             <div class="panel-body">
-                                <form method="POST" action="top100aanmaken.php?id=<?php echo $e_id?>" role="form">
+                                <form method="POST" action="top100aanmaken.php?evenement=<?php echo $e_naam?>" role="form">
                                     <div class="form-group">
                                         <label for="Startdatum">Startdatum</label>
                                         <input type="date" class="form-control" name='Startdatum' id="Startdatum">
@@ -97,7 +97,7 @@ include_once "header.php";
                                         <label for="Einddatum">Einddatum</label>
                                         <input type="date" class="form-control" name='Einddatum' id="Einddatum">
                                     </div>
-                                    <a class="btn btn-danger" href="evenementgegevens.php?id=<?php echo $e_id?>">Annuleer</a>
+                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>">Annuleer</a>
                                     <button type="submit" name='aanmaken' class="btn btn-primary">Aanmaken</button>
                                 </form>
                             </div>
@@ -115,24 +115,7 @@ include_once "header.php";
         </div>
     </div>
 </section>
-<script>
-    function w3_open() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.width = "11.9%";
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("openNav").style.display = 'none';
-        document.getElementById("mySidebar").style.borderRight = "1px solid #D7D7D7";
-        document.getElementById("myOverlay").style.display = "block";
-        document.getElementById("closeNav").style.display = "block";
-    }
-    function w3_close() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("openNav").style.display = "inline-block";
-        document.getElementById("myOverlay").style.display = "none";
-        document.getElementById("closeNav").style.display = "none";
-    }
-</script>
+
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 require_once "phpfunctions.php";
 require_once "connect.php";
 
-$evenement = $_GET['id'];
+$evenement = $_GET['evenement'];
 
 
 if(isset($_POST['verwerk'])) {
@@ -19,94 +19,72 @@ if(isset($_POST['verwerk'])) {
     $artiest4 = checkInput($_POST['artiest4']);
     $nummer5 = checkInput($_POST['nummer5']);
     $artiest5 = checkInput($_POST['artiest5']);
-
     $naam = $voornaam . ' ' . $achternaam;
-    $sql = '';
-    $error = '';
 
-// /*
     if(empty($nummer1)){
-        try {
-            $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 5, @titel = 'NULL', @artiest = '$artiest1'";
-            $query = $conn->prepare($sql);
-            $query->execute();
-        }
-        catch(Exception $e){
-            $error .= $e;
-        }
+        $error .= "De titel van nummer 1 ontbreekt. ";
     }
-    else if(empty($artiest1)){
-        $sql = "EXECUTE sp_verwerkStem '@E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 5, @titel = '$nummer1', @artiest = 'NULL'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+    if(empty($artiest1)){
+        $error .= "De artiest van nummer 1 ontbreekt. ";
     }
     else {
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 5, @titel = '$nummer1', @artiest = '$artiest1'";
+        $sql = "EXECUTE usp_Stem_InsertStem @evenementnaam = '$evenement', @mail = '$email', @naam = '$naam', @weging = 5, @titel = '$nummer1', @artiest = '$artiest1'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     if(empty($nummer2)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 4, @titel = 'NULL', @artiest = '$artiest2'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+        $error .= "De titel van nummer 2 ontbreekt. ";
     }
-    else if(empty($artiest2)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 4, @titel = '$nummer2', @artiest = 'NULL'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+    if (empty($artiest2)){
+        $error .= "De artiest van nummer 2 ontbreekt. ";
     }
     else {
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 4, @titel = '$nummer2', @artiest = '$artiest2'";
+        $sql = "EXECUTE usp_Stem_InsertStem @evenementnaam = '$evenement', @mail = '$email', @naam = '$naam', @weging = 4, @titel = '$nummer2', @artiest = '$artiest2'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     if(empty($nummer3)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 3, @titel = 'NULL', @artiest = '$artiest3'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+        $error .= "De titel van nummer 3 ontbreekt. ";
     }
-    else if(empty($artiest3)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 3, @titel = '$nummer3', @artiest = 'NULL'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+    if(empty($artiest3)){
+        $error .= "De artiest van nummer 3 ontbreekt. ";
     }
     else {
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 3, @titel = '$nummer3', @artiest = '$artiest3'";
+        $sql = "EXECUTE usp_Stem_InsertStem @evenementnaam = '$evenement', @mail = '$email', @naam = '$naam', @weging = 3, @titel = '$nummer3', @artiest = '$artiest3'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     if(empty($nummer4)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 2, @titel = 'NULL', @artiest = '$artiest4'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+        $error .= "De titel van nummer 4 ontbreekt. ";
     }
-    else if(empty($artiest4)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 2, @titel = '$nummer4', @artiest = 'NULL'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+    if(empty($artiest4)){
+        $error .= "De artiest van nummer 4 ontbreekt. ";
     }
     else {
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 2, @titel = '$nummer4', @artiest = '$artiest4'";
+        $sql = "EXECUTE usp_Stem_InsertStem @evenementnaam = '$evenement', @mail = '$email', @naam = '$naam', @weging = 2, @titel = '$nummer4', @artiest = '$artiest4'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
     if(empty($nummer5)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 1, @titel = 'NULL', @artiest = '$artiest5'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+        $error .= "De titel van nummer 5 ontbreekt. ";
     }
-    else if(empty($artiest5)){
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 1, @titel = '$nummer5', @artiest = 'NULL'";
-        $query = $conn->prepare($sql);
-        $query->execute();
+    if(empty($artiest5)){
+        $error .= "De artiest van nummer 5 ontbreekt. ";
     }
     else {
-        $sql = "EXECUTE sp_verwerkStem @E_ID = $evenement, @mail = '$email', @naam = '$naam', @weging = 1, @titel = '$nummer5', @artiest = '$artiest5'";
+        $sql = "EXECUTE usp_Stem_InsertStem @evenementnaam = '$evenement', @mail = '$email', @naam = '$naam', @weging = 1, @titel = '$nummer5', @artiest = '$artiest5'";
         $query = $conn->prepare($sql);
         $query->execute();
     }
-    // */
-    header('location:inzendingen.php?id=' . $evenement);
+
+
+
+    if (empty($error)){
+        header('location: inzendingen.php?error=' . $error . '&evenement=' . $evenement);
+    }
+    else {
+        header('location: inzendingen.php?error=' . $error . '&evenement=' . $evenement);
+    }
 }
 
 ?>

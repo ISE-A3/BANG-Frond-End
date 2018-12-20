@@ -2,7 +2,7 @@
 require_once "connect.php";
 
 if (isset($_POST['E_NAAM'])) {
-    $e_sql = 'EXEC dbo.sp_evenement_add @E_NAAM = \'' . $_POST['E_NAAM'] . '\', @E_DATUM = \'' . $_POST['E_DATUM'] . '\', @LOCATIENAAM = \'' . $_POST['LOCATIENAAM'] . '\', @PLAATSNAAM = \'' . $_POST['PLAATSNAAM'] . '\', ' . '@ADRES = \'' . $_POST['ADRES'] . '\', @HUISNUMMER = ' . $_POST['HUISNUMMER'];
+    $e_sql = 'EXEC dbo.usp_Evenement_Insert @EVENEMENT_NAAM = \'' . $_POST['E_NAAM'] . '\', @EVENEMENT_DATUM = \'' . $_POST['E_DATUM'] . '\', @LOCATIENAAM = \'' . $_POST['LOCATIENAAM'] . '\', @PLAATSNAAM = \'' . $_POST['PLAATSNAAM'] . '\', ' . '@ADRES = \'' . $_POST['ADRES'] . '\', @HUISNUMMER = ' . $_POST['HUISNUMMER'];
     print_r($e_sql);
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
@@ -34,13 +34,6 @@ include_once "header.php";
             </button>
         </div>
 
-        <div class="top-nav notification-row">
-            <!-- notificatoin dropdown start-->
-            <ul class="nav pull-right top-menu">
-
-            </ul>
-
-        </div>
     </header>
     <!--header end-->
 
@@ -55,7 +48,6 @@ include_once "header.php";
         <section class="wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header" style="margin-left: 17px;"><i class="icon_house_alt"></i>Header komt hier</h3>
                     <!--
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
@@ -71,8 +63,8 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1>Evenement toevoegen</h1>
-                    <p>Geef hieronder de evenementgegevens</p>
+                    <h1 style="margin-left: 17px;">Evenement toevoegen</h1>
+                    <p style="margin-left: 16px;">Geef hieronder de evenementgegevens</p>
                     <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
@@ -123,24 +115,7 @@ include_once "header.php";
         </div>
     </div>
 </section>
-<script>
-    function w3_open() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.width = "11.9%";
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("openNav").style.display = 'none';
-        document.getElementById("mySidebar").style.borderRight = "1px solid #D7D7D7";
-        document.getElementById("myOverlay").style.display = "block";
-        document.getElementById("closeNav").style.display = "block";
-    }
-    function w3_close() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("openNav").style.display = "inline-block";
-        document.getElementById("myOverlay").style.display = "none";
-        document.getElementById("closeNav").style.display = "none";
-    }
-</script>
+
 </body>
 
 </html>

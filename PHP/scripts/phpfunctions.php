@@ -2,7 +2,6 @@
 
 function checkInput($input) //Troep weghalen bij gebruikersinput
 {
-    $input = trim($input); //Haal spaties weg
     $input = stripslashes($input); //Haal slashes weg
     $input = htmlspecialchars($input); //Haal de html chars weg
     return $input;

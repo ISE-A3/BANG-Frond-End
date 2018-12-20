@@ -71,24 +71,6 @@ include_once "header.php";
         </div>
     </div>
 </section>
-<script>
-    function w3_open() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.width = "11.9%";
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("openNav").style.display = 'none';
-        document.getElementById("mySidebar").style.borderRight = "1px solid #D7D7D7";
-        document.getElementById("myOverlay").style.display = "block";
-        document.getElementById("closeNav").style.display = "block";
-    }
-    function w3_close() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("openNav").style.display = "inline-block";
-        document.getElementById("myOverlay").style.display = "none";
-        document.getElementById("closeNav").style.display = "none";
-    }
-</script>
 
 </body>
 

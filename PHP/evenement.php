@@ -1,7 +1,7 @@
 <?php
 require_once "connect.php";
 
-$e_sql = "EXEC dbo.sp_evenement_select_all";
+$e_sql = "EXEC dbo.usp_Evenement_SelectAll";
 
 $e_query = $conn->prepare($e_sql);
 $e_query->execute();
@@ -43,13 +43,6 @@ include_once "header.php";
 
         <!--logo end-->
 
-        <div class="top-nav notification-row">
-            <!-- notificatoin dropdown start-->
-            <ul class="nav pull-right top-menu">
-
-            </ul>
-
-        </div>
     </header>
     <!--header end-->
 
@@ -65,7 +58,6 @@ include_once "header.php";
         <section class="wrapper">
             <div class="row">
                 <div class="col-lg-12">
-
                     <!--
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
@@ -92,41 +84,42 @@ include_once "header.php";
                             <th>Startdatum</th>
                             <th>Einddatum</th>
                             <th>Inzendingen</th>
-                            <th>Downloads</th>
+                            <th>Top 100 downloads</th>
                         </tr>
                         <?php
                         while ($e_row = $e_query->fetch(PDO::FETCH_ASSOC)) {
-                            $e_id = $e_row["E_ID"];
-                            $e_naam = $e_row["E_NAAM"];
+                            $e_id = $e_row["EVENEMENT_ID"];
+                            $e_naam = $e_row["EVENEMENT_NAAM"];
+                            $e_naam_url = urlencode($e_naam);       //urlencode zorgt voor de spaties in evenementnamen
                             $e_locatie = $e_row["LOCATIENAAM"];
-                            $e_datum = $e_row["E_DATUM"];
+                            $e_datum = $e_row["EVENEMENT_DATUM"];
                             $startdatum = $e_row["STARTDATUM"];
                             $einddatum = $e_row["EINDDATUM"];
 
                             echo "<tr>
-                            <td><a style='font-size: 15px;' href='evenementgegevens.php?id=$e_id'>$e_naam</a></td>
+                            <td><a href='evenementgegevens.php?evenement=$e_naam_url'>$e_naam</a></td>
                             <td>$e_datum</td>
                             <td>$e_locatie</td>
                             <td>$startdatum</td>
                             <td>$einddatum</td>";
                             if(empty($startdatum) && empty($einddatum)){
-                                echo "<td><a href='evenementgegevens.php?id=$e_id'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>
+                                echo "<td></td>
                                       <td></td>";
                             }
                             else {
                              if($today > $einddatum){
-                                echo "<td><a href='evenementgegevens.php?id=$e_id'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
+                                echo "<td><a href='evenementgegevens.php?evenement=$e_naam_url'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
                              }
                              else if(($today < $einddatum) && ($today > $startdatum)) {
-                                 echo "<td><a href='inzendingen.php?id=$e_id'<b style='color:green;'>Open</b><i class=\"icon_pencil-edit\"></i></td>";
+                                 echo "<td><a href='inzendingen.php?evenement=$e_naam_url'<b style='color:green;'>Open</b><i class=\"icon_pencil-edit\"></i></td>";
                              }
                              else {
-                                echo "<td><a href='evenementgegevens.php?id=$e_id'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
+                                echo "<td><a href='evenementgegevens.php?evenement=$e_naam_url'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
                             }
-                             echo "<td><a href='poc_downloadtop100v2.php' style='color: #005cbf'>Download<i class='icon_download'></i></a></td>
+                             echo "<td><a href='poc_downloadtop100v2.php?evenement=$e_naam_url' style='color: #005cbf'>Nummer<i class='icon_download'></i></a>&nbsp;&nbsp;&nbsp;<a href='downloadtop100_artiest.php?evenement=$e_naam_url' style='color: #005cbf'>Artiest<i class='icon_download'></i></a></td>
                         </tr>";
                             }
-                        }      //achter de inzendingen kolom, nog een download kolom ipv op de gehele pagina
+                        }
                         ?>
 
                     </table>
@@ -145,24 +138,7 @@ include_once "header.php";
         </div>
     </div>
 </section>
-<script>
-    function w3_open() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.width = "11.9%";
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("openNav").style.display = 'none';
-        document.getElementById("mySidebar").style.borderRight = "1px solid #D7D7D7";
-        document.getElementById("myOverlay").style.display = "block";
-        document.getElementById("closeNav").style.display = "block";
-    }
-    function w3_close() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("openNav").style.display = "inline-block";
-        document.getElementById("myOverlay").style.display = "none";
-        document.getElementById("closeNav").style.display = "none";
-    }
-</script>
+
 
 </body>
 

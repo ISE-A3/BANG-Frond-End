@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-if(!isset($_GET['id'])){
-    header('location: evenement.php');
-}
 
 $titel = 'Top 5';
 include_once "header.php";
 require_once('scripts/checkinzending.php'); // Inzending check script
 require_once "scripts/connect.php";
 
+if(!isset($_GET['evenement'])){
+    header('location: evenement.php');
+}
+
+if(isset($_GET['error'])){
+    $error = $_GET['error'];
+}
+
+else $error = '';
+
+echo $error;
 ?>
 <body>
 <!-- container section start -->
@@ -60,19 +68,23 @@ include_once "sidebar.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <p style="width: 68%;padding-left: 315px;"></p>
+                    <p style="width: 68%;padding-left: 315px;"><?php
+                            if(!isset($_GET['error'])) {
+
+                            }
+                        else {
+                            if(empty($_GET['error'])){
+                                echo "<b style='color: green;'>De vorige inzending is succesvol verwerkt</b>";
+                            }
+                                echo "<b style='color: red;'>$error</b>";
+
+                             }
+                        ?></p>
                     <div class="row">
                         <div class="col-lg-4" style="position: fixed;margin-left: 310px;">
                             <section class="panel">
                                 <header class="panel-heading">
-                                    Top 5   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php
-                                    if(isset($_POST['verwerk'])) {
-                                        if(empty($error)) {
-                                            echo "<b style='color: green;'>De vorige inzending is succesvol verwerkt</b>";
-                                        }
-                                        else echo "<b style='color: red;'>". $error . "</b>";
-                                    }
-                                    ?>
+                                    Top 5
                                 </header>
                                 <div class="panel-body">
                                     <form role="form" method="POST" action="">
@@ -137,24 +149,7 @@ include_once "sidebar.php";
         </div>
     </div>
 </section>
-<script>
-    function w3_open() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.width = "11.9%";
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("openNav").style.display = 'none';
-        document.getElementById("mySidebar").style.borderRight = "1px solid #D7D7D7";
-        document.getElementById("myOverlay").style.display = "block";
-        document.getElementById("closeNav").style.display = "block";
-    }
-    function w3_close() {
-        document.getElementById("main").style.marginLeft = "0%";
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("openNav").style.display = "inline-block";
-        document.getElementById("myOverlay").style.display = "none";
-        document.getElementById("closeNav").style.display = "none";
-    }
-</script>
+
 
 </body>
 
