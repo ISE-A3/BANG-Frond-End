@@ -82,12 +82,24 @@ include_once "header.php";
                                                 $artiest = $e_row['ARTIEST_NAAM'];
                                                 echo "<option value='$artiest'>$artiest</option>";
                                             }
+
                                             ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="nieuweArtiest">Of voer een nieuwe artiest in</label>
-                                        <input type="text" class="form-control" name='nieuweArtiest' id="nieuweArtiest">
+                                        <input list="bestaandeArtiest"  type="text" class="form-control" name='nieuweArtiest' id="nieuweArtiest">
+                                        <datalist id="bestaandeArtiest">
+                                        <?php
+                                        $e_sql = "EXEC dbo.usp_Artiest_SelectAll";
+                                        $e_query = $conn->prepare($e_sql);
+                                        $e_query->execute();
+                                        while($e_row = $e_query->fetch(PDO::FETCH_ASSOC)){
+                                            $artiest = $e_row['ARTIEST_NAAM'];
+                                            echo "<option value='$artiest'>$artiest</option>";
+                                        }
+                                        ?>
+                                        </datalist>
                                     </div>
                                     <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                     <button type="submit" name='vervang' class="btn btn-primary">Vervang</button>
