@@ -1,6 +1,5 @@
 <?php
-require_once "scripts/connect.php";
-require_once "scripts/top100AanEvenement.php";
+require_once "connect.php";
 
 if (isset($_GET['evenement'])) {
     $evenement = $_GET['evenement'];
@@ -8,7 +7,9 @@ if (isset($_GET['evenement'])) {
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
     $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
+    $e_id = $e_row["EVENEMENT_ID"];
     $e_naam = $e_row["EVENEMENT_NAAM"];
+    $e_naam_url = urlencode($e_naam);
     $e_datum = $e_row["EVENEMENT_DATUM"];
     $e_locatie = $e_row["LOCATIENAAM"];
     $e_plaats = $e_row["PLAATSNAAM"];
@@ -16,6 +17,7 @@ if (isset($_GET['evenement'])) {
     $startdatum = $e_row["STARTDATUM"];
     $einddatum = $e_row["EINDDATUM"];
 } else {
+    $e_id = NULL;
     $e_naam = NULL;
     $e_datum = NULL;
     $e_locatie = NULL;
@@ -30,10 +32,7 @@ if (isset($_GET['evenement'])) {
 <html lang="en">
 
 <?php
-//$today = date("Y-m-d");       voor de open/gesloten inzendingen op evenement.php
-//echo $today;
-
-$titel = 'Top 100 Toevoegen';
+$titel = 'Evenement - ' . $e_naam;
 include_once "header.php";
 ?>
 
@@ -80,29 +79,58 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 12px;">Top 100</h1>
-                    <p style="margin-left: 16px;">Toevoegen van een Top 100 aan het evenement '<?php echo $e_naam;?>'</p>
-                    <div class="col-lg-6">
-                        <section class="panel">
-                            <header class="panel-heading">
-                                Top 100 aanmaken
-                            </header>
-                            <div class="panel-body">
-                                <form method="POST" action="top100aanmaken.php?evenement=<?php echo $e_naam?>" role="form">
-                                    <div class="form-group">
-                                        <label for="Startdatum">Startdatum</label>
-                                        <input type="date" class="form-control" name='Startdatum' id="Startdatum">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Einddatum">Einddatum</label>
-                                        <input type="date" class="form-control" name='Einddatum' id="Einddatum">
-                                    </div>
-                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>">Annuleer</a>
-                                    <button type="submit" name='aanmaken' class="btn btn-primary">Aanmaken</button>
-                                </form>
-                            </div>
-                        </section>
-                    </div>
+                    <h1>Evenenementgegevens van <?php echo $e_naam ?></h1>
+                    <p>Gegevens van <?php echo $e_naam?></p>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Detail</th>
+                            <th>Gegevens</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Naam:</td>
+                            <td><?php echo $e_naam; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Datum:</td>
+                            <td><?php echo $e_datum; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Locatie:</td>
+                            <td><?php echo $e_locatie; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Plaats:</td>
+                            <td><?php echo $e_plaats; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Adres:</td>
+                            <td><?php echo $e_adres ?></td>
+                        </tr>
+                        <tr>
+                            <td>Startdatum inzendingsperiode:</td>
+                            <td><?php echo $startdatum; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Einddatum inzendingsperiode:</td>
+                            <td><?php echo $einddatum; ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="w3-container">
+                    <a class="btn btn-primary btn-lg" href="evenementgegevens.php?evenement=<?php echo $e_naam_url; ?>">Voeg Pubquiz toe</a>
+                    <?php
+                    if (!isset($startdatum)) {
+                        echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>";
+                    }
+                    if(isset($_GET['beheerder'])){
+                       echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$e_naam_url\">Evenement aanpassen</a>";
+                    }
+                    ?>
                 </div>
             </div>
             <!-- page end-->
