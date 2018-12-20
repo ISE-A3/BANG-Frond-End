@@ -85,7 +85,7 @@ else {
                                     </tr>
 
                                     <?php
-                                    include ("connect.php");
+                                    include ("scripts/connect.php");
                                     $e_sql = "EXEC dbo.usp_Nummer_SelectAll";
                                     $e_query = $conn->prepare($e_sql);
                                     $e_query->execute();

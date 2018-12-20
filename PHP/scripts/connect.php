@@ -7,8 +7,8 @@
  */
 $hostname = "localhost";
 $dbname = "BANG";
-$usr = "sa";
-$pwd = "cuppie123";
+$usr = "BANG_FRONT_END";
+$pwd = "L72)zdTQr&v$5n+M";
 
 //Verbind met database
 $conn = new pdo ("sqlsrv:Server=$hostname;Database=$dbname;ConnectionPooling=0", $usr, $pwd);
