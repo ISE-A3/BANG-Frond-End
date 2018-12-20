@@ -1,5 +1,7 @@
 <?php
+
 require_once "scripts/connect.php";
+
 
 $e_sql = "EXEC dbo.usp_Evenement_SelectAll";
 

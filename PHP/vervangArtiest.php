@@ -1,5 +1,4 @@
 <?php
-require_once "scripts/connect.php";
 require_once "scripts/artiestVervanging.php";
 
 if (isset($_GET['titel'])) {

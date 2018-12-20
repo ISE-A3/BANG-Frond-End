@@ -1,5 +1,4 @@
 <?php
-require_once "scripts/connect.php";
 require_once "scripts/top100AanEvenement.php";
 
 if (isset($_GET['evenement'])) {

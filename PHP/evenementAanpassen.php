@@ -1,4 +1,5 @@
 <?php
+
 require_once "scripts/connect.php";
 
 if (isset($_GET['evenement'])) {
