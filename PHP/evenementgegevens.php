@@ -12,6 +12,7 @@ if (isset($_GET['evenement'])) {
     $e_id = $e_row["EVENEMENT_ID"];
     $e_naam = $e_row["EVENEMENT_NAAM"];
     $e_naam_url = urlencode($e_naam);
+    $e_pubquiz = $e_row["PUBQUIZ_TITEL"];
     $e_datum = $e_row["EVENEMENT_DATUM"];
     $e_locatie = $e_row["LOCATIENAAM"];
     $e_plaats = $e_row["PLAATSNAAM"];
@@ -21,6 +22,7 @@ if (isset($_GET['evenement'])) {
 } else {
     $e_id = NULL;
     $e_naam = NULL;
+    $e_pubquiz = NULL;
     $e_datum = NULL;
     $e_locatie = NULL;
     $e_plaats = NULL;
@@ -96,6 +98,10 @@ include_once "header.php";
                             <td><?php echo $e_naam; ?></td>
                         </tr>
                         <tr>
+                            <td>Pubquiz titel:</td>
+                            <td><?php echo $e_pubquiz; ?></td>
+                        </tr>
+                        <tr>
                             <td>Datum:</td>
                             <td><?php echo $e_datum; ?></td>
                         </tr>
@@ -124,9 +130,12 @@ include_once "header.php";
                 </div>
             <?php if(isset($_GET['beheerder'])){ ?>
                 <div class="w3-container">
-                    <a class="btn btn-primary btn-lg" href="evenementgegevens.php?evenement=<?php echo $e_naam_url; ?>">Voeg
-                        Pubquiz toe</a>
                     <?php
+                    if(!isset($e_pubquiz)){
+                        echo "<a class=\"btn btn-primary btn-lg\" href=\"pubquizaanmaken.php?evenement=<?php echo $e_naam_url; ?>\">Voeg
+                        Pubquiz toe</a>";
+                    }
+
                     if (!isset($startdatum)) {
                         echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>&nbsp;";
                     }

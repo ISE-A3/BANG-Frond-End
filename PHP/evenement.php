@@ -8,6 +8,8 @@ $e_sql = "EXEC dbo.usp_Evenement_SelectAll";
 $e_query = $conn->prepare($e_sql);
 $e_query->execute();
 
+$message = '';
+
 if(isset($_GET['m'])) {
    if ($_GET['m'] = 'succes') {
        $message = "<b>Een evenement is succesvol toegevoegd</b>";
