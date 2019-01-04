@@ -1,0 +1,111 @@
+<?php
+$titel = 'Aanmaken Vraag';
+include_once "header.php";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+<!-- container section start -->
+<section id="container" class="">
+    <!--header start-->
+    <header class="header dark-bg" style="border-bottom: none;">
+        <div class="toggle-nav">
+            <button id="openNav" onclick="w3_open()" style="background-color: rgba(0,0,0,0.0000001); border-color: rgba(0,0,0,0.0000001);color: whitesmoke;">
+                <!-- de kleur voor de headerbackground = rgba(0,0,0,0.0000001)-->
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu" style="font-size: 40px;                         margin-top: 0px;"></i></div>
+            </button>
+            <button id="closeNav" onclick="w3_close()" style="display: none; background-color: rgba(0,0,0,0.0000001); border-color: rgba(0,0,0,0.0000001);color: whitesmoke;">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="arrow_left_alt" style="font-size: 40px;                         margin-top: 0px;"></i></div>
+            </button>
+        </div>
+
+    </header>
+    <!--header end-->
+
+    <!--sidebar start-->
+    <?php
+    include_once "sidebar.php";
+    ?>
+    <!--sidebar end-->
+    <div class="w3-overlay w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+    <!--main content start-->
+    <section id="main-content" style="margin-right: 10%;">
+        <section class="wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
+                        <li><i class="fa fa-bars"></i>Pages</li>
+                        <li><i class="fa fa-square-o"></i>Pages</li>
+                    </ol>
+                    Hierboven staat een breadcrumb, moeilijk te implementeren. Voor nu nog disabled
+                    -->
+                </div>
+            </div>
+
+            <!-- page start-->
+
+            <div id="main">
+                <div class="w3-container">
+                    <h1 style="margin-left: 17px;">Vraag Aanmaken</h1>
+                    <div class="col-lg-6">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Vraagnaam
+                            </header>
+                            <div class="panel-body">
+                                <form method="POST" action="bepaal_vraagtype.php" role="form">
+                                    <div class="form-group">
+                                        <label for="VRAAGNAAM">Vraagnaam*</label>
+                                        <input type="text" class="form-control" id="VRAAGNAAM" name="VRAAGNAAM" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="VRAAGTITEL">Vraagtitel</label>
+                                        <input type="text" class="form-control" id="VRAAGTITEL" name="VRAAGTITEL">
+                                    </div>
+                                    <p>*Dit veld is verplicht</p>
+                            </div>
+                        </section>
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Vraag toevoegen
+                            </header>
+                            <div class="panel-body">
+                                    <p>Indien gesloten, hoeveel antwoordopties wilt u toevoegen?</p>
+                                    <div class="form-group">
+                                        <label for="inputSuccess">Aantal Antwoordopties</label>
+                                            <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
+                                                <option>Ik wil een open vraag toevoegen</option>
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Ga Door Naar Toevoegen</button>
+                                    <a class="btn btn-danger" href="evenement.php">Annuleer</a>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+    <div class="text-right">
+        <div class="credits">
+
+        </div>
+    </div>
+</section>
+
+</body>
+
+</html>
+
