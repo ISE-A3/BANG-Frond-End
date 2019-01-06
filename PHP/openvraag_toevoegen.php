@@ -3,6 +3,7 @@
 $titel = 'Toevoegen Open Vraag';
 include_once "header.php";
 $vraagnaam = $_SESSION['VRAAGNAAM'];
+$_SESSION['VRAAGONDERDEEL']++;
 
 
 ?>
@@ -68,6 +69,10 @@ $vraagnaam = $_SESSION['VRAAGNAAM'];
                                     <div class="form-group">
                                         <label for="ANTWOORD">Antwoord</label>
                                         <input type="text" class="form-control" id="ANTWOORD" name="ANTWOORD">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="AANTALPUNTEN">Aantal Punten Voor Antwoord</label>
+                                        <input type="text" class="form-control" id="AANTALPUNTEN" name="AANTALPUNTEN">
                                     </div>
                             </div>
                         </section>

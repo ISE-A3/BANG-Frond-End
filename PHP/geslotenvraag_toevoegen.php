@@ -2,9 +2,9 @@
 
 $titel = 'Toevoegen Gesloten Vraag';
 include_once "header.php";
-    $vraagnaam = $_SESSION['VRAAGNAAM'];
-    $aantal_antwoordopties = $_SESSION['AANTALANTWOORDOPTIES'];
-
+$vraagnaam = $_SESSION['VRAAGNAAM'];
+$aantal_antwoordopties = 4;/**$_SESSION['AANTALANTWOORDOPTIES'];*/
+$_SESSION['VRAAGONDERDEEL']++;
 
 ?>
 <!DOCTYPE html>
@@ -73,11 +73,16 @@ include_once "header.php";
                                         <label for="ANTWOORDOPTIE' . ($i + 1) .'">Antwoordoptie ' . ($i + 1) . '</label>
                                         <input type="text" class="form-control" id="ANTWOORDOPTIE' . ($i + 1) . '" name="ANTWOORDOPTIE' . ($i + 1) . '">
                                         </div>';
+                                            $i = $i + 1;
                                             }
                                     ?>
                                     <div class="form-group">
                                         <label for="CORRECTANTWOORD">Correct Antwoord</label>
                                         <input type="text" class="form-control" id="CORRECTANTWOORD" name="CORRECTANTWOORD">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="AANTALPUNTEN">Aantal Punten Voor Correct Antwoord</label>
+                                        <input type="text" class="form-control" id="AANTALPUNTEN" name="AANTALPUNTEN">
                                     </div>
                             </div>
                         </section>

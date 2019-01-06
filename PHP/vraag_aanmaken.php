@@ -1,6 +1,7 @@
 <?php
 $titel = 'Aanmaken Vraag';
 include_once "header.php";
+$_SESSION['VRAAGONDERDEELNUMMER'] = 0;
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +66,10 @@ include_once "header.php";
                                     <div class="form-group">
                                         <label for="VRAAGTITEL">Vraagtitel</label>
                                         <input type="text" class="form-control" id="VRAAGTITEL" name="VRAAGTITEL">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="VRAAGTHEMA">Vraagthema</label>
+                                        <input type="text" class="form-control" id="VRAAGTHEMA" name="VRAAGTHEMA">
                                     </div>
                                     <p>*Dit veld is verplicht</p>
                             </div>
