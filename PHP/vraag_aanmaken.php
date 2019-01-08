@@ -1,6 +1,38 @@
 <?php
 $titel = 'Aanmaken Vraag';
 include_once "header.php";
+
+if (isset($_POST['toevoegen'])) {
+    $_SESSION['VRAAGNAAM'] = $_POST['VRAAGNAAM'];
+    $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
+
+    if(empty($_POST['VRAAGTITEL'])){
+        $vraagtitel = " ";
+    }
+    else {
+        $vraagtitel = $_POST['VRAAGTITEL'];
+    }
+
+    $e_sql = 'EXEC dbo.usp_Vraag_Insert @VRAAG_NAAM = \'' . $_POST['VRAAGNAAM'] . '\', @VRAAG_TITEL = \'' . $vraagtitel . '\'';
+    echo $e_sql;
+    $e_query = $conn->prepare($e_sql);
+    $e_query->execute();
+
+    if(empty($_POST['VRAAGTHEMA'])) {
+        $vraagthema = " ";
+    }
+    else {
+        $vraagthema = $_POST['VRAAGTHEMA'];
+    }
+
+    $e_sql2 = 'EXEC dbo.usp_Thema_Bij_Vraag_Insert @VRAAG_NAAM = \'' . $_POST['VRAAGNAAM'] . '\', @THEMA = \'' . $vraagthema . '\'';
+    echo $e_sql2;
+    $e_query = $conn->prepare($e_sql2);
+    $e_query->execute();
+
+    header("Location:bepaal_vraagtype.php");
+}
+
 $_SESSION['VRAAGONDERDEELNUMMER'] = 0;
 ?>
 
@@ -58,7 +90,7 @@ $_SESSION['VRAAGONDERDEELNUMMER'] = 0;
                                 Vraagnaam
                             </header>
                             <div class="panel-body">
-                                <form method="POST" action="bepaal_vraagtype.php" role="form">
+                                <form method="POST" action="" role="form">
                                     <div class="form-group">
                                         <label for="VRAAGNAAM">Vraagnaam*</label>
                                         <input type="text" class="form-control" id="VRAAGNAAM" name="VRAAGNAAM" required>
@@ -83,15 +115,15 @@ $_SESSION['VRAAGONDERDEELNUMMER'] = 0;
                                     <div class="form-group">
                                         <label for="inputSuccess">Aantal Antwoordopties</label>
                                             <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
-                                                <option>Ik wil een open vraag toevoegen</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                                <option value="OPEN">Ik wil een open vraag toevoegen</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
                                             </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Ga Door Naar Toevoegen</button>
+                                    <button type="submit" class="btn btn-primary" name="toevoegen">Ga Door Naar Toevoegen</button>
                                     <a class="btn btn-danger" href="evenement.php">Annuleer</a>
                                 </form>
                             </div>
