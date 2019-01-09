@@ -6,7 +6,13 @@ $vraagnaam = $_SESSION['VRAAGNAAM'];
 $_SESSION['VRAAGONDERDEELNUMMER']++;
 
 if (isset($_POST['toevoegen'])) {
+
     $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
+    echo $e_sql;
+    $e_query = $conn->prepare($e_sql);
+    $e_query->execute();
+
+    $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @ANTWOORD = \'' . $_POST['ANTWOORD'] . '\', @PUNTEN = \'' . $_POST['AANTALPUNTEN'] . '\'';
     echo $e_sql;
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();

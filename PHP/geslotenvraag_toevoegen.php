@@ -11,6 +11,23 @@ if (isset($_POST['toevoegen'])) {
     echo $e_sql;
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
+
+    $punten = 0;
+    $huidige_antwoordoptie = 1;
+    while($huidige_antwoordoptie <= $aantal_antwoordopties) {
+        if($_POST['CORRECTANTWOORD'] == $_POST['ANTWOORDOPTIE' . $huidige_antwoordoptie .'']) {
+            $punten = $_POST['AANTALPUNTEN'];
+        }
+        else {
+            $punten = 0;
+        }
+
+        $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @ANTWOORD = \'' . $_POST['ANTWOORDOPTIE' . $huidige_antwoordoptie . ''] . '\', @PUNTEN = \'' . $punten . '\'';
+        echo $e_sql;
+        $e_query = $conn->prepare($e_sql);
+        $e_query->execute();
+        $huidige_antwoordoptie++;
+    }
 }
 ?>
 <!DOCTYPE html>
