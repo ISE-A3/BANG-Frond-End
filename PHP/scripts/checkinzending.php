@@ -21,6 +21,7 @@ if(isset($_POST['verwerk'])) {
     $artiest5 = checkInput($_POST['artiest5']);
     $naam = $voornaam . ' ' . $achternaam;
 
+
     if(empty($nummer1)){
         $error .= "De titel van nummer 1 ontbreekt. ";
     }
@@ -80,7 +81,7 @@ if(isset($_POST['verwerk'])) {
 
 
     if (empty($error)){
-        header('location: inzendingen.php?error=' . $error . '&evenement=' . $evenement);
+        header('location: inzendingen.php?error=' . $error . '&evenement=' . $evenement. $nummer1. $artiest1. $nummer4. $artiest4);
     }
     else {
         header('location: inzendingen.php?error=' . $error . '&evenement=' . $evenement);
