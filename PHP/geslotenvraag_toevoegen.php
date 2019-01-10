@@ -4,7 +4,7 @@ $titel = 'Toevoegen Gesloten Vraag';
 include_once "header.php";
 $vraagnaam = $_SESSION['VRAAGNAAM'];
 $aantal_antwoordopties = $_SESSION['AANTALANTWOORDOPTIES'];
-$_SESSION['VRAAGONDERDEEL']++;
+$_SESSION['VRAAGONDERDEELNUMMER']++;
 
 if (isset($_POST['toevoegen'])) {
     $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
@@ -126,8 +126,8 @@ if (isset($_POST['toevoegen'])) {
                                             <option>5</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary" name="toevoegen">Nog Een Vraag Toevoegen</button>
-                                    <a class="btn btn-danger" href="evenement.php">Aanmaken Afronden</a>
+                                    <button type="submit" class="btn btn-primary" name="toevoegen">Nog een vraag toevoegen</button>
+                                    <a class="btn btn-danger" href="vragenOverzicht.php">Aanmaken afronden</a>
                                 </form>
                             </div>
                         </section>
