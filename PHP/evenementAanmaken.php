@@ -2,14 +2,10 @@
 require_once "scripts/connect.php";
 
 
-if (isset($_POST['aanmaken'])) {
-    if(empty($_POST['HUISNUMMER_TOEVOEGING'])){
-        $toevoeging = " ";
-    }
-    else {
-        $toevoeging = $_POST['HUISNUMMER_TOEVOEGING'];
-    }
-    $e_sql = 'EXEC dbo.usp_Evenement_Insert @EVENEMENT_NAAM = \'' . $_POST['E_NAAM'] . '\', @EVENEMENT_DATUM = \'' . $_POST['E_DATUM'] . '\', @LOCATIENAAM = \'' . $_POST['LOCATIENAAM'] . '\', @PLAATSNAAM = \'' . $_POST['PLAATSNAAM'] . '\', @ADRES = \'' . $_POST['ADRES'] . '\', @HUISNUMMER = ' . $_POST['HUISNUMMER'] . ', @HUISNUMMER_TOEVOEGING = \'' . $toevoeging . '\'';
+
+if (isset($_POST['E_NAAM'])) {
+    $e_sql = 'EXEC dbo.usp_Evenement_Insert @EVENEMENT_NAAM = \'' . $_POST['E_NAAM'] . '\', @EVENEMENT_DATUM = \'' . $_POST['E_DATUM'] . '\', @LOCATIENAAM = \'' . $_POST['LOCATIENAAM'] . '\', @PLAATSNAAM = \'' . $_POST['PLAATSNAAM'] . '\', ' . '@ADRES = \'' . $_POST['ADRES'] . '\', @HUISNUMMER = ' . $_POST['HUISNUMMER'].', @HUISNUMMER_TOEVOEGING = \'' . $_POST['HUISNUMMER_TOEVOEGING'].'\'';
+
     echo $e_sql;
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
@@ -103,10 +99,10 @@ include_once "header.php";
                                         <input type="number" class="form-control" id="HUISNUMMER" name="HUISNUMMER">
                                     </div>
                                     <div class="form-group">
-                                        <label for="HUISNUMMER_TOEVOEGING">Toevoeging</label>
+                                        <label for="HUISNUMMER_TOEVOEGING">Huisnummer toevoeging</label>
                                         <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING">
                                     </div>
-                                    <button type="submit" class="btn btn-primary" name="aanmaken">Aanmaken</button>
+                                    <button type="submit" class="btn btn-primary">Aanmaken</button>
                                     <a class="btn btn-danger" href="evenement.php">Annuleer</a>
                                 </form>
 

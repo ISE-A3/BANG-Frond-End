@@ -99,7 +99,7 @@ else {
                                             $artiest = urlencode($e_artiest);
                                             $titel = urlencode($e_titel);
                                             echo"
-                                                <tr>
+                                                <tr>     
                                                     <td>$e_artiest</td>
                                                     <td>
                                                            <div class=\"btn-group\">
