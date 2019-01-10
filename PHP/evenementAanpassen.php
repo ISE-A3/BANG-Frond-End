@@ -8,8 +8,8 @@ if (isset($_GET['evenement'])) {
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
     $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
-    $e_id = $e_row["EVENEMENT_ID"];
     $e_naam = $e_row['EVENEMENT_NAAM'];
+    $e_pubquiz = $e_row["PUBQUIZ_TITEL"];
     $e_naam_url = urlencode($e_naam);
     $e_datum = $e_row["EVENEMENT_DATUM"];
     $e_locatie = $e_row["LOCATIENAAM"];
@@ -20,8 +20,8 @@ if (isset($_GET['evenement'])) {
     $startdatum = $e_row["STARTDATUM"];
     $einddatum = $e_row["EINDDATUM"];
 } else {
-    $e_id = NULL;
     $e_naam = NULL;
+    $e_pubquiz = NULL;
     $e_datum = NULL;
     $e_locatie = NULL;
     $e_plaats = NULL;
@@ -40,8 +40,7 @@ if (isset($_POST['update'])){
     $plaats = $_POST['PLAATSNAAM'];
     $adres = $_POST['ADRES'];
     $huisnummer = $_POST['HUISNUMMER'];
-    $huisnummer_toevoeging = $_POST["HUISNUMMER_TOEVOEGING"];
-    echo "<script>console.log( 'Debug Objects: " . $datum . "' );</script>";
+    $huisnummer_toevoeging = $_POST["HUISNUMMER_TOEVOEGING"]; 
     $e_sql = "EXEC usp_Evenement_Update @OLD_EVENEMENT_NAAM = '$e_naam', @NEW_EVENEMENT_NAAM = '$evenementnaam', @EVENEMENT_DATUM = '$datum', @LOCATIENAAM = '$locatie', @PLAATSNAAM = '$plaats', @ADRES = '$adres', @HUISNUMMER = $huisnummer".', @HUISNUMMER_TOEVOEGING = \'' . $_POST['HUISNUMMER_TOEVOEGING'].'\'';
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
@@ -55,7 +54,7 @@ if (isset($_POST['update'])){
 <html lang="en">
 
 <?php
-$titel = 'Aanpassem Evenement';
+$titel = 'Aanpassen Evenement';
 include_once "header.php";
 ?>
 
@@ -139,6 +138,10 @@ include_once "header.php";
                                     <div class="form-group">
                                         <label for="HUISNUMMER_TOEVOEGING">Huisnummer toevoeging</label>
                                         <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING" value='<?php echo $e_huisnummer_toevoeging;?>'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="HUISNUMMER_TOEVOEGING">Toevoeging</label>
+                                        <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING" placeholder='<?php echo $e_huisnummer_tv;?>'>
                                     </div>
                                     <button type="submit" name="update" class="btn btn-primary">Aanpassen</button>
                                     <a class="btn btn-danger" href="evenement.php">Annuleer</a>

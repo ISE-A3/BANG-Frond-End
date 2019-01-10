@@ -8,14 +8,16 @@ $e_sql = "EXEC dbo.usp_Evenement_SelectAll";
 $e_query = $conn->prepare($e_sql);
 $e_query->execute();
 
+$message = '';
+
 if(isset($_GET['m'])) {
-   if ($_GET['m'] = 'succes') {
+   if ($_GET['m'] == "succes") {
        $message = "<b>Een evenement is succesvol toegevoegd</b>";
    }
-   if($_GET['m'] = 'aangepast'){
+   if($_GET['m'] == "aangepast"){
        $message = "<b>Het evenement is succesvol aangepast</b>";
    }
-   if($_GET['m'] = 'deleted'){
+   if($_GET['m'] == "deleted"){
        $message = "<b>Het evenement is succesvol verwijderd</b>";
    }
 }
@@ -96,7 +98,6 @@ include_once "header.php";
                         </tr>
                         <?php
                         while ($e_row = $e_query->fetch(PDO::FETCH_ASSOC)) {
-                            $e_id = $e_row["EVENEMENT_ID"];
                             $e_naam = $e_row["EVENEMENT_NAAM"];
                             $e_naam_url = urlencode($e_naam);       //urlencode zorgt voor de spaties in evenementnamen
                             $e_locatie = $e_row["LOCATIENAAM"];

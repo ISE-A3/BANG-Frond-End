@@ -1,25 +1,26 @@
 <?php
-require_once "scripts/connect.php";
 
+$titel = 'Toevoegen Open Vraag';
+include_once "header.php";
+$vraagnaam = $_SESSION['VRAAGNAAM'];
+$_SESSION['VRAAGONDERDEELNUMMER']++;
 
+if (isset($_POST['toevoegen'])) {
 
-if (isset($_POST['E_NAAM'])) {
-    $e_sql = 'EXEC dbo.usp_Evenement_Insert @EVENEMENT_NAAM = \'' . $_POST['E_NAAM'] . '\', @EVENEMENT_DATUM = \'' . $_POST['E_DATUM'] . '\', @LOCATIENAAM = \'' . $_POST['LOCATIENAAM'] . '\', @PLAATSNAAM = \'' . $_POST['PLAATSNAAM'] . '\', ' . '@ADRES = \'' . $_POST['ADRES'] . '\', @HUISNUMMER = ' . $_POST['HUISNUMMER'].', @HUISNUMMER_TOEVOEGING = \'' . $_POST['HUISNUMMER_TOEVOEGING'].'\'';
-
+    $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     echo $e_sql;
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
 
-    header("Location:evenement.php?m=succes");
+    $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @ANTWOORD = \'' . $_POST['ANTWOORD'] . '\', @PUNTEN = \'' . $_POST['AANTALPUNTEN'] . '\'';
+    echo $e_sql;
+    $e_query = $conn->prepare($e_sql);
+    $e_query->execute();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
-<?php
-$titel = 'Aanmaken Evenement';
-include_once "header.php";
-?>
 
 <body>
 <!-- container section start -->
@@ -65,47 +66,48 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 17px;">Evenement toevoegen</h1>
-                    <p style="margin-left: 16px;">Via onderstaand formulier kan een evenement worden aangemaakt</p>
+                    <h1 style="margin-left: 17px;"><?=$vraagnaam?></h1>
                     <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
-                                Evenement aanmaken
+                                Vraag Toevoegen
                             </header>
                             <div class="panel-body">
                                 <form method="POST" action="" role="form">
                                     <div class="form-group">
-                                        <label for="E_NAAM">Evenementnaam</label>
-                                        <input type="text" class="form-control" id="E_NAAM" name="E_NAAM">
+                                        <label for="VRAAG">Vraag</label>
+                                        <input type="text" class="form-control" id="VRAAG" name="VRAAG">
                                     </div>
                                     <div class="form-group">
-                                        <label for="E_DATUM">Evenementdatum</label>
-                                        <input type="date" class="form-control" id="E_DATUM_" name="E_DATUM">
+                                        <label for="ANTWOORD">Antwoord</label>
+                                        <input type="text" class="form-control" id="ANTWOORD" name="ANTWOORD">
                                     </div>
                                     <div class="form-group">
-                                        <label for="LOCATIENAAM">Locatie</label>
-                                        <input type="text" class="form-control" id="LOCATIENAAM" name="LOCATIENAAM">
+                                        <label for="AANTALPUNTEN">Aantal Punten Voor Antwoord</label>
+                                        <input type="text" class="form-control" id="AANTALPUNTEN" name="AANTALPUNTEN">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="PLAATSNAAM">Plaats</label>
-                                        <input type="text" class="form-control" id="PLAATSNAAM" name="PLAATSNAAM">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ADRES">Adres</label>
-                                        <input type="text" class="form-control" id="ADRES" name="ADRES">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="HUISNUMMER">Huisnummer</label>
-                                        <input type="number" class="form-control" id="HUISNUMMER" name="HUISNUMMER">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="HUISNUMMER_TOEVOEGING">Huisnummer toevoeging</label>
-                                        <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Aanmaken</button>
-                                    <a class="btn btn-danger" href="evenement.php">Annuleer</a>
+                            </div>
+                        </section>
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Nog een Vraag Toevoegen?
+                            </header>
+                            <div class="panel-body">
+                                <p>Indien gesloten, hoeveel vraagopties wilt u toevoegen?</p>
+                                <div class="form-group">
+                                    <label for="inputSuccess">Aantal Vraagopties</label>
+                                    <select class="form-control m-bot15">
+                                        <option>Ik wil een open vraag toevoegen</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="toevoegen">Nog Een Vraag Toevoegen</button>
+                                <a class="btn btn-danger" href="evenement.php">Aanmaken Afronden</a>
                                 </form>
-
                             </div>
                         </section>
                     </div>
