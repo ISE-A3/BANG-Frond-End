@@ -81,7 +81,7 @@ if(isset($_POST['verwerk'])) {
 
 
     if (empty($error)){
-        header('location: inzendingen.php?error=' . $error . '&evenement=' . $evenement. $nummer1. $artiest1. $nummer4. $artiest4);
+        header('location: inzendingen.php?error=' . $error . '&evenement=' . $evenement);
     }
     else {
         header('location: inzendingen.php?error=' . $error . '&evenement=' . $evenement);
