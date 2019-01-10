@@ -1,25 +1,43 @@
 <?php
-require_once "scripts/connect.php";
+$titel = 'Aanmaken Vraag';
+include_once "header.php";
 
+if (isset($_POST['toevoegen'])) {
+    $_SESSION['VRAAGNAAM'] = $_POST['VRAAGNAAM'];
+    $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
 
+    if(empty($_POST['VRAAGTITEL'])){
+        $vraagtitel = " ";
+    }
+    else {
+        $vraagtitel = $_POST['VRAAGTITEL'];
+    }
 
-if (isset($_POST['E_NAAM'])) {
-    $e_sql = 'EXEC dbo.usp_Evenement_Insert @EVENEMENT_NAAM = \'' . $_POST['E_NAAM'] . '\', @EVENEMENT_DATUM = \'' . $_POST['E_DATUM'] . '\', @LOCATIENAAM = \'' . $_POST['LOCATIENAAM'] . '\', @PLAATSNAAM = \'' . $_POST['PLAATSNAAM'] . '\', ' . '@ADRES = \'' . $_POST['ADRES'] . '\', @HUISNUMMER = ' . $_POST['HUISNUMMER'].', @HUISNUMMER_TOEVOEGING = \'' . $_POST['HUISNUMMER_TOEVOEGING'].'\'';
-
+    $e_sql = 'EXEC dbo.usp_Vraag_Insert @VRAAG_NAAM = \'' . $_POST['VRAAGNAAM'] . '\', @VRAAG_TITEL = \'' . $vraagtitel . '\'';
     echo $e_sql;
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
 
-    header("Location:evenement.php?m=succes");
+    if(empty($_POST['VRAAGTHEMA'])) {
+        $vraagthema = " ";
+    }
+    else {
+        $vraagthema = $_POST['VRAAGTHEMA'];
+    }
+
+    $e_sql2 = 'EXEC dbo.usp_Thema_Bij_Vraag_Insert @VRAAG_NAAM = \'' . $_POST['VRAAGNAAM'] . '\', @THEMA = \'' . $vraagthema . '\'';
+    echo $e_sql2;
+    $e_query = $conn->prepare($e_sql2);
+    $e_query->execute();
+
+    header("Location:bepaal_vraagtype.php");
 }
+
+$_SESSION['VRAAGONDERDEELNUMMER'] = 0;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
-
-<?php
-$titel = 'Aanmaken Evenement';
-include_once "header.php";
-?>
 
 <body>
 <!-- container section start -->
@@ -65,47 +83,49 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 17px;">Evenement toevoegen</h1>
-                    <p style="margin-left: 16px;">Via onderstaand formulier kan een evenement worden aangemaakt</p>
+                    <h1 style="margin-left: 17px;">Vraag Aanmaken</h1>
                     <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
-                                Evenement aanmaken
+                                Vraagnaam
                             </header>
                             <div class="panel-body">
                                 <form method="POST" action="" role="form">
                                     <div class="form-group">
-                                        <label for="E_NAAM">Evenementnaam</label>
-                                        <input type="text" class="form-control" id="E_NAAM" name="E_NAAM">
+                                        <label for="VRAAGNAAM">Vraagnaam*</label>
+                                        <input type="text" class="form-control" id="VRAAGNAAM" name="VRAAGNAAM" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="E_DATUM">Evenementdatum</label>
-                                        <input type="date" class="form-control" id="E_DATUM_" name="E_DATUM">
+                                        <label for="VRAAGTITEL">Vraagtitel</label>
+                                        <input type="text" class="form-control" id="VRAAGTITEL" name="VRAAGTITEL">
                                     </div>
                                     <div class="form-group">
-                                        <label for="LOCATIENAAM">Locatie</label>
-                                        <input type="text" class="form-control" id="LOCATIENAAM" name="LOCATIENAAM">
+                                        <label for="VRAAGTHEMA">Vraagthema</label>
+                                        <input type="text" class="form-control" id="VRAAGTHEMA" name="VRAAGTHEMA">
                                     </div>
+                                    <p>*Dit veld is verplicht</p>
+                            </div>
+                        </section>
+                        <section class="panel">
+                            <header class="panel-heading">
+                                Vraag toevoegen
+                            </header>
+                            <div class="panel-body">
+                                    <p>Indien gesloten, hoeveel antwoordopties wilt u toevoegen?</p>
                                     <div class="form-group">
-                                        <label for="PLAATSNAAM">Plaats</label>
-                                        <input type="text" class="form-control" id="PLAATSNAAM" name="PLAATSNAAM">
+                                        <label for="inputSuccess">Aantal Antwoordopties</label>
+                                            <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
+                                                <option value="OPEN">Ik wil een open vraag toevoegen</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="ADRES">Adres</label>
-                                        <input type="text" class="form-control" id="ADRES" name="ADRES">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="HUISNUMMER">Huisnummer</label>
-                                        <input type="number" class="form-control" id="HUISNUMMER" name="HUISNUMMER">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="HUISNUMMER_TOEVOEGING">Huisnummer toevoeging</label>
-                                        <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Aanmaken</button>
+                                    <button type="submit" class="btn btn-primary" name="toevoegen">Ga Door Naar Toevoegen</button>
                                     <a class="btn btn-danger" href="evenement.php">Annuleer</a>
                                 </form>
-
                             </div>
                         </section>
                     </div>
