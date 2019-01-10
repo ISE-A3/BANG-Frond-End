@@ -80,8 +80,8 @@ include_once "sidebar.php";
                              }
                         ?></p>
                     <div class="row">
-                        <div class="col-lg-4" style="position: fixed;margin-left: 310px;">
-                            <section class="panel">
+                        <div class="col-lg-4" >
+                            <section class="panel" style="position: absolute;margin-left: 255px; width: 630px;">
                                 <header class="panel-heading">
                                     Top 5
                                 </header>

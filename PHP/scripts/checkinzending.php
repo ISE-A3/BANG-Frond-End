@@ -25,7 +25,7 @@ if(isset($_POST['verwerk'])) {
     if(empty($nummer1)){
         $error .= "De titel van nummer 1 ontbreekt. ";
     }
-    if(empty($artiest1)){
+    else if(empty($artiest1)){
         $error .= "De artiest van nummer 1 ontbreekt. ";
     }
     else {
@@ -36,7 +36,7 @@ if(isset($_POST['verwerk'])) {
     if(empty($nummer2)){
         $error .= "De titel van nummer 2 ontbreekt. ";
     }
-    if (empty($artiest2)){
+    else if (empty($artiest2)){
         $error .= "De artiest van nummer 2 ontbreekt. ";
     }
     else {
@@ -47,7 +47,7 @@ if(isset($_POST['verwerk'])) {
     if(empty($nummer3)){
         $error .= "De titel van nummer 3 ontbreekt. ";
     }
-    if(empty($artiest3)){
+    else if(empty($artiest3)){
         $error .= "De artiest van nummer 3 ontbreekt. ";
     }
     else {
@@ -58,7 +58,7 @@ if(isset($_POST['verwerk'])) {
     if(empty($nummer4)){
         $error .= "De titel van nummer 4 ontbreekt. ";
     }
-    if(empty($artiest4)){
+    else if(empty($artiest4)){
         $error .= "De artiest van nummer 4 ontbreekt. ";
     }
     else {
@@ -69,7 +69,7 @@ if(isset($_POST['verwerk'])) {
     if(empty($nummer5)){
         $error .= "De titel van nummer 5 ontbreekt. ";
     }
-    if(empty($artiest5)){
+    else if(empty($artiest5)){
         $error .= "De artiest van nummer 5 ontbreekt. ";
     }
     else {

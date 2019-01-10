@@ -71,6 +71,11 @@ else {
             <div id="main">
                 <div class="w3-container">
                     <h1>Nummers</h1>
+                    <div class="row">
+                        <div class="col text-right" >
+                            <a class="btn btn-primary btn-lg" href="nieuwNummer.php">Voeg nummer toe</a>
+                        </div>
+                    </div>
                     <?php echo "<p style='color: green'>$message</p>"; ?>
                     <div class="row">
                         <div class="col-lg-12">
