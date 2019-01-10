@@ -102,34 +102,56 @@ include_once "sidebar.php";
                                         <div class="form-group">
                                             <label>Top 5</label>
                                             <div class="top5" id="top5" style="display: flex;">
-                                                1.&nbsp;<input type="text" class="form-control" name="nummer1" placeholder="Nummer" style="width: 48%;">
-                                                <input type="text" class="form-control" name="artiest1" placeholder="Artiest" style="width: 48%;margin-left: 4%">
+                                                1.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer1" placeholder="Nummer" style="width: 48%;">
+                                                <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest1" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="top5" id="top5" style="display: flex;">
-                                                2.&nbsp;<input type="text" class="form-control" name="nummer2" placeholder="Nummer" style="width: 48%;">
-                                                <input type="text" class="form-control" name="artiest2" placeholder="Artiest" style="width: 48%;margin-left: 4%">
+                                                2.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer2" placeholder="Nummer" style="width: 48%;">
+                                                <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest2" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="top5" id="top5" style="display: flex;">
-                                                3.&nbsp;<input type="text" class="form-control" name="nummer3" placeholder="Nummer" style="width: 48%;">
-                                                <input type="text" class="form-control" name="artiest3" placeholder="Artiest" style="width: 48%;margin-left: 4%">
+                                                3.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer3" placeholder="Nummer" style="width: 48%;">
+                                                <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest3" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="top5" id="top5" style="display: flex;">
-                                                4.&nbsp;<input type="text" class="form-control" name="nummer4" placeholder="Nummer" style="width: 48%;">
-                                                <input type="text" class="form-control" name="artiest4" placeholder="Artiest" style="width: 48%;margin-left: 4%">
+                                                4.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer4" placeholder="Nummer" style="width: 48%;">
+                                                <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest4" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="top5" id="top5" style="display: flex;">
-                                                5.&nbsp;<input type="text" class="form-control" name="nummer5" placeholder="Nummer" style="width: 48%;">
-                                                <input type="text" class="form-control" name="artiest5" placeholder="Artiest" style="width: 48%;margin-left: 4%">
+                                                5.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer5" placeholder="Nummer" style="width: 48%;">
+                                                <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest5" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
+                                        <datalist id="bestaandeArtiesten">
+                                            <?php
+                                            $e_sql = "EXEC dbo.usp_Artiest_SelectAll";
+                                            $e_query = $conn->prepare($e_sql);
+                                            $e_query->execute();
+                                            while($e_row = $e_query->fetch(PDO::FETCH_ASSOC)){
+                                                $artiest = $e_row['ARTIEST_NAAM'];
+                                                echo "<option value='$artiest'>$artiest</option>";
+                                            }
+                                            ?>
+                                        </datalist>
+                                        <datalist id="bestaandeTitels">
+                                            <?php
+                                            $e_sql = "EXEC dbo.usp_Nummer_SelectAllUniqueTitels";
+                                            $e_query = $conn->prepare($e_sql);
+                                            $e_query->execute();
+                                            while($e_row = $e_query->fetch(PDO::FETCH_ASSOC)){
+                                                $nummer = $e_row['NUMMER_TITEL'];
+                                                echo "<option value='$nummer'>$nummer</option>";
+                                            }
+                                            ?>
+                                        </datalist>
                                         <button type="submit" name="verwerk" class="btn btn-primary">Verwerk</button>
                                     </form>
 

@@ -72,8 +72,9 @@ include_once "header.php";
                             <div class="panel-body">
                                 <form method="POST" role="form">
                                     <div class="form-group">
-                                        <label for="artiestKeuze">Kies een artiest</label>
-                                        <select class="form-control input-sm m-bot15" name="artiestKeuze">
+                                        <label for="nieuweArtiest">Voer een nieuwe of bestaande artiest in</label>
+                                        <input list="bestaandeArtiesten" type="text" class="form-control" name='nieuweArtiest' id="nieuweArtiest">
+                                        <datalist id="bestaandeArtiesten">
                                             <?php
                                             $e_sql = "EXEC dbo.usp_Artiest_SelectAll";
                                             $e_query = $conn->prepare($e_sql);
@@ -82,23 +83,7 @@ include_once "header.php";
                                                 $artiest = $e_row['ARTIEST_NAAM'];
                                                 echo "<option value='$artiest'>$artiest</option>";
                                             }
-
                                             ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nieuweArtiest">Of voer een nieuwe artiest in</label>
-                                        <input list="bestaandeArtiest"  type="text" class="form-control" name='nieuweArtiest' id="nieuweArtiest">
-                                        <datalist id="bestaandeArtiest">
-                                        <?php
-                                        $e_sql = "EXEC dbo.usp_Artiest_SelectAll";
-                                        $e_query = $conn->prepare($e_sql);
-                                        $e_query->execute();
-                                        while($e_row = $e_query->fetch(PDO::FETCH_ASSOC)){
-                                            $artiest = $e_row['ARTIEST_NAAM'];
-                                            echo "<option value='$artiest'>$artiest</option>";
-                                        }
-                                        ?>
                                         </datalist>
                                     </div>
                                     <a class="btn btn-danger" href="nummers.php">Annuleer</a>

@@ -16,6 +16,7 @@ if (isset($_GET['evenement'])) {
     $e_plaats = $e_row["PLAATSNAAM"];
     $e_adres = $e_row["ADRES"];
     $e_huisnummer = $e_row["HUISNUMMER"];
+    $e_huisnummer_toevoeging = $e_row["HUISNUMMER_TOEVOEGING"];
     $startdatum = $e_row["STARTDATUM"];
     $einddatum = $e_row["EINDDATUM"];
 } else {
@@ -26,6 +27,7 @@ if (isset($_GET['evenement'])) {
     $e_plaats = NULL;
     $e_adres = NULL;
     $e_huisnummer = NULL;
+    $e_huisnummer_toevoeging = NULL;
     $startdatum = NULL;
     $einddatum = NULL;
 }
@@ -38,7 +40,9 @@ if (isset($_POST['update'])){
     $plaats = $_POST['PLAATSNAAM'];
     $adres = $_POST['ADRES'];
     $huisnummer = $_POST['HUISNUMMER'];
-    $e_sql = "EXEC usp_Evenement_Update @OLD_EVENEMENT_NAAM = '$e_naam', @NEW_EVENEMENT_NAAM = '$evenementnaam', @EVENEMENT_DATUM = '$datum', @LOCATIENAAM = '$locatie', @PLAATSNAAM = '$plaats', @ADRES = '$adres', @HUISNUMMER = $huisnummer";
+    $huisnummer_toevoeging = $_POST["HUISNUMMER_TOEVOEGING"];
+    echo "<script>console.log( 'Debug Objects: " . $datum . "' );</script>";
+    $e_sql = "EXEC usp_Evenement_Update @OLD_EVENEMENT_NAAM = '$e_naam', @NEW_EVENEMENT_NAAM = '$evenementnaam', @EVENEMENT_DATUM = '$datum', @LOCATIENAAM = '$locatie', @PLAATSNAAM = '$plaats', @ADRES = '$adres', @HUISNUMMER = $huisnummer".', @HUISNUMMER_TOEVOEGING = \'' . $_POST['HUISNUMMER_TOEVOEGING'].'\'';
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
 
@@ -110,27 +114,31 @@ include_once "header.php";
                                 <form method="POST" action="" role="form">
                                     <div class="form-group">
                                         <label for="E_NAAM">Evenementnaam</label>
-                                        <input type="text" class="form-control" id="E_NAAM" name="E_NAAM" placeholder='<?php echo $e_naam;?>' required>
+                                        <input type="text" class="form-control" id="E_NAAM" name="E_NAAM" value='<?php echo $e_naam;?>' required>
                                     </div>
                                     <div class="form-group">
                                         <label for="E_DATUM">Evenementdatum</label>
-                                        <input type="date" class="form-control" id="E_DATUM_" name="E_DATUM" value='<?php echo $e_datum;?>'>
+                                        <input type="date" class="form-control" id="E_DATUM_" name="E_DATUM" value='<?php echo $e_datum;?>' required>
                                     </div>
                                     <div class="form-group">
                                         <label for="LOCATIENAAM">Locatie</label>
-                                        <input type="text" class="form-control" id="LOCATIENAAM" name="LOCATIENAAM" placeholder='<?php echo $e_locatie;?>' required>
+                                        <input type="text" class="form-control" id="LOCATIENAAM" name="LOCATIENAAM" value='<?php echo $e_locatie;?>'>
                                     </div>
                                     <div class="form-group">
                                         <label for="PLAATSNAAM">Plaats</label>
-                                        <input type="text" class="form-control" id="PLAATSNAAM" name="PLAATSNAAM" placeholder='<?php echo $e_plaats;?>' required>
+                                        <input type="text" class="form-control" id="PLAATSNAAM" name="PLAATSNAAM" value='<?php echo $e_plaats;?>' required>
                                     </div>
                                     <div class="form-group">
                                         <label for="ADRES">Straat</label>
-                                        <input type="text" class="form-control" id="ADRES" name="ADRES" placeholder='<?php echo $e_adres;?>' required>
+                                        <input type="text" class="form-control" id="ADRES" name="ADRES" value='<?php echo $e_adres;?>' required>
                                     </div>
                                     <div class="form-group">
                                         <label for="HUISNUMMER">Huisnummer</label>
-                                        <input type="number" class="form-control" id="HUISNUMMER" name="HUISNUMMER" placeholder='<?php echo $e_huisnummer;?>' required>
+                                        <input type="number" class="form-control" id="HUISNUMMER" name="HUISNUMMER" value='<?php echo $e_huisnummer;?>' required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="HUISNUMMER_TOEVOEGING">Huisnummer toevoeging</label>
+                                        <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING" value='<?php echo $e_huisnummer_toevoeging;?>'>
                                     </div>
                                     <button type="submit" name="update" class="btn btn-primary">Aanpassen</button>
                                     <a class="btn btn-danger" href="evenement.php">Annuleer</a>

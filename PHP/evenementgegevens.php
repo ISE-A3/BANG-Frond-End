@@ -15,7 +15,7 @@ if (isset($_GET['evenement'])) {
     $e_datum = $e_row["EVENEMENT_DATUM"];
     $e_locatie = $e_row["LOCATIENAAM"];
     $e_plaats = $e_row["PLAATSNAAM"];
-    $e_adres = $e_row["ADRES"] . " " .  $e_row["HUISNUMMER"];
+    $e_adres = $e_row["ADRES"] . " " .  $e_row["HUISNUMMER"] . $e_row["HUISNUMMER_TOEVOEGING"];
     $startdatum = $e_row["STARTDATUM"];
     $einddatum = $e_row["EINDDATUM"];
 } else {
