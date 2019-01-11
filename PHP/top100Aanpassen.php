@@ -1,22 +1,48 @@
 <?php
 
-require_once "scripts/nummerBewerking.php";
+require_once "scripts/connect.php";
 
-if (isset($_GET['titel'])) {
-    $nummer = $_GET['titel'];
-    $artiest = $_GET['artiest'];
-
+if (isset($_GET['evenement'])) {
+    $evenement = $_GET['evenement'];
+    $e_sql = "EXEC dbo.usp_Top100Info_Select @EVENEMENT_NAAM = '$evenement'";
+    $e_query = $conn->prepare($e_sql);
+    $e_query->execute();
+    $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
+    $e_naam = $e_row['EVENEMENT_NAAM'];
+    $e_datum = $e_row["EVENEMENT_DATUM"];
+    $startdatum = $e_row["STARTDATUM"];
+    $einddatum = $e_row["EINDDATUM"];
 } else {
-    $nummer = NULL;
-    $artiest = NULL;
+    $e_naam = NULL;
+    $e_datum = NULL;
+    $startdatum = NULL;
+    $einddatum = NULL;
 }
+
+
+if (isset($_POST['update'])){
+    $startdatum = $_POST["Startdatum"];
+    $einddatum = $_POST["Einddatum"];
+    $e_sql = "EXEC usp_Top100_Update @EVENEMENT_NAAM = '".$e_naam."', @STARTDATUM = '".$startdatum."', @EINDDATUM = '".$einddatum."'";
+    $e_query = $conn->prepare($e_sql);
+    $e_query->execute();
+
+    $error = $e_query->errorCode();
+    if (empty($error) || 00000 == $error){
+        header("Location:evenementgegevens.php?evenement=" . $e_naam . "&beheerder=1&result=top100updatesuccess");
+    }
+    else{
+        header("Location:evenementgegevens.php?evenement=" . $e_naam . "&beheerder=1&result=top100updateerror");
+    }
+}
+
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
-$titel = 'Bewerk Nummer - ' . $nummer;
+$titel = 'Aanpassen top100';
 include_once "header.php";
 ?>
 
@@ -37,6 +63,7 @@ include_once "header.php";
 
     </header>
     <!--header end-->
+
     <!--sidebar start-->
     <?php
     include_once "sidebar.php";
@@ -63,25 +90,26 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 15px;">Bewerk nummer</h1>
-                    <p style="margin-left: 20px;">Verander de titel van een nummer via onderstaand formulier</p>
-                    <div class="col-lg-6" >
+                    <h1 style="margin-left: 17px;">Top100 aanpassen</h1>
+                    <p style="margin-left: 16px;">Top100 aanpassen van het evenement: <?php echo $e_naam?></p>
+                    <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
-                                <b><?php echo $nummer; ?></b>
+                                Geef hieronder de gegevens die gewijzigd moeten worden
                             </header>
                             <div class="panel-body">
-                                <form method="POST" role="form">
+                                <p>Het evenement word gehouden op: <?php echo $e_datum?></p>
+                                <form method="POST" action="" role="form">
                                     <div class="form-group">
-                                        <label for="nieuweNaam">Nieuwe titel</label>
-                                        <input type="text" class="form-control" name='nieuweNaam' id="nieuweNaam" required>
+                                        <label for="Startdatum">Startdatum</label>
+                                        <input type="date" class="form-control" name='Startdatum' id="Startdatum" value='<?php echo $startdatum;?>' required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="nieuweNaamB">Bevestig nieuwe titel</label>
-                                        <input type="text" class="form-control" name='nieuweNaamB' id="nieuweNaamB" required>
+                                        <label for="Einddatum">Einddatum</label>
+                                        <input type="date" class="form-control" name='Einddatum' id="Einddatum" value='<?php echo $einddatum;?>' required>
                                     </div>
-                                    <button type="submit" name='bewerk' class="btn btn-primary">Bewerk</button>
-                                    <a class="btn btn-danger" href="nummers.php">Annuleer</a>
+                                    <button type="submit" name="update" class="btn btn-primary">Aanpassen</button>
+                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>&beheerder=1">Annuleer</a>
                                 </form>
                             </div>
                         </section>
@@ -98,6 +126,8 @@ include_once "header.php";
         </div>
     </div>
 </section>
+
 </body>
 
 </html>
+

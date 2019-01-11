@@ -109,7 +109,7 @@ include_once "header.php";
             <div id="main">
                 <div class="w3-container">
                     <h1 style="margin-left: 17px;">Evenement aanpassen</h1>
-                    <p style="margin-left: 16px; width:45%;">Geef hieronder de gegevens die gewijzigd moeten worden. Alle velden dienen ingevuld te worden</p>
+                    <p style="margin-left: 16px; width:45%;">Geef hieronder de gegevens die gewijzigd moeten worden.</p>
                     <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
@@ -146,7 +146,7 @@ include_once "header.php";
                                         <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING" value='<?php echo $e_huisnummer_toevoeging;?>'>
                                     </div>
                                     <button type="submit" name="update" class="btn btn-primary">Aanpassen</button>
-                                    <a class="btn btn-danger" href="evenement.php?beheerder=1">Annuleer</a>
+                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>&beheerder=1">Annuleer</a>
                                 </form>
                             </div>
                         </section>

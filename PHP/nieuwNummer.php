@@ -52,7 +52,7 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <p style="padding-left: 18px;"><?php
+                    <p style="padding-left: 17px;"><?php
                         if(isset($_GET['result'])){
                             if($_GET['result'] == 'success'){
                                 echo "<b style='color: green;'>Het nummer is succesvol verwerkt</b>";
@@ -63,7 +63,7 @@ include_once "header.php";
                         }
                         ?></p>
                     <h1 style="margin-left: 17px;">Nieuw nummer</h1>
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <section class="panel">
                             <header class="panel-heading">
                                 <p>Voeg een nieuw nummer toe via onderstaand formulier</p>

@@ -62,9 +62,9 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 325px;">Vervang artiest</h1>
-                    <p style="margin-left: 327px;">Vervang de artiest van het nummer "<?php echo $nummer;?>" via onderstaand formulier</p>
-                    <div class="col-lg-4" style="position: fixed;margin-left: 310px;">
+                    <h1 style="margin-left: 15px;">Vervang artiest</h1>
+                    <p style="margin-left: 20px;">Vervang de artiest van het nummer "<?php echo $nummer;?>" via onderstaand formulier</p>
+                    <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
                                 <b><?php echo "Huidige artiest: $artiest";?></b>
@@ -86,8 +86,8 @@ include_once "header.php";
                                             ?>
                                         </datalist>
                                     </div>
-                                    <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                     <button type="submit" name='vervang' class="btn btn-primary">Vervang</button>
+                                    <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                 </form>
                             </div>
                         </section>

@@ -61,9 +61,9 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 325px;">Bewerk artiest</h1>
-                    <p style="margin-left: 327px;">Verander de naam van een artiest via onderstaand formulier</p>
-                    <div class="col-lg-4" style="position: fixed;margin-left: 310px;">
+                    <h1 style="margin-left: 15px;">Bewerk artiest</h1>
+                    <p style="margin-left: 20px;">Verander de naam van een artiest via onderstaand formulier</p>
+                    <div class="col-lg-6" ">
                         <section class="panel">
                             <header class="panel-heading">
                                 <b><?php echo $artiest; ?></b>
@@ -78,8 +78,8 @@ include_once "header.php";
                                         <label for="nieuweNaamB">Bevestig nieuwe naam</label>
                                         <input type="text" class="form-control" name='nieuweNaamB' id="nieuweNaamB" required>
                                     </div>
-                                    <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                     <button type="submit" name='bewerk' class="btn btn-primary">Bewerk</button>
+                                    <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                 </form>
                             </div>
                         </section>
