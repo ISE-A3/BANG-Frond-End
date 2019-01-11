@@ -1,22 +1,11 @@
 <?php
-
-require_once "scripts/nummerBewerking.php";
-
-if (isset($_GET['titel'])) {
-    $nummer = $_GET['titel'];
-    $artiest = $_GET['artiest'];
-
-} else {
-    $nummer = NULL;
-    $artiest = NULL;
-}
-
+require_once "scripts/nieuwNummerToevoegen.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
-$titel = 'Bewerk Nummer - ' . $nummer;
+$titel = 'Voeg een nieuw nummer toe.';
 include_once "header.php";
 ?>
 
@@ -63,24 +52,42 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 15px;">Bewerk nummer</h1>
-                    <p style="margin-left: 20px;">Verander de titel van een nummer via onderstaand formulier</p>
-                    <div class="col-lg-6" >
+                    <p style="padding-left: 17px;"><?php
+                        if(isset($_GET['result'])){
+                            if($_GET['result'] == 'success'){
+                                echo "<b style='color: green;'>Het nummer is succesvol verwerkt</b>";
+                            }
+                            else if ($_GET['result'] == 'error'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan</b>";
+                            }
+                        }
+                        ?></p>
+                    <h1 style="margin-left: 17px;">Nieuw nummer</h1>
+                    <div class="col-lg-8">
                         <section class="panel">
                             <header class="panel-heading">
-                                <b><?php echo $nummer; ?></b>
+                                <p>Voeg een nieuw nummer toe via onderstaand formulier</p>
                             </header>
                             <div class="panel-body">
                                 <form method="POST" role="form">
                                     <div class="form-group">
-                                        <label for="nieuweNaam">Nieuwe titel</label>
-                                        <input type="text" class="form-control" name='nieuweNaam' id="nieuweNaam" required>
+                                        <div  style="display: flex;">
+                                            <input type="text" class="form-control" name="titel" placeholder="Titel" style="width: 48%;" required>
+                                            <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest" placeholder="Artiest" style="width: 48%;margin-left: 4%" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="nieuweNaamB">Bevestig nieuwe titel</label>
-                                        <input type="text" class="form-control" name='nieuweNaamB' id="nieuweNaamB" required>
-                                    </div>
-                                    <button type="submit" name='bewerk' class="btn btn-primary">Bewerk</button>
+                                    <datalist id="bestaandeArtiesten">
+                                        <?php
+                                        $e_sql = "EXEC dbo.usp_Artiest_SelectAll";
+                                        $e_query = $conn->prepare($e_sql);
+                                        $e_query->execute();
+                                        while($e_row = $e_query->fetch(PDO::FETCH_ASSOC)){
+                                            $artiest = $e_row['ARTIEST_NAAM'];
+                                            echo "<option value='$artiest'>$artiest</option>";
+                                        }
+                                        ?>
+                                    </datalist>
+                                    <button type="submit" name='voegtoe' class="btn btn-primary">Voeg toe</button>
                                     <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                 </form>
                             </div>

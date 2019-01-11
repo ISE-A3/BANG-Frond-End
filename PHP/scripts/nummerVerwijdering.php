@@ -1,20 +1,25 @@
 <?php
 require_once "connect.php";
 
-if (isset($_GET['titel'])) {
+if (isset($_GET['titel'])&&isset($_GET['artiest'])) {
     $nummer = urldecode($_GET['titel']);
     $artiest = urldecode($_GET["artiest"]);
 
     $sqlNummer = "EXECUTE usp_Nummer_Delete @titel = '$nummer', @artiest = '$artiest'";
-    $query = $conn->prepare($sqlNummer);
-    $query->execute();
+    $e_query = $conn->prepare($sqlNummer);
+    $e_query->execute();
 
-    $nummer_url = urlencode($nummer);
-    header("location: ../nummers.php?deleted='$nummer_url'");
+    $error = $e_query->errorCode();
+    if (empty($error) || 00000 == $error){
+        header("Location: ../nummers.php?result=nummerdeletesuccess");
+    }
+    else{
+        header("Location: ../nummers.php?result=nummerdeleteerror");
+    }
 
 }
 else {
-    header('location: ../nummers.php');
+    header("Location: ../nummers.php?result=nummerdeleteerror");
 }
 
 

@@ -80,23 +80,24 @@ include_once "header.php";
             <div id="main">
                 <div class="w3-container">
                     <h1 style="margin-left: 12px;">Top 100</h1>
-                    <p style="margin-left: 16px;">Toevoegen van een Top 100 aan het evenement '<?php echo $e_naam;?>'</p>
+                    <p style="margin-left: 16px;">Toevoegen van een Top100 aan het evenement '<?php echo $e_naam;?>'</p>
                     <div class="col-lg-6">
                         <section class="panel">
                             <header class="panel-heading">
-                                Top 100 aanmaken
+                                Top100 aanmaken
                             </header>
                             <div class="panel-body">
+                                <p>Het evenement word gehouden op: <?php echo $e_datum?></p>
                                 <form method="POST" action="top100aanmaken.php?evenement=<?php echo $e_naam?>" role="form">
                                     <div class="form-group">
                                         <label for="Startdatum">Startdatum</label>
-                                        <input type="date" class="form-control" name='Startdatum' id="Startdatum">
+                                        <input type="date" class="form-control" name='Startdatum' id="Startdatum" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="Einddatum">Einddatum</label>
-                                        <input type="date" class="form-control" name='Einddatum' id="Einddatum">
+                                        <input type="date" class="form-control" name='Einddatum' id="Einddatum" required>
                                     </div>
-                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>">Annuleer</a>
+                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>&beheerder=1">Annuleer</a>
                                     <button type="submit" name='aanmaken' class="btn btn-primary">Aanmaken</button>
                                 </form>
                             </div>
