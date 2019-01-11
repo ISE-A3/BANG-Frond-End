@@ -4,25 +4,31 @@ $titel = 'Toevoegen Gesloten Vraag';
 include_once "header.php";
 $vraagnaam = $_SESSION['VRAAGNAAM'];
 $aantal_antwoordopties = $_SESSION['AANTALANTWOORDOPTIES'];
-$sql = "SELECT COUNT(*) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAG_NAAM = '$vraagnaam'";
+/**$sql = "SELECT COUNT(*) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAG_NAAM = '$vraagnaam'";
 if ($res = $conn->query($sql)) {
     if ($res->fetchColumn() > 0) {
+        print_r($res);*/
         $select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL GROUP BY VRAAGONDERDEELNUMMER, VRAAG_ID HAVING VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
         $data = $conn->query($select);
         $array = $data->fetch();
-        $maxvraagonderdeelnummer = $array['0'];
+        print_r($array);
+        $maxvraagonderdeelnummer = $array[0];
         $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
-    }
+        echo $vraagonderdeelnummer;
+    /**}
 } else {
     $vraagonderdeelnummer = 1;
-}
+}*/
 
 
 if (isset($_POST['geslotenvraag_toevoegen'])) {
-
+try {
     $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
+} catch(Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+    }
 
 
     $punten = 0;
