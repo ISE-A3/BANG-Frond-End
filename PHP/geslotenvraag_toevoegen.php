@@ -2,15 +2,28 @@
 
 $titel = 'Toevoegen Gesloten Vraag';
 include_once "header.php";
-$vraagnaam = $_SESSION['VRAAGNAAM'];
+$vraagnaam = /**$_SESSION['VRAAGNAAM'];*/ 'Testvraag6';
 $aantal_antwoordopties = $_SESSION['AANTALANTWOORDOPTIES'];
-$_SESSION['VRAAGONDERDEEL']++;
+$sql = 'SELECT * FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAG_NAAM = "Testvraag6"';
 
-if (isset($_POST['toevoegen'])) {
-    $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
-    echo $e_sql;
+    $query = $conn->prepare($sql);
+    $query->execute();
+
+    if ($query->rowCount() != 0) {
+        $select = 'SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL GROUP BY VRAAGONDERDEELNUMMER, VRAAG_ID HAVING VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = ' . $vraagnaam . ')';
+        $data = $conn->query($select);
+        $array = $data->fetch();
+        $maxvraagonderdeelnummer = $array['0'];
+        $vraagonderdeelnummer = $maxvraagonderdeelnummmer + 1;
+    }
+
+
+if (isset($_POST['geslotenvraag_toevoegen'])) {
+
+    $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
+
 
     $punten = 0;
     $huidige_antwoordoptie = 1;
@@ -22,11 +35,14 @@ if (isset($_POST['toevoegen'])) {
             $punten = 0;
         }
 
-        $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @ANTWOORD = \'' . $_POST['ANTWOORDOPTIE' . $huidige_antwoordoptie . ''] . '\', @PUNTEN = \'' . $punten . '\'';
+        $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @ANTWOORD = \'' . $_POST['ANTWOORDOPTIE' . $huidige_antwoordoptie . ''] . '\', @PUNTEN = \'' . $punten . '\'';
         echo $e_sql;
         $e_query = $conn->prepare($e_sql);
         $e_query->execute();
         $huidige_antwoordoptie++;
+
+        $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
+        /**header("Location:bepaal_vraagtype.php"); */
     }
 }
 ?>
@@ -114,10 +130,10 @@ if (isset($_POST['toevoegen'])) {
                                 Nog een Vraag Toevoegen?
                             </header>
                             <div class="panel-body">
-                                    <p>Indien gesloten, hoeveel vraagopties wilt u toevoegen?</p>
+                                    <p>Indien gesloten, hoeveel antwoordopties wilt u toevoegen?</p>
                                     <div class="form-group">
                                         <label for="inputSuccess">Aantal Vraagopties</label>
-                                        <select class="form-control m-bot15">
+                                        <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
                                             <option>Ik wil een open vraag toevoegen</option>
                                             <option>1</option>
                                             <option>2</option>
@@ -126,7 +142,7 @@ if (isset($_POST['toevoegen'])) {
                                             <option>5</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary" name="toevoegen">Nog Een Vraag Toevoegen</button>
+                                    <button type="submit" class="btn btn-primary" name="geslotenvraag_toevoegen">Nog Een Vraag Toevoegen</button>
                                     <a class="btn btn-danger" href="evenement.php">Aanmaken Afronden</a>
                                 </form>
                             </div>

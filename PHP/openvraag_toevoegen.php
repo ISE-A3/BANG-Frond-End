@@ -5,7 +5,7 @@ include_once "header.php";
 $vraagnaam = $_SESSION['VRAAGNAAM'];
 $_SESSION['VRAAGONDERDEELNUMMER']++;
 
-if (isset($_POST['toevoegen'])) {
+if (isset($_POST['openvraag_toevoegen'])) {
 
     $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     echo $e_sql;
@@ -16,6 +16,9 @@ if (isset($_POST['toevoegen'])) {
     echo $e_sql;
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
+
+    $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
+    header("Location:bepaal_vraagtype.php");
 }
 
 ?>
@@ -93,10 +96,10 @@ if (isset($_POST['toevoegen'])) {
                                 Nog een Vraag Toevoegen?
                             </header>
                             <div class="panel-body">
-                                <p>Indien gesloten, hoeveel vraagopties wilt u toevoegen?</p>
+                                <p>Indien gesloten, hoeveel antwoordopties wilt u toevoegen?</p>
                                 <div class="form-group">
                                     <label for="inputSuccess">Aantal Vraagopties</label>
-                                    <select class="form-control m-bot15">
+                                    <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
                                         <option>Ik wil een open vraag toevoegen</option>
                                         <option>1</option>
                                         <option>2</option>
@@ -105,7 +108,7 @@ if (isset($_POST['toevoegen'])) {
                                         <option>5</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary" name="toevoegen">Nog Een Vraag Toevoegen</button>
+                                <button type="submit" class="btn btn-primary" name="openvraag_toevoegen">Nog Een Vraag Toevoegen</button>
                                 <a class="btn btn-danger" href="evenement.php">Aanmaken Afronden</a>
                                 </form>
                             </div>
