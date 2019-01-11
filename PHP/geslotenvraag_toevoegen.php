@@ -2,7 +2,7 @@
 
 $titel = 'Toevoegen Gesloten Vraag';
 include_once "header.php";
-$vraagnaam = /**$_SESSION['VRAAGNAAM'];*/ 'Testvraag6';
+$vraagnaam = $_SESSION['VRAAGNAAM'];
 $aantal_antwoordopties = $_SESSION['AANTALANTWOORDOPTIES'];
 $sql = "SELECT COUNT(*) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAG_NAAM = '$vraagnaam'";
 if ($res = $conn->query($sql)) {

@@ -3,16 +3,27 @@
 $titel = 'Toevoegen Open Vraag';
 include_once "header.php";
 $vraagnaam = $_SESSION['VRAAGNAAM'];
-$_SESSION['VRAAGONDERDEELNUMMER']++;
+$sql = "SELECT COUNT(*) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAG_NAAM = '$vraagnaam'";
+if ($res = $conn->query($sql)) {
+    if ($res->fetchColumn() > 0) {
+        $select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL GROUP BY VRAAGONDERDEELNUMMER, VRAAG_ID HAVING VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
+        $data = $conn->query($select);
+        $array = $data->fetch();
+        $maxvraagonderdeelnummer = $array['0'];
+        $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
+    }
+} else {
+    $vraagonderdeelnummer = 1;
+}
 
 if (isset($_POST['openvraag_toevoegen'])) {
 
-    $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
+    $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     echo $e_sql;
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
 
-    $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $_SESSION['VRAAGONDERDEELNUMMER'] . '\', @ANTWOORD = \'' . $_POST['ANTWOORD'] . '\', @PUNTEN = \'' . $_POST['AANTALPUNTEN'] . '\'';
+    $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @ANTWOORD = \'' . $_POST['ANTWOORD'] . '\', @PUNTEN = \'' . $_POST['AANTALPUNTEN'] . '\'';
     echo $e_sql;
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
