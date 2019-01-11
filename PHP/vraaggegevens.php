@@ -92,7 +92,7 @@ include_once "header.php";
                 <div class="w3-container">
                     <h1>Vraaggegevens van <?php echo $vraag_naam ?></h1>
                     <p>Gegevens van <?php echo $vraag_naam?></p>
-                    <table class="table table-striped">
+                    <table class="table table-light">
                         <thead>
                         <tr>
                             <th>Details</th>
@@ -122,7 +122,6 @@ include_once "header.php";
                         foreach ($vragen as $vraag) {
 
                         ?>
-                        <br>
                         <table class="table table-light" >
                             <tbody>
                             <tr>
