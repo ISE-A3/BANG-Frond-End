@@ -9,10 +9,12 @@ require_once "connect.php";
         $e_query = $conn->prepare($top_sql);
         $e_query->execute();
 
-        //$error = $e_query->errorInfo();
-        //$error2 = $e_query->errorCode();
-
-
-        header("Location: nieuwNummer.php?error=");//. $error2);
+        $error = $e_query->errorCode();
+        if (empty($error) || 00000 == $error){
+            header("Location: nieuwNummer.php?result=success");
+        }
+        else{
+            header("Location: nieuwNummer.php?result=error");
+        }
     }
 ?>

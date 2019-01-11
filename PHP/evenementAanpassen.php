@@ -45,7 +45,13 @@ if (isset($_POST['update'])){
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
 
-    header('location: evenement.php?m=aangepast');
+    $error = $e_query->errorCode();
+    if (empty($error) || 00000 == $error){
+        header("Location:evenementgegevens.php?evenement=" . $evenementnaam . "&beheerder=1&result=evenementupdatesuccess");
+    }
+    else{
+        header("Location:evenementgegevens.php?evenement=" . $e_naam . "&beheerder=1&result=evenementupdateerror");
+    }
 }
 
 
@@ -139,12 +145,8 @@ include_once "header.php";
                                         <label for="HUISNUMMER_TOEVOEGING">Huisnummer toevoeging</label>
                                         <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING" value='<?php echo $e_huisnummer_toevoeging;?>'>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="HUISNUMMER_TOEVOEGING">Toevoeging</label>
-                                        <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING" placeholder='<?php echo $e_huisnummer_tv;?>'>
-                                    </div>
                                     <button type="submit" name="update" class="btn btn-primary">Aanpassen</button>
-                                    <a class="btn btn-danger" href="evenement.php">Annuleer</a>
+                                    <a class="btn btn-danger" href="evenement.php?beheerder=1">Annuleer</a>
                                 </form>
                             </div>
                         </section>

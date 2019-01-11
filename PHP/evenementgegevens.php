@@ -81,6 +81,22 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
+                    <p style="padding-left: 2px;"><?php
+                        if(isset($_GET['result'])){
+                            if($_GET['result'] == 'top100addsuccess'){
+                                echo "<b style='color: green;'>Een top100 is succesvol aan het evenement toegevoegd</b>";
+                            }
+                            else if ($_GET['result'] == 'top100adderror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het toevoegen van een top100</b>";
+                            }
+                            else if($_GET['result'] == 'evenementupdatesuccess'){
+                                echo "<b style='color: green;'>De aanpassing aan evenement is succesvol uitgevoerd</b>";
+                            }
+                            else if ($_GET['result'] == 'evenementupdateerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het aanpassen van het evenement</b>";
+                            }
+                        }
+                        ?></p>
                     <h1>Evenenementgegevens van <?php echo $e_naam ?></h1>
                     <p>Gegevens van <?php echo $e_naam?></p>
                     <table class="table table-striped">

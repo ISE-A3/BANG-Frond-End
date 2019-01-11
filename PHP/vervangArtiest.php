@@ -73,7 +73,7 @@ include_once "header.php";
                                 <form method="POST" role="form">
                                     <div class="form-group">
                                         <label for="nieuweArtiest">Voer een nieuwe of bestaande artiest in</label>
-                                        <input list="bestaandeArtiesten" type="text" class="form-control" name='nieuweArtiest' id="nieuweArtiest">
+                                        <input list="bestaandeArtiesten" type="text" class="form-control" name='nieuweArtiest' id="nieuweArtiest" required>
                                         <datalist id="bestaandeArtiesten">
                                             <?php
                                             $e_sql = "EXEC dbo.usp_Artiest_SelectAll";

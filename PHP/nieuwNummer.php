@@ -52,14 +52,13 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <p style="width: 68%;padding-left: 315px;"><?php
-                        if(isset($_GET['error'])){
-                            if(empty($_GET['error'])){
+                    <p style="padding-left: 18px;"><?php
+                        if(isset($_GET['result'])){
+                            if($_GET['result'] == 'success'){
                                 echo "<b style='color: green;'>Het nummer is succesvol verwerkt</b>";
                             }
-                            else {
-                                $error = $_GET['error'];
-                                echo "<b style='color: red;'>$error</b>";
+                            else if ($_GET['result'] == 'error'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan</b>";
                             }
                         }
                         ?></p>

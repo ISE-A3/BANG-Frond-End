@@ -5,20 +5,6 @@
 $titel = 'Nummers';
 include_once "header.php";
 
-if(isset($_GET['deleted'])){
-    $deleted = urldecode($_GET['deleted']);
-    $message = "Het nummer '$deleted' is succesvol verwijderd!";
-}
-
-if(isset($_GET['replaced'])){
-    $replaced = urldecode($_GET['replaced']);
-    $message = "De artiest van het nummer '$replaced' is vervangen!";
-}
-
-else {
-    $message = '';
-}
-
 ?>
 
 
@@ -70,13 +56,41 @@ else {
 
             <div id="main">
                 <div class="w3-container">
+                    <p style="padding-left: 2px;"><?php
+                        if(isset($_GET['result'])){
+                            if($_GET['result'] == 'artiestupdatesuccess'){
+                                echo "<b style='color: green;'>De artiest is succesvol bewerkt</b>";
+                            }
+                            else if ($_GET['result'] == 'artiestupdateerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het bewerken van de artiest</b>";
+                            }
+                            else if($_GET['result'] == 'artiestreplacesuccess'){
+                                echo "<b style='color: green;'>De artiest is succesvol vervangen</b>";
+                            }
+                            else if ($_GET['result'] == 'artiestreplaceerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het vervangen van de artiest</b>";
+                            }
+                            else if($_GET['result'] == 'nummerupdatesuccess'){
+                                echo "<b style='color: green;'>het nummer is succesvol bewerkt</b>";
+                            }
+                            else if ($_GET['result'] == 'nummerupdateerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het bewerken van het nummer</b>";
+                            }
+                            else if($_GET['result'] == 'nummerdeletesuccess'){
+                                echo "<b style='color: green;'>het nummer is succesvol verwijderd</b>";
+                            }
+                            else if ($_GET['result'] == 'nummerdeleteerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het verwijderen van het nummer</b>";
+                            }
+                        }
+                        ?>
+                    </p>
                     <h1>Nummers</h1>
                     <div class="row">
                         <div class="col text-right" >
                             <a class="btn btn-primary btn-lg" href="nieuwNummer.php">Voeg nummer toe</a>
                         </div>
                     </div>
-                    <?php echo "<p style='color: green'>$message</p>"; ?>
                     <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
@@ -84,7 +98,7 @@ else {
                                     <tbody>
                                     <tr>
                                         <th><i class="icon_profile"></i> Artiest</th>
-                                        <th><i class="icon_cog" style="padding-left: 12px;font-size: 15px;"></i></th>
+                                        <th><i class="icon_toolbox" style="padding-left: 12px;font-size: 15px;"></i></th>
                                         <th><i class="icon_music"></i> Titel</th>
                                         <th><i class="icon_toolbox" style="padding-left: 16%;font-size: 17px;"></i></th>
                                     </tr>
@@ -109,16 +123,25 @@ else {
                                                     <td>
                                                            <div class=\"btn-group\">
                                                                 <a class=\"btn btn-primary\" href=\"bewerkArtiest.php?artiest=$artiest\" data-toggle=\"tooltip\" title=\"Bewerk artiest\">
-                                                                    <i class=\"icon_cog\"></i>
+                                                                    <i class=\"icon_cogs\"></i>
+                                                                    <i class=\"icon_profile\"></i>
                                                                 </a>
                                                             </div>
                                                     </td>
                                                     <td>$e_titel</td>
                                                     <td>
                                                         <div class=\"btn-group\">
-                                                            <a class=\"btn btn-primary\" href=\"vervangArtiest.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Vervang artiest\"><i class=\"icon_plus_alt2\"></i></a>
-                                                            <a class=\"btn btn-success\" href=\"bewerkNummer.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Bewerk Nummer\"><i class=\"icon_check_alt2\"></i></a>
-                                                            <a class=\"btn btn-danger\" href=\"scripts/nummerVerwijdering.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Verwijder Nummer\"><i class=\"icon_close_alt2\"></i></a>
+                                                            <a class=\"btn btn-primary\" href=\"vervangArtiest.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Vervang artiest\">
+                                                                <i class=\"fa fa-wrench\"></i>
+                                                                <i class=\"icon_profile\"></i>
+                                                            </a>
+                                                            <a class=\"btn btn-success\" href=\"bewerkNummer.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Bewerk Nummer\">
+                                                                <i class=\"icon_cogs\"></i>
+                                                                <i class=\"icon_music\"></i>
+                                                            </a>
+                                                            <a class=\"btn btn-danger\" href=\"scripts/nummerVerwijdering.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Verwijder Nummer\">
+                                                                <i class=\"icon_close_alt2\"></i>
+                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>

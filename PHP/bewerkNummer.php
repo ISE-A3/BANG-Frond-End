@@ -74,11 +74,11 @@ include_once "header.php";
                                 <form method="POST" role="form">
                                     <div class="form-group">
                                         <label for="nieuweNaam">Nieuwe titel</label>
-                                        <input type="text" class="form-control" name='nieuweNaam' id="nieuweNaam">
+                                        <input type="text" class="form-control" name='nieuweNaam' id="nieuweNaam" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="nieuweNaamB">Bevestig nieuwe titel</label>
-                                        <input type="text" class="form-control" name='nieuweNaamB' id="nieuweNaamB">
+                                        <input type="text" class="form-control" name='nieuweNaamB' id="nieuweNaamB" required>
                                     </div>
                                     <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                     <button type="submit" name='bewerk' class="btn btn-primary">Bewerk</button>
