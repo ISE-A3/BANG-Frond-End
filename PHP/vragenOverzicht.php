@@ -90,7 +90,6 @@ include_once "header.php";
                         <tr>
                             <th>Vraagnaam</th>
                             <th>Titel</th>
-                            <th>Type</th>
                             <th>Thema</th>
                             <th>Aantal vragen</th>
                         </tr>
@@ -99,12 +98,6 @@ include_once "header.php";
                             $v_naam = $v_row["VRAAG_NAAM"];
                             $v_naam_url = urlencode($v_naam);       //urlencode zorgt voor de spaties in vraagnamen
                             $v_titel = $v_row["VRAAG_TITEL"];
-                            if(strcasecmp($v_row['VRAAGSOORT'], 'O') == 0){
-                                $v_type = 'Open';
-                            }
-                            else if(strcasecmp($v_row['VRAAGSOORT'], 'O')){
-                                $v_type = 'Gesloten';
-                            }
                             $v_thema = $v_row["THEMA"];
                             $v_onderdelen = $v_row["Aantal_onderdelen"];
 
@@ -115,8 +108,7 @@ include_once "header.php";
                             else {
                                 echo "<td ><a href = 'vraaggegevens.php?vraag=$v_naam_url' > $v_naam</a ></td >";
                             }
-                            echo "<td>$v_titel</td>
-                            <td>$v_type</td>
+                            echo "<td>$v_titel</td>             
                             <td>$v_thema</td>
                             <td>$v_onderdelen</td>
                         </tr>";

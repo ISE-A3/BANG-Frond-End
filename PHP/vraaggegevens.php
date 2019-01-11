@@ -21,10 +21,10 @@ if (isset($_GET['vraag'])) {
         $vragen[$teller]['punten'] = $v_rows['PUNTEN'];
         $teller++;
     }
-    $vraag_naam = $vragen[1]['naam'];
-    $v_titel = $vragen[1]['titel'];
-    $v_thema = $vragen[1]['thema'];
-    $v_naam_url = urlencode($vragen[1]['titel']);
+    $vraag_naam = $vragen[0]['naam'];
+    $v_titel = $vragen[0]['titel'];
+    $v_thema = $vragen[0]['thema'];
+    $v_naam_url = urlencode($vragen[0]['naam']);
 
 
 } else {
@@ -160,11 +160,11 @@ include_once "header.php";
                 <div class="w3-container">
                     <?php
                     if (!isset($startdatum)) {
-                        echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$v_naam_url'>Voeg vraag toe</a>&nbsp;";
+                        echo "<a class='btn btn-primary btn-lg' href='vraag_aanmaken.php'>Voeg vraag toe</a>&nbsp;";
                     }
 
                     echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$v_naam_url\">Gegevens aanpassen</a>
-                             <a class=\"btn btn-danger btn-lg\" href=\"scripts/evenementVerwijdering.php?evenement=$v_naam_url\">Verwijder vraag</a>
+                             <a class=\"btn btn-danger btn-lg\" href=\"scripts/vraagVerwijdering.php?vraag=$v_naam_url\">Verwijder vraag</a>
                              </div>";
                     }
                     ?>
