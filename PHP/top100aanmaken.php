@@ -97,8 +97,8 @@ include_once "header.php";
                                         <label for="Einddatum">Einddatum</label>
                                         <input type="date" class="form-control" name='Einddatum' id="Einddatum" required>
                                     </div>
-                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>&beheerder=1">Annuleer</a>
                                     <button type="submit" name='aanmaken' class="btn btn-primary">Aanmaken</button>
+                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>&beheerder=1">Annuleer</a>
                                 </form>
                             </div>
                         </section>

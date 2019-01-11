@@ -41,7 +41,7 @@ if (isset($_POST['update'])){
     $adres = $_POST['ADRES'];
     $huisnummer = $_POST['HUISNUMMER'];
     $huisnummer_toevoeging = $_POST["HUISNUMMER_TOEVOEGING"]; 
-    $e_sql = "EXEC usp_Evenement_Update @OLD_EVENEMENT_NAAM = '$e_naam', @NEW_EVENEMENT_NAAM = '$evenementnaam', @EVENEMENT_DATUM = '$datum', @LOCATIENAAM = '$locatie', @PLAATSNAAM = '$plaats', @ADRES = '$adres', @HUISNUMMER = $huisnummer".', @HUISNUMMER_TOEVOEGING = \'' . $_POST['HUISNUMMER_TOEVOEGING'].'\'';
+    $e_sql = "EXEC usp_Evenement_Update @OLD_EVENEMENT_NAAM = '$e_naam', @NEW_EVENEMENT_NAAM = '$evenementnaam', @EVENEMENT_DATUM = '$datum', @LOCATIENAAM = '$locatie', @PLAATSNAAM = '$plaats', @ADRES = '$adres', @HUISNUMMER = '$huisnummer', @HUISNUMMER_TOEVOEGING = '$huisnummer_toevoeging'";
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
 
