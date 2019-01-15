@@ -9,17 +9,7 @@ else {
     $evenementnaam = NULL;
 }
 
-$e_sql = "EXEC dbo.usp_Evenement_Select @EVENEMENT_NAAM = '$evenementnaam'";
-$e_query = $conn->prepare($e_sql);
-$e_query->execute();
-$e_row = $e_query->fetch(PDO::FETCH_ASSOC);
-
-$evenementdatum = $e_row['EVENEMENT_DATUM'];
-$plaatsnaam = $e_row['PLAATSNAAM'];
-$adres = $e_row['ADRES'];
-$huisnummer = $e_row['HUISNUMMER'];
-
-$sqlNummer = "EXECUTE usp_Top100Artiest_SelectTop100 @Evenementnaam = '$evenementnaam', @Evenementdatum = '$evenementdatum', @Plaatsnaam = '$plaatsnaam', @Adres = '$adres', @Huisnummer = $huisnummer ";
+$sqlNummer = "EXECUTE usp_Top100Artiest_SelectTop100 @Evenementnaam = '$evenementnaam'";
 $query = $conn->prepare($sqlNummer);
 $query->execute();
 
