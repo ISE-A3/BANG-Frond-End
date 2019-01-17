@@ -33,7 +33,6 @@ if (isset($_POST['toevoegen'])) {
     header("Location:bepaal_vraagtype.php");
 }
 
-$_SESSION['VRAAGONDERDEELNUMMER'] = 0;
 ?>
 
 <!DOCTYPE html>
