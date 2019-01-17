@@ -11,10 +11,16 @@ if(isset($_POST['bewerk'])) {
         $nieuweNaam = $_POST['nieuweNaam'];
 
         $sqlArtiest = "EXECUTE usp_Artiest_Update @OldArtiest = '$oudeNaam', @newArtiest = '$nieuweNaam'";
-        $query = $conn->prepare($sqlArtiest);
-        $query->execute();
+        $e_query = $conn->prepare($sqlArtiest);
+        $e_query->execute();
 
-        header('location: nummers.php');
+        $error = $e_query->errorCode();
+        if (empty($error) || 00000 == $error){
+            header("Location:nummers.php?result=artiestupdatesuccess");
+        }
+        else{
+            header("Location:nummers.php?result=artiestupdateerror");
+        }
     }
 
 }

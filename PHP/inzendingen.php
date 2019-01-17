@@ -15,8 +15,6 @@ if(isset($_GET['error'])){
 }
 
 else $error = '';
-
-echo $error;
 ?>
 <body>
 <!-- container section start -->
@@ -51,7 +49,6 @@ include_once "sidebar.php";
         <section class="wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header" style="margin-left: 17px;text-align: center;margin-bottom: 0%;">Inzendingen</h3>
                     <!--
                     <ol class="breadcrumb">
                         <li><i class="fa fa-home"></i><a href="index.php">Home</a></li>
@@ -67,21 +64,89 @@ include_once "sidebar.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <p style="width: 68%;padding-left: 315px;"><?php
-                            if(!isset($_GET['error'])) {
-
+                    <p style="padding-left: 5px;"><?php
+                        //inzending 1
+                        if(isset($_GET['result1'])){
+                            if($_GET['result1'] == 'inzending1success'){
+                                echo "<b style='color: green;'>Nummer 1 van de top 5 is succesvol verwerkt. </b>";
                             }
-                        else {
-                            if(empty($_GET['error'])){
-                                echo "<b style='color: green;'>De vorige inzending is succesvol verwerkt</b>";
+                            else if ($_GET['result1'] == 'inzending1sqlerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het verwerken van nummer 1. </b>";
                             }
-                                echo "<b style='color: red;'>$error</b>";
-
-                             }
-                        ?></p>
+                            else if($_GET['result1'] == 'inzending1nummererror'){
+                                echo "<b style='color: red;'>Nummer 1 is niet verwerkt omdat titel niet is ingevuld. </b>";
+                            }
+                            else if ($_GET['result1'] == 'inzending1artiesterror'){
+                                echo "<b style='color: red;'>Nummer 1 is niet verwerkt omdat artiest niet is ingevuld. </b>";
+                            }
+                        }
+                        //inzending 2
+                        if(isset($_GET['result2'])){
+                            if($_GET['result2'] == 'inzending2success'){
+                                echo "<b style='color: green;'>Nummer 2 van de top 5 is succesvol verwerkt. </b>";
+                            }
+                            else if ($_GET['result2'] == 'inzending2sqlerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het verwerken van nummer 2. </b>";
+                            }
+                            else if($_GET['result2'] == 'inzending2nummererror'){
+                                echo "<b style='color: red;'>Nummer 2 is niet verwerkt omdat titel niet is ingevuld. </b>";
+                            }
+                            else if ($_GET['result2'] == 'inzending2artiesterror'){
+                                echo "<b style='color: red;'>Nummer 2 is niet verwerkt omdat artiest niet is ingevuld. </b>";
+                            }
+                        }
+                        //inzending 3
+                        if(isset($_GET['result3'])){
+                            if($_GET['result3'] == 'inzending3success'){
+                                echo "<b style='color: green;'>Nummer 3 van de top 5 is succesvol verwerkt. </b>";
+                            }
+                            else if ($_GET['result3'] == 'inzending3sqlerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het verwerken van nummer 3. </b>";
+                            }
+                            else if($_GET['result3'] == 'inzending3nummererror'){
+                                echo "<b style='color: red;'>Nummer 3 is niet verwerkt omdat titel niet is ingevuld. </b>";
+                            }
+                            else if ($_GET['result3'] == 'inzending3artiesterror'){
+                                echo "<b style='color: red;'>Nummer 3 is niet verwerkt omdat artiest niet is ingevuld. </b>";
+                            }
+                        }
+                        //inzending 4
+                        if(isset($_GET['result4'])){
+                            if($_GET['result4'] == 'inzending4success'){
+                                echo "<b style='color: green;'>Nummer 4 van de top 5 is succesvol verwerkt. </b>";
+                            }
+                            else if ($_GET['result4'] == 'inzending4sqlerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het verwerken van nummer 4. </b>";
+                            }
+                            else if($_GET['result4'] == 'inzending4nummererror'){
+                                echo "<b style='color: red;'>Nummer 4 is niet verwerkt omdat titel niet is ingevuld. </b>";
+                            }
+                            else if ($_GET['result4'] == 'inzending4artiesterror'){
+                                echo "<b style='color: red;'>Nummer 4 is niet verwerkt omdat artiest niet is ingevuld. </b>";
+                            }
+                        }
+                        //inzending 5
+                        if(isset($_GET['result5'])){
+                            if($_GET['result5'] == 'inzending5success'){
+                                echo "<b style='color: green;'>Nummer 5 van de top 5 is succesvol verwerkt. </b>";
+                            }
+                            else if ($_GET['result5'] == 'inzending5sqlerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het verwerken van nummer 5. </b>";
+                            }
+                            else if($_GET['result5'] == 'inzending5nummererror'){
+                                echo "<b style='color: red;'>Nummer 5 is niet verwerkt omdat titel niet is ingevuld. </b>";
+                            }
+                            else if ($_GET['result5'] == 'inzending5artiesterror'){
+                                echo "<b style='color: red;'>Nummer 5 is niet verwerkt omdat artiest niet is ingevuld. </b>";
+                            }
+                        }
+                        ?>
+                    </p>
+                    <h1 style="margin-left: 0px;">Top5 inzendingen</h1>
+                    <p style="margin-left: 5px; width:45%;">Vul hieronder de top 5 in</p>
                     <div class="row">
-                        <div class="col-lg-4" style="position: fixed;margin-left: 310px;">
-                            <section class="panel">
+                        <div class="col-lg-8" >
+                            <section class="panel" >
                                 <header class="panel-heading">
                                     Top 5
                                 </header>
@@ -102,31 +167,31 @@ include_once "sidebar.php";
                                         <div class="form-group">
                                             <label>Top 5</label>
                                             <div class="top5" id="top5" style="display: flex;">
-                                                1.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer1" placeholder="Nummer" style="width: 48%;">
+                                                1.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="titel1" placeholder="Titel" style="width: 48%;">
                                                 <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest1" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="top5" id="top5" style="display: flex;">
-                                                2.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer2" placeholder="Nummer" style="width: 48%;">
+                                                2.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="titel2" placeholder="Titel" style="width: 48%;">
                                                 <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest2" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="top5" id="top5" style="display: flex;">
-                                                3.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer3" placeholder="Nummer" style="width: 48%;">
+                                                3.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="titel3" placeholder="Titel" style="width: 48%;">
                                                 <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest3" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="top5" id="top5" style="display: flex;">
-                                                4.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer4" placeholder="Nummer" style="width: 48%;">
+                                                4.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="titel4" placeholder="Titel" style="width: 48%;">
                                                 <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest4" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="top5" id="top5" style="display: flex;">
-                                                5.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="nummer5" placeholder="Nummer" style="width: 48%;">
+                                                5.&nbsp;<input list="bestaandeTitels" type="text" class="form-control" name="titel5" placeholder="Titel" style="width: 48%;">
                                                 <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest5" placeholder="Artiest" style="width: 48%;margin-left: 4%">
                                             </div>
                                         </div>

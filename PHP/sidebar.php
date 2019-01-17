@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="" href="" style="border-bottom: none;border-right: none;">
+                    <a class="" href="vragenOverzicht.php" style="border-bottom: none;border-right: none;">
                         <i class="icon_question_alt2"></i>
                         <span>Vragen</span>
 
@@ -62,6 +62,12 @@
                     <a class="" href="evenement.php?beheerder=1" style="border-bottom: none;border-right: none;">
                         <i class="icon_calendar"></i>
                         <span>Evenementen</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="vragenOverzicht.php?beheerder=1" style="border-bottom: none;border-right: none;">
+                        <i class="icon_question_alt2"></i>
+                        <span>Vragen</span>
                     </a>
                 </li>
                 <!--

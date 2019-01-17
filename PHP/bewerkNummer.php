@@ -63,9 +63,9 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 325px;">Bewerk nummer</h1>
-                    <p style="margin-left: 327px;">Verander de titel van een nummer via onderstaand formulier</p>
-                    <div class="col-lg-4" style="position: fixed;margin-left: 310px;">
+                    <h1 style="margin-left: 15px;">Bewerk nummer</h1>
+                    <p style="margin-left: 20px;">Verander de titel van een nummer via onderstaand formulier</p>
+                    <div class="col-lg-6" >
                         <section class="panel">
                             <header class="panel-heading">
                                 <b><?php echo $nummer; ?></b>
@@ -74,14 +74,14 @@ include_once "header.php";
                                 <form method="POST" role="form">
                                     <div class="form-group">
                                         <label for="nieuweNaam">Nieuwe titel</label>
-                                        <input type="text" class="form-control" name='nieuweNaam' id="nieuweNaam">
+                                        <input type="text" class="form-control" name='nieuweNaam' id="nieuweNaam" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="nieuweNaamB">Bevestig nieuwe titel</label>
-                                        <input type="text" class="form-control" name='nieuweNaamB' id="nieuweNaamB">
+                                        <input type="text" class="form-control" name='nieuweNaamB' id="nieuweNaamB" required>
                                     </div>
-                                    <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                     <button type="submit" name='bewerk' class="btn btn-primary">Bewerk</button>
+                                    <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                 </form>
                             </div>
                         </section>

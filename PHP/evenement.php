@@ -8,19 +8,6 @@ $e_sql = "EXEC dbo.usp_Evenement_SelectAll";
 $e_query = $conn->prepare($e_sql);
 $e_query->execute();
 
-$message = '';
-
-if(isset($_GET['m'])) {
-   if ($_GET['m'] == "succes") {
-       $message = "<b>Een evenement is succesvol toegevoegd</b>";
-   }
-   if($_GET['m'] == "aangepast"){
-       $message = "<b>Het evenement is succesvol aangepast</b>";
-   }
-   if($_GET['m'] == "deleted"){
-       $message = "<b>Het evenement is succesvol verwijderd</b>";
-   }
-}
 $today = date("Y-m-d");       //voor de open/gesloten inzendingen op evenement.php
 
 ?>
@@ -83,9 +70,26 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
+                    <p style="padding-left: 2px;">
+
+                        <?php
+                            if(isset($_GET['result'])){
+                                if($_GET['result'] == 'evenementaddsuccess'){
+                                    echo "<b style='color: green;'>Een evenement is succesvol toegevoegd</b>";
+                                }
+                                else if ($_GET['result'] == 'evenementadderror'){
+                                    echo "<b style='color: red;'>Er is iets fout gegaan bij het aanmaken van het evenement</b>";
+                                }
+                                else if ($_GET['result'] == 'evenementdeletesuccess'){
+                                    echo "<b style='color: green;'>Het evenement is succesvol verwijderd</b>";
+                                }
+                                else if ($_GET['result'] == 'evenementdeleteerror'){
+                                    echo "<b style='color: red;'>Er is iets fout gegaan bij het verwijderen van het evenement</b>";
+                                }
+                            }
+                        ?></p>
                     <h1><i class="icon_house_alt"></i> Evenementen</h1>
                     <p>Overzicht van alle evenementen</p>
-                    <p><?php if(isset($_GET['m'])){echo $message;}?></p>
                     <table class="table table-striped">
                         <tr>
                             <th>Naam</th>

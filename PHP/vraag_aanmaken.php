@@ -122,7 +122,7 @@ if (isset($_POST['toevoegen'])) {
                                                 <option value="5">5</option>
                                             </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary" name="toevoegen">Ga Door Naar Toevoegen</button>
+                                    <button type="submit" class="btn btn-primary" name="toevoegen">Ga door naar Toevoegen</button>
                                     <a class="btn btn-danger" href="evenement.php">Annuleer</a>
                                 </form>
                             </div>

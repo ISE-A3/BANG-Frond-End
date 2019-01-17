@@ -12,7 +12,13 @@ if (isset($_GET['evenement'])) {
         $e_query = $conn->prepare($top_sql);
         $e_query->execute();
 
-        header("Location:evenementgegevens.php?evenement=" . $evenement);
+        $error = $e_query->errorCode();
+        if (empty($error) || 00000 == $error){
+            header("Location:evenementgegevens.php?evenement=" . $evenement . "&beheerder=1&result=top100addsuccess");
+        }
+        else{
+            header("Location:evenementgegevens.php?evenement=" . $evenement . "&beheerder=1&result=top100adderror");
+        }
     }
 }
 ?>

@@ -81,6 +81,35 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
+                    <p style="padding-left: 2px;"><?php
+                        if(isset($_GET['result'])){
+                            if($_GET['result'] == 'top100addsuccess'){
+                                echo "<b style='color: green;'>Een top100 is succesvol aan het evenement toegevoegd</b>";
+                            }
+                            else if ($_GET['result'] == 'top100adderror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het toevoegen van een top100</b>";
+                            }
+                            else if($_GET['result'] == 'evenementupdatesuccess'){
+                                echo "<b style='color: green;'>De aanpassing aan evenement is succesvol uitgevoerd</b>";
+                            }
+                            else if ($_GET['result'] == 'evenementupdateerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het aanpassen van het evenement</b>";
+                            }
+                            else if($_GET['result'] == 'top100updatesuccess'){
+                                echo "<b style='color: green;'>De aanpassing aan de top100 is succesvol uitgevoerd</b>";
+                            }
+                            else if ($_GET['result'] == 'top100updateerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het aanpassen van de top100</b>";
+                            }
+                            else if($_GET['result'] == 'top100deletesuccess'){
+                                echo "<b style='color: green;'>De top100 is succesvol verwijderd</b>";
+                            }
+                            else if ($_GET['result'] == 'top100deleteerror'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan bij het verwijderen van de top100</b>";
+                            }
+                        }
+                        ?>
+                    </p>
                     <h1>Evenenementgegevens van <?php echo $e_naam ?></h1>
                     <p>Gegevens van <?php echo $e_naam?></p>
                     <table class="table table-striped">
@@ -144,8 +173,13 @@ include_once "header.php";
                         echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>&nbsp;";
                     }
 
+                    if (isset($startdatum)) {
+                        echo "<a class='btn btn-warning btn-lg' href='top100Aanpassen.php?evenement=$e_naam_url'>Top 100 aanpassen</a>&nbsp;";
+                        echo "<a class='btn btn-danger btn-lg' href='scripts/top100Verwijdering.php?evenement=$e_naam_url'>Top 100 verwijderen</a>&nbsp;";
+                    }
+
                     echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$e_naam_url\">Evenement aanpassen</a>
-                             <a class=\"btn btn-danger btn-lg\" href=\"scripts/evenementVerwijdering.php?evenement=$e_naam_url\">Verwijder evenement</a>
+                             <a class=\"btn btn-danger btn-lg\" href=\"scripts/evenementVerwijdering.php?evenement=$e_naam_url\">Evenement verwijderen</a>
                              </div>";
                     }
                     ?>

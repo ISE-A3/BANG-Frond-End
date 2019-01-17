@@ -1,38 +1,11 @@
 <?php
-require_once "scripts/top100AanEvenement.php";
-
-if (isset($_GET['evenement'])) {
-    $evenement = $_GET['evenement'];
-    $e_sql = "EXEC dbo.usp_Evenement_Select @EVENEMENT_NAAM = '$evenement'";
-    $e_query = $conn->prepare($e_sql);
-    $e_query->execute();
-    $e_row = $e_query->fetch(PDO::FETCH_ASSOC);
-    $e_naam = $e_row["EVENEMENT_NAAM"];
-    $e_datum = $e_row["EVENEMENT_DATUM"];
-    $e_locatie = $e_row["LOCATIENAAM"];
-    $e_plaats = $e_row["PLAATSNAAM"];
-    $e_adres = $e_row["ADRES"] . " " .  $e_row["HUISNUMMER"];
-    $startdatum = $e_row["STARTDATUM"];
-    $einddatum = $e_row["EINDDATUM"];
-} else {
-    $e_naam = NULL;
-    $e_datum = NULL;
-    $e_locatie = NULL;
-    $e_plaats = NULL;
-    $e_adres = NULL;
-    $startdatum = NULL;
-    $einddatum = NULL;
-}
-
+require_once "scripts/nieuwNummerToevoegen.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php
-//$today = date("Y-m-d");       voor de open/gesloten inzendingen op evenement.php
-//echo $today;
-
-$titel = 'Top 100 Toevoegen';
+$titel = 'Voeg een nieuw nummer toe.';
 include_once "header.php";
 ?>
 
@@ -79,26 +52,43 @@ include_once "header.php";
 
             <div id="main">
                 <div class="w3-container">
-                    <h1 style="margin-left: 12px;">Top 100</h1>
-                    <p style="margin-left: 16px;">Toevoegen van een Top100 aan het evenement '<?php echo $e_naam;?>'</p>
-                    <div class="col-lg-6">
+                    <p style="padding-left: 17px;"><?php
+                        if(isset($_GET['result'])){
+                            if($_GET['result'] == 'success'){
+                                echo "<b style='color: green;'>Het nummer is succesvol verwerkt</b>";
+                            }
+                            else if ($_GET['result'] == 'error'){
+                                echo "<b style='color: red;'>Er is iets fout gegaan</b>";
+                            }
+                        }
+                        ?></p>
+                    <h1 style="margin-left: 17px;">Nieuw nummer</h1>
+                    <div class="col-lg-8">
                         <section class="panel">
                             <header class="panel-heading">
-                                Top100 aanmaken
+                                <p>Voeg een nieuw nummer toe via onderstaand formulier</p>
                             </header>
                             <div class="panel-body">
-                                <p>Het evenement word gehouden op: <?php echo $e_datum?></p>
-                                <form method="POST" action="top100aanmaken.php?evenement=<?php echo $e_naam?>" role="form">
+                                <form method="POST" role="form">
                                     <div class="form-group">
-                                        <label for="Startdatum">Startdatum</label>
-                                        <input type="date" class="form-control" name='Startdatum' id="Startdatum" required>
+                                        <div  style="display: flex;">
+                                            <input type="text" class="form-control" name="titel" placeholder="Titel" style="width: 48%;" required>
+                                            <input list="bestaandeArtiesten" type="text" class="form-control" name="artiest" placeholder="Artiest" style="width: 48%;margin-left: 4%" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="Einddatum">Einddatum</label>
-                                        <input type="date" class="form-control" name='Einddatum' id="Einddatum" required>
-                                    </div>
-                                    <button type="submit" name='aanmaken' class="btn btn-primary">Aanmaken</button>
-                                    <a class="btn btn-danger" href="evenementgegevens.php?evenement=<?php echo $e_naam?>&beheerder=1">Annuleer</a>
+                                    <datalist id="bestaandeArtiesten">
+                                        <?php
+                                        $e_sql = "EXEC dbo.usp_Artiest_SelectAll";
+                                        $e_query = $conn->prepare($e_sql);
+                                        $e_query->execute();
+                                        while($e_row = $e_query->fetch(PDO::FETCH_ASSOC)){
+                                            $artiest = $e_row['ARTIEST_NAAM'];
+                                            echo "<option value='$artiest'>$artiest</option>";
+                                        }
+                                        ?>
+                                    </datalist>
+                                    <button type="submit" name='voegtoe' class="btn btn-primary">Voeg toe</button>
+                                    <a class="btn btn-danger" href="nummers.php">Annuleer</a>
                                 </form>
                             </div>
                         </section>
@@ -115,7 +105,6 @@ include_once "header.php";
         </div>
     </div>
 </section>
-
 </body>
 
 </html>

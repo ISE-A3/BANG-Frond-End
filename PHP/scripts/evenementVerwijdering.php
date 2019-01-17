@@ -8,5 +8,11 @@ if (isset($_GET['evenement'])){
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
 
-    header('location: ../evenement.php?m=deleted');
+    $error = $e_query->errorCode();
+    if (empty($error) || 00000 == $error){
+        header("Location: ../evenement.php?beheerder=1&result=evenementdeletesuccess");
+    }
+    else {
+        header("Location: ../evenement.php?beheerder=1&result=evenementdeleteerror");
+    }
 }

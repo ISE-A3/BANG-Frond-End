@@ -10,7 +10,13 @@ if (isset($_POST['E_NAAM'])) {
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
 
-    header("Location:evenement.php?m=succes");
+    $error = $e_query->errorCode();
+    if (empty($error) || 00000 == $error){
+        header("Location:evenement.php?beheerder=1&result=evenementaddsuccess");
+    }
+    else {
+        header("Location:evenement.php?beheerder=1&result=evenementadderror");
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -76,11 +82,11 @@ include_once "header.php";
                                 <form method="POST" action="" role="form">
                                     <div class="form-group">
                                         <label for="E_NAAM">Evenementnaam</label>
-                                        <input type="text" class="form-control" id="E_NAAM" name="E_NAAM">
+                                        <input type="text" class="form-control" id="E_NAAM" name="E_NAAM" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="E_DATUM">Evenementdatum</label>
-                                        <input type="date" class="form-control" id="E_DATUM_" name="E_DATUM">
+                                        <input type="date" class="form-control" id="E_DATUM_" name="E_DATUM" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="LOCATIENAAM">Locatie</label>
@@ -88,22 +94,22 @@ include_once "header.php";
                                     </div>
                                     <div class="form-group">
                                         <label for="PLAATSNAAM">Plaats</label>
-                                        <input type="text" class="form-control" id="PLAATSNAAM" name="PLAATSNAAM">
+                                        <input type="text" class="form-control" id="PLAATSNAAM" name="PLAATSNAAM" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="ADRES">Adres</label>
-                                        <input type="text" class="form-control" id="ADRES" name="ADRES">
+                                        <input type="text" class="form-control" id="ADRES" name="ADRES" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="HUISNUMMER">Huisnummer</label>
-                                        <input type="number" class="form-control" id="HUISNUMMER" name="HUISNUMMER">
+                                        <input type="number" class="form-control" id="HUISNUMMER" name="HUISNUMMER" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="HUISNUMMER_TOEVOEGING">Huisnummer toevoeging</label>
                                         <input type="text" class="form-control" id="HUISNUMMER_TOEVOEGING" name="HUISNUMMER_TOEVOEGING">
                                     </div>
                                     <button type="submit" class="btn btn-primary">Aanmaken</button>
-                                    <a class="btn btn-danger" href="evenement.php">Annuleer</a>
+                                    <a class="btn btn-danger" href="evenement.php?beheerder=1">Annuleer</a>
                                 </form>
 
                             </div>
