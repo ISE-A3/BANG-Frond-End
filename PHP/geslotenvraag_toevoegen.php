@@ -33,14 +33,13 @@ try {
         }
 
         $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @ANTWOORD = \'' . $_POST['ANTWOORDOPTIE' . $huidige_antwoordoptie . ''] . '\', @PUNTEN = \'' . $punten . '\'';
-        echo $e_sql;
-        $e_query = $conn->prepare($e_sql);
-        $e_query->execute();
+        echo $e_sql2;
+        $e_query2 = $conn->prepare($e_sql2);
+        $e_query2->execute();
         $huidige_antwoordoptie++;
-
-        $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
-        header("Location:bepaal_vraagtype.php");
     }
+    $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
+    header("Location:bepaal_vraagtype.php");
 }
 ?>
 <!DOCTYPE html>

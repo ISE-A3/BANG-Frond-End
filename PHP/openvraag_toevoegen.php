@@ -19,9 +19,9 @@ if (isset($_POST['openvraag_toevoegen'])) {
     $e_query->execute();
 
     $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @ANTWOORD = \'' . $_POST['ANTWOORD'] . '\', @PUNTEN = \'' . $_POST['AANTALPUNTEN'] . '\'';
-    echo $e_sql;
-    $e_query = $conn->prepare($e_sql);
-    $e_query->execute();
+    echo $e_sql2;
+    $e_query2 = $conn->prepare($e_sql2);
+    $e_query2->execute();
 
     $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
     header("Location:bepaal_vraagtype.php");
