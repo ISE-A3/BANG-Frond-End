@@ -106,11 +106,11 @@ if (isset($_POST['openvraag_toevoegen'])) {
                                 <div class="form-group">
                                     <label for="inputSuccess">Aantal Vraagopties</label>
                                     <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
-                                        <option>Ik wil een open vraag toevoegen</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                        <option value="OPEN">Ik wil een open vraag toevoegen</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary" name="openvraag_toevoegen">Nog Een Vraag Toevoegen</button>
