@@ -3,18 +3,13 @@
 $titel = 'Toevoegen Open Vraag';
 include_once "header.php";
 $vraagnaam = $_SESSION['VRAAGNAAM'];
-$sql = "SELECT COUNT(*) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAG_NAAM = '$vraagnaam'";
-if ($res = $conn->query($sql)) {
-    if ($res->fetchColumn() > 0) {
-        $select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL GROUP BY VRAAGONDERDEELNUMMER, VRAAG_ID HAVING VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
-        $data = $conn->query($select);
-        $array = $data->fetch();
-        $maxvraagonderdeelnummer = $array['0'];
-        $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
-    }
-} else {
-    $vraagonderdeelnummer = 1;
-}
+$select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAGONDERDEEL.VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
+$data = $conn->query($select);
+$array = $data->fetch();
+print_r($array);
+$maxvraagonderdeelnummer = $array[0];
+$vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
+echo $vraagonderdeelnummer;
 
 if (isset($_POST['openvraag_toevoegen'])) {
 
