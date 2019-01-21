@@ -12,12 +12,12 @@ $maxvraagonderdeelnummer = $array[0];
 $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
 echo $vraagonderdeelnummer;
 
-if (isset($_POST['geslotenvraag_toevoegen'])) {
-try {
+if (isset($_POST['geslotenvraag_toevoegen']) || isset($_POST['geslotenvraag_afronden'])) {
+    try {
     $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
-} catch(Exception $e) {
+    } catch(Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
 
@@ -39,8 +39,14 @@ try {
         $huidige_antwoordoptie++;
     }
     $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
-    header("Location:bepaal_vraagtype.php");
+    if (isset($_POST['geslotenvraag_afronden'])) {
+        header('Location:vragenOverzicht.php');
+    } else {
+        header("Location:bepaal_vraagtype.php");
+    }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -138,7 +144,7 @@ try {
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary" name="geslotenvraag_toevoegen">Nog Een Vraag Toevoegen</button>
-                                    <a class="btn btn-danger" href="evenement.php">Aanmaken Afronden</a>
+                                    <button type="submit" class="btn btn-danger" name="geslotenvraag_afronden">Aanmaken Afronden</button>
                                 </form>
                             </div>
                         </section>

@@ -11,7 +11,7 @@ $maxvraagonderdeelnummer = $array[0];
 $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
 echo $vraagonderdeelnummer;
 
-if (isset($_POST['openvraag_toevoegen'])) {
+if (isset($_POST['openvraag_toevoegen']) || isset($_POST['openvraag_afronden'])) {
 
     $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     echo $e_sql;
@@ -24,7 +24,11 @@ if (isset($_POST['openvraag_toevoegen'])) {
     $e_query2->execute();
 
     $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
-    header("Location:bepaal_vraagtype.php");
+    if (isset($_POST['openvraag_afronden'])) {
+        header('Location:vragenOverzicht.php');
+    } else {
+        header("Location:bepaal_vraagtype.php");
+    }
 }
 
 ?>
@@ -114,7 +118,7 @@ if (isset($_POST['openvraag_toevoegen'])) {
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary" name="openvraag_toevoegen">Nog Een Vraag Toevoegen</button>
-                                <a class="btn btn-danger" href="evenement.php">Aanmaken Afronden</a>
+                                <button type="submit" class="btn btn-danger" name="openvraag_afronden">Aanmaken Afronden</button>
                                 </form>
                             </div>
                         </section>
