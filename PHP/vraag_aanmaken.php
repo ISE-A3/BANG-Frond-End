@@ -30,51 +30,28 @@ if (isset($_POST['toevoegen'])) {
     $e_query2 = $conn->prepare($e_sql2);
     $e_query2->execute();
 
-    if(empty($_POST['MEDIA'])) {
-        $media = "";
+    $target_dir = "media/";
+    $target_file = $target_dir . basename($_FILES["MEDIA"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
     }
-    else {
-        $media =$_POST['MEDIA'];
-
-        $target_dir = "media/";
-        $target_file = $target_dir . basename($_FILES["MEDIA"]["name"]);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        $_SESSION['BESTAND'] = $imageFileType;
-        $_SESSION['FILES'] = $target_file;
-
-        if(file_exists($target_file)) {
-            $check = getimagesize($_FILES["MEDIA"]["tmp_name"]);
-            $uploadOk = 1;
-        }
-        else {
-                echo "File is not an image.";
-                $uploadOk = 0;
-                $_SESSION['FOUT'] = "File is not an image.";
-        }
-
-        if (file_exists($target_file)) {
-            echo "Sorry, file already exists.";
-            $uploadOk = 0;
-            $_SESSION['FOUT'] = "The file " . basename($_FILES["MEDIA"]["name"]) . 'Sorry, file already exists.';
-        }
-
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-            && $imageFileType != "gif" ) {
-            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            $uploadOk = 0;
-            $_SESSION['FOUT'] = "The file " . basename($_FILES["MEDIA"]["name"]) . 'Sorry, only JPG, JPEG, PNG & GIF files are allowed.';
-        }
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-            echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";// if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["MEDIA"]["tmp_name"], $target_file)) {
+            echo "The file " . basename($_FILES["MEDIA"]["name"]) . " has been uploaded.";
         } else {
-            if (move_uploaded_file($_FILES["MEDIA"]["tmp_name"], $target_file)) {
-                echo "The file " . basename($_FILES["MEDIA"]["name"]) . " has been uploaded.";
-            } else {
-                echo "Sorry, there was an error uploading your file.";
-            }
+            echo "Sorry, there was an error uploading your file.";
         }
     }
 
