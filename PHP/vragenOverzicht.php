@@ -117,10 +117,12 @@ include_once "header.php";
                     </table>
                 </div>
                 <?php if(isset($_GET['beheerder'])) {
-                    echo "
+                        if($_SESSION['gebruiker'] == 'bang_quizmaker' || $_SESSION['gebruiker'] == 'bang_beheerder') {
+                            echo "
                 <div class=\"w3-container\">
                     <a class=\"btn btn-primary btn-lg\" href=\"vraag_aanmaken.php\">Voeg vraag toe</a>
                 </div>";
+                        }
                 }?>
             </div>
             <!-- page end-->
