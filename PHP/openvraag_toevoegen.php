@@ -6,11 +6,9 @@ $vraagnaam = $_SESSION['VRAAGNAAM'];
 $select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAGONDERDEEL.VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
 $data = $conn->query($select);
 $array = $data->fetch();
-print_r($array);
 $maxvraagonderdeelnummer = $array[0];
 $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
-echo $vraagonderdeelnummer . "<br>";
-print_r($_SESSION);
+
 
 if (isset($_POST['openvraag_toevoegen']) || isset($_POST['openvraag_afronden'])) {
 
