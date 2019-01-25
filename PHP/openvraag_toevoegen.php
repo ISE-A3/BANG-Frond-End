@@ -9,7 +9,8 @@ $array = $data->fetch();
 print_r($array);
 $maxvraagonderdeelnummer = $array[0];
 $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
-echo $vraagonderdeelnummer;
+echo $vraagonderdeelnummer . "<br>";
+print_r($_SESSION);
 
 if (isset($_POST['openvraag_toevoegen']) || isset($_POST['openvraag_afronden'])) {
 

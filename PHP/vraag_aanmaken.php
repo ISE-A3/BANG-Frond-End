@@ -30,6 +30,31 @@ if (isset($_POST['toevoegen'])) {
     $e_query2 = $conn->prepare($e_sql2);
     $e_query2->execute();
 
+    $target_dir = "media/";
+    $target_file = $target_dir . basename($_FILES["MEDIA"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";// if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["MEDIA"]["tmp_name"], $target_file)) {
+            echo "The file " . basename($_FILES["MEDIA"]["name"]) . " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+
     header("Location:bepaal_vraagtype.php");
 }
 
@@ -89,7 +114,7 @@ if (isset($_POST['toevoegen'])) {
                                 Vraagnaam
                             </header>
                             <div class="panel-body">
-                                <form method="POST" action="" role="form">
+                                <form method="POST" action="" role="form" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="VRAAGNAAM">Vraagnaam*</label>
                                         <input type="text" class="form-control" id="VRAAGNAAM" name="VRAAGNAAM" required>
@@ -101,6 +126,10 @@ if (isset($_POST['toevoegen'])) {
                                     <div class="form-group">
                                         <label for="VRAAGTHEMA">Vraagthema</label>
                                         <input type="text" class="form-control" id="VRAAGTHEMA" name="VRAAGTHEMA">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="MEDIA">Media</label>
+                                        <input type="file" class="form-control" id="MEDIA" name="MEDIA">
                                     </div>
                                     <p>*Dit veld is verplicht</p>
                             </div>
@@ -143,4 +172,3 @@ if (isset($_POST['toevoegen'])) {
 </body>
 
 </html>
-
