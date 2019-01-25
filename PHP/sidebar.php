@@ -52,22 +52,35 @@
                     </a>
                 </li>
                 <br>
+                <?php if($_SESSION['gebruiker'] == 'bang_organisator' || $_SESSION['gebruiker'] == 'bang_beheerder' || $_SESSION['gebruiker'] == 'bang_quizmaster') {
+                ?>
                 <li>
                     <a class="" href="evenement.php?beheerder=1" style="border-bottom: none;border-right: none;">
                         <span style="font-size: 25px;">Beheer</span>
                         <span class="menu-arrow arrow_carrot-down"></span>
                     </a>
                 </li>
+                    <?php if($_SESSION['gebruiker'] == 'bang_organisator' || $_SESSION['gebruiker'] == 'bang_beheerder'){ ?>
                 <li>
                     <a class="" href="evenement.php?beheerder=1" style="border-bottom: none;border-right: none;">
                         <i class="icon_calendar"></i>
                         <span>Evenementen</span>
                     </a>
                 </li>
+                        <?php } if($_SESSION['gebruiker'] == 'bang_beheerder' || $_SESSION['gebruiker'] == 'bang_quizmaster'){ ?>
                 <li>
                     <a class="" href="vragenOverzicht.php?beheerder=1" style="border-bottom: none;border-right: none;">
                         <i class="icon_question_alt2"></i>
                         <span>Vragen</span>
+                    </a>
+                </li>
+                <br>
+                <?php } } ?>
+                <p style="color: #d0d8df;margin-left: 10px;">Ingelogd als: <?php echo $_SESSION['gebruiker']; ?></p>
+                <li>
+                    <a class="" href="scripts/uitloggen.php" style="border-bottom: none;border-right: none;">
+                        <i class="icon_close_alt2"></i>
+                        <span>Uitloggen</span>
                     </a>
                 </li>
                 <!--

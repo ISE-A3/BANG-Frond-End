@@ -155,7 +155,8 @@ include_once "header.php";
                         </tbody>
                     </table>
                 </div>
-                <?php if(isset($_GET['beheerder'])){ ?>
+                <?php if(isset($_GET['beheerder'])){
+                if ($_SESSION['gebruiker'] == 'bang_quizmaker' || $_SESSION['gebruiker'] == 'bang_beheerder') { ?>
                 <div class="w3-container">
                     <?php
                     if (!isset($startdatum)) {
@@ -165,6 +166,7 @@ include_once "header.php";
                     echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$v_naam_url\">Gegevens aanpassen</a>
                              <a class=\"btn btn-danger btn-lg\" href=\"scripts/vraagVerwijdering.php?vraag=$v_naam_url\">Verwijder vraag</a>
                              </div>";
+                        }
                     }
                     ?>
                 </div>
