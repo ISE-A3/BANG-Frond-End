@@ -9,7 +9,7 @@
 session_start();
 echo $_SESSION['AANTALANTWOORDOPTIES'];
 
-if($_SESSION['AANTALANTWOORDOPTIES'] == 'Ik wil een open vraag toevoegen') {
+if($_SESSION['AANTALANTWOORDOPTIES'] == 'OPEN') {
     $_SESSION['VRAAGSOORT'] = 'O';
     header('Location: openvraag_toevoegen.php');
 }

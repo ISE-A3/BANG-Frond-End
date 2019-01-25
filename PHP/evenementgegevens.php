@@ -161,26 +161,27 @@ include_once "header.php";
                         </tbody>
                     </table>
                 </div>
-            <?php if(isset($_GET['beheerder'])){ ?>
                 <div class="w3-container">
-                    <?php
-                    if(!isset($e_pubquiz)){
-                        echo "<a class=\"btn btn-primary btn-lg\" href=\"pubquizaanmaken.php?evenement=$e_naam_url\">Voeg
-                        Pubquiz toe</a>&nbsp;";
-                    }
+                    <?php if(isset($_GET['beheerder'])){
+                            if($_SESSION['gebruiker'] == 'bang_organisator' || $_SESSION['gebruiker'] == 'bang_beheerder') {
+                                if (!isset($e_pubquiz)) {
+                                    echo "<a class=\"btn btn-primary btn-lg\" href=\"pubquizaanmaken.php?evenement=$e_naam_url\">Voeg
+                                    Pubquiz toe</a>&nbsp;";
+                                }
 
-                    if (!isset($startdatum)) {
-                        echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>&nbsp;";
-                    }
+                                if (!isset($startdatum)) {
+                                    echo "<a class='btn btn-primary btn-lg' href='top100aanmaken.php?evenement=$e_naam_url'>Voeg Top 100 toe</a>&nbsp;";
+                                }
 
-                    if (isset($startdatum)) {
-                        echo "<a class='btn btn-warning btn-lg' href='top100Aanpassen.php?evenement=$e_naam_url'>Top 100 aanpassen</a>&nbsp;";
-                        echo "<a class='btn btn-danger btn-lg' href='scripts/top100Verwijdering.php?evenement=$e_naam_url'>Top 100 verwijderen</a>&nbsp;";
-                    }
+                                if (isset($startdatum)) {
+                                    echo "<a class='btn btn-warning btn-lg' href='top100Aanpassen.php?evenement=$e_naam_url'>Top 100 aanpassen</a>&nbsp;";
+                                    echo "<a class='btn btn-danger btn-lg' href='scripts/top100Verwijdering.php?evenement=$e_naam_url'>Top 100 verwijderen</a>&nbsp;";
+                                }
 
-                    echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$e_naam_url\">Evenement aanpassen</a>
-                             <a class=\"btn btn-danger btn-lg\" href=\"scripts/evenementVerwijdering.php?evenement=$e_naam_url\">Evenement verwijderen</a>
-                             </div>";
+                                echo "<a class=\"btn btn-warning btn-lg\" href=\"evenementAanpassen.php?evenement=$e_naam_url\">Evenement aanpassen</a>
+                                         <a class=\"btn btn-danger btn-lg\" href=\"scripts/evenementVerwijdering.php?evenement=$e_naam_url\">Evenement verwijderen</a>
+                                         </div>";
+                            }
                     }
                     ?>
             </div>

@@ -86,11 +86,13 @@ include_once "header.php";
                         ?>
                     </p>
                     <h1>Nummers</h1>
+                    <?php if($_SESSION['gebruiker'] == 'bang_top100medewerker' || $_SESSION['gebruiker'] == 'bang_beheerder') {?>
                     <div class="row">
                         <div class="col text-right" >
                             <a class="btn btn-primary btn-lg" href="nieuwNummer.php">Voeg nummer toe</a>
                         </div>
                     </div>
+                    <?php } ?>
                     <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
@@ -98,14 +100,14 @@ include_once "header.php";
                                     <tbody>
                                     <tr>
                                         <th><i class="icon_profile"></i> Artiest</th>
-                                        <th><i class="icon_toolbox" style="padding-left: 12px;font-size: 15px;"></i></th>
+                                        <?php if($_SESSION['gebruiker'] == 'bang_top100medewerker' || $_SESSION['gebruiker'] == 'bang_beheerder') {?>
+                                        <th><i class="icon_toolbox" style="padding-left: 12px;font-size: 15px;"></i></th> <?php }?>
                                         <th><i class="icon_music"></i> Titel</th>
-                                        <th><i class="icon_toolbox" style="padding-left: 16%;font-size: 17px;"></i></th>
+                                        <?php if($_SESSION['gebruiker'] == 'bang_top100medewerker' || $_SESSION['gebruiker'] == 'bang_beheerder') { ?>
+                                        <th><i class="icon_toolbox" style="padding-left: 16%;font-size: 17px;"></i></th> <?php } ?>
                                     </tr>
 
                                     <?php
-
-                                    include ("scripts/connect.php");
 
                                     $e_sql = "EXEC dbo.usp_Nummer_SelectAll";
                                     $e_query = $conn->prepare($e_sql);
@@ -119,17 +121,19 @@ include_once "header.php";
                                             $titel = urlencode($e_titel);
                                             echo"
                                                 <tr>     
-                                                    <td>$e_artiest</td>
-                                                    <td>
+                                                    <td>$e_artiest</td> ";
+                                    if($_SESSION['gebruiker'] == 'bang_top100medewerker' || $_SESSION['gebruiker'] == 'bang_beheerder'){
+                                                    echo "<td>
                                                            <div class=\"btn-group\">
                                                                 <a class=\"btn btn-primary\" href=\"bewerkArtiest.php?artiest=$artiest\" data-toggle=\"tooltip\" title=\"Bewerk artiest\">
                                                                     <i class=\"icon_cogs\"></i>
                                                                     <i class=\"icon_profile\"></i>
                                                                 </a>
                                                             </div>
-                                                    </td>
-                                                    <td>$e_titel</td>
-                                                    <td>
+                                                    </td>"; }
+                                                    echo "<td>$e_titel</td>";
+                                     if($_SESSION['gebruiker'] == 'bang_top100medewerker' || $_SESSION['gebruiker'] == 'bang_beheerder') {
+                                                  echo "<td>
                                                         <div class=\"btn-group\">
                                                             <a class=\"btn btn-primary\" href=\"vervangArtiest.php?titel=$titel&artiest=$artiest\" data-toggle=\"tooltip\" title=\"Vervang artiest\">
                                                                 <i class=\"fa fa-wrench\"></i>
@@ -143,7 +147,9 @@ include_once "header.php";
                                                                 <i class=\"icon_close_alt2\"></i>
                                                             </a>
                                                         </div>
-                                                    </td>
+                                                    </td>";
+                                                    }
+                                                    echo "
                                                 </tr>
                                             ";
                                         }

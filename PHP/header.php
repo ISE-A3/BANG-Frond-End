@@ -1,7 +1,6 @@
 <?php
 
 require_once "scripts/connect.php";
-session_start();
 
 ?>
 

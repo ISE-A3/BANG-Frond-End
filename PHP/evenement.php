@@ -1,15 +1,5 @@
 <?php
 
-require_once "scripts/connect.php";
-
-
-$e_sql = "EXEC dbo.usp_Evenement_SelectAll";
-
-$e_query = $conn->prepare($e_sql);
-$e_query->execute();
-
-$today = date("Y-m-d");       //voor de open/gesloten inzendingen op evenement.php
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +7,13 @@ $today = date("Y-m-d");       //voor de open/gesloten inzendingen op evenement.p
 <?php
 $titel = 'Evenementen';
 include_once "header.php";
+$e_sql = "EXEC dbo.usp_Evenement_SelectAll";
+
+$e_query = $conn->prepare($e_sql);
+$e_query->execute();
+
+$today = date("Y-m-d");
+
 ?>
 
 <body>
@@ -97,8 +94,10 @@ include_once "header.php";
                             <th>Locatie</th>
                             <th>Startdatum</th>
                             <th>Einddatum</th>
+                            <?php if($_SESSION['gebruiker'] == 'bang_top100medewerker' || $_SESSION['gebruiker'] == 'bang_beheerder' || $_SESSION['gebruiker'] == 'bang_stemmer'){ ?>
                             <th>Inzendingen</th>
-                            <th>Top 100 downloads</th>
+                            <?php } if($_SESSION['gebruiker'] == 'bang_top100medewerker' || $_SESSION['gebruiker'] == 'bang_beheerder'){ ?>
+                            <th>Top 100 downloads</th> <?php } ?>
                         </tr>
                         <?php
                         while ($e_row = $e_query->fetch(PDO::FETCH_ASSOC)) {
@@ -120,33 +119,35 @@ include_once "header.php";
                             <td>$e_locatie</td>
                             <td>$startdatum</td>
                             <td>$einddatum</td>";
+                         if($_SESSION['gebruiker'] == 'bang_top100medewerker' || $_SESSION['gebruiker'] == 'bang_beheerder' || $_SESSION['gebruiker'] == 'bang_stemmer' || $_SESSION['gebruiker'] == 'bang_organisator'){
                             if(empty($startdatum) && empty($einddatum)){
                                 echo "<td></td>
                                       <td></td>";
                             }
                             else {
-                             if($today > $einddatum){
-                                echo "<td><a href='evenementgegevens.php?evenement=$e_naam_url'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
-                             }
-                             else if(($today < $einddatum) && ($today > $startdatum)) {
-                                 echo "<td><a href='inzendingen.php?evenement=$e_naam_url'<b style='color:green;'>Open</b><i class=\"icon_pencil-edit\"></i></td>";
-                             }
-                             else {
-                                echo "<td><a href='evenementgegevens.php?evenement=$e_naam_url'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
-                            }
-                             echo "<td><a href='poc_downloadtop100v2.php?evenement=$e_naam_url' style='color: #005cbf'>Nummer<i class='icon_download'></i></a>&nbsp;&nbsp;&nbsp;<a href='downloadtop100_artiest.php?evenement=$e_naam_url' style='color: #005cbf'>Artiest<i class='icon_download'></i></a></td>
+                                if ($today > $einddatum) {
+                                    echo "<td><a href='evenementgegevens.php?evenement=$e_naam_url'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
+                                } else if (($today < $einddatum) && ($today > $startdatum)) {
+                                    echo "<td><a href='inzendingen.php?evenement=$e_naam_url'<b style='color:green;'>Open</b><i class=\"icon_pencil-edit\"></i></td>";
+                                } else {
+                                    echo "<td><a href='evenementgegevens.php?evenement=$e_naam_url'<b style='color: #cd0a0a'>Gesloten</b><i class=\"icon_pencil-edit\"></i></td>";
+                                }
+                                echo "<td><a href='poc_downloadtop100v2.php?evenement=$e_naam_url' style='color: #005cbf'>Nummer<i class='icon_download'></i></a>&nbsp;&nbsp;&nbsp;<a href='downloadtop100_artiest.php?evenement=$e_naam_url' style='color: #005cbf'>Artiest<i class='icon_download'></i></a></td>
                         </tr>";
                             }
+                        }
                         }
                         ?>
 
                     </table>
                 </div>
                 <?php if(isset($_GET['beheerder'])) {
+                if($_SESSION['gebruiker'] == 'bang_organisator' || $_SESSION['gebruiker'] == 'bang_beheerder') {
                     echo "
                 <div class=\"w3-container\">
                     <a class=\"btn btn-primary btn-lg\" href=\"evenementAanmaken.php\">Voeg evenement toe</a>
                 </div>";
+                }
                 }?>
             </div>
             <!-- page end-->

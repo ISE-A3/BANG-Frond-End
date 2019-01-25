@@ -3,20 +3,16 @@
 $titel = 'Toevoegen Open Vraag';
 include_once "header.php";
 $vraagnaam = $_SESSION['VRAAGNAAM'];
-$sql = "SELECT COUNT(*) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAG_NAAM = '$vraagnaam'";
-if ($res = $conn->query($sql)) {
-    if ($res->fetchColumn() > 0) {
-        $select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL GROUP BY VRAAGONDERDEELNUMMER, VRAAG_ID HAVING VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
-        $data = $conn->query($select);
-        $array = $data->fetch();
-        $maxvraagonderdeelnummer = $array['0'];
-        $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
-    }
-} else {
-    $vraagonderdeelnummer = 1;
-}
+$select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAGONDERDEEL.VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
+$data = $conn->query($select);
+$array = $data->fetch();
+print_r($array);
+$maxvraagonderdeelnummer = $array[0];
+$vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
+echo $vraagonderdeelnummer . "<br>";
+print_r($_SESSION);
 
-if (isset($_POST['openvraag_toevoegen'])) {
+if (isset($_POST['openvraag_toevoegen']) || isset($_POST['openvraag_afronden'])) {
 
     $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     echo $e_sql;
@@ -24,12 +20,16 @@ if (isset($_POST['openvraag_toevoegen'])) {
     $e_query->execute();
 
     $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @ANTWOORD = \'' . $_POST['ANTWOORD'] . '\', @PUNTEN = \'' . $_POST['AANTALPUNTEN'] . '\'';
-    echo $e_sql;
-    $e_query = $conn->prepare($e_sql);
-    $e_query->execute();
+    echo $e_sql2;
+    $e_query2 = $conn->prepare($e_sql2);
+    $e_query2->execute();
 
     $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
-    header("Location:bepaal_vraagtype.php");
+    if (isset($_POST['openvraag_afronden'])) {
+        header('Location:vragenOverzicht.php');
+    } else {
+        header("Location:bepaal_vraagtype.php");
+    }
 }
 
 ?>
@@ -111,16 +111,15 @@ if (isset($_POST['openvraag_toevoegen'])) {
                                 <div class="form-group">
                                     <label for="inputSuccess">Aantal Vraagopties</label>
                                     <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
-                                        <option>Ik wil een open vraag toevoegen</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                        <option value="OPEN">Ik wil een open vraag toevoegen</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
                                     </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary" name="openvraag_toevoegen">Nog Een Vraag Toevoegen</button>
-                                <a class="btn btn-danger" href="evenement.php">Aanmaken Afronden</a>
+                                <button type="submit" class="btn btn-danger" name="openvraag_afronden">Aanmaken Afronden</button>
                                 </form>
                             </div>
                         </section>

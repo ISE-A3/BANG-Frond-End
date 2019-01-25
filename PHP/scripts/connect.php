@@ -1,14 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: diego
- * Date: 11-12-2018
- * Time: 15:14
- */
+session_start();
+
+if(isset($_SESSION['gebruiker'])){
+    $usr = $_SESSION['gebruiker'];
+    $pwd = $_SESSION['wachtwoord'];
+}
+else {
+    header('Location: login.php');
+}
+
 $hostname = "localhost";
 $dbname = "BANG";
-$usr = "BANG_FRONT_END";
-$pwd = "L72)zdTQr&v$5n+M";
 
 //Verbind met database
 $conn = new pdo ("sqlsrv:Server=$hostname;Database=$dbname;ConnectionPooling=0", $usr, $pwd);
