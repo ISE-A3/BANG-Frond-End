@@ -4,29 +4,20 @@ $titel = 'Toevoegen Gesloten Vraag';
 include_once "header.php";
 $vraagnaam = $_SESSION['VRAAGNAAM'];
 $aantal_antwoordopties = $_SESSION['AANTALANTWOORDOPTIES'];
-/**$sql = "SELECT COUNT(*) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAG_NAAM = '$vraagnaam'";
-if ($res = $conn->query($sql)) {
-    if ($res->fetchColumn() > 0) {
-        print_r($res);*/
-        $select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL GROUP BY VRAAGONDERDEELNUMMER, VRAAG_ID HAVING VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
-        $data = $conn->query($select);
-        $array = $data->fetch();
-        print_r($array);
-        $maxvraagonderdeelnummer = $array[0];
-        $vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
-        echo $vraagonderdeelnummer;
-    /**}
-} else {
-    $vraagonderdeelnummer = 1;
-}*/
+$select = "SELECT MAX(VRAAGONDERDEELNUMMER) FROM VRAAGONDERDEEL INNER JOIN VRAAG ON VRAAGONDERDEEL.VRAAG_ID = VRAAG.VRAAG_ID WHERE VRAAGONDERDEEL.VRAAG_ID = (SELECT VRAAG_ID FROM VRAAG WHERE VRAAG_NAAM = '$vraagnaam')";
+$data = $conn->query($select);
+$array = $data->fetch();
+print_r($array);
+$maxvraagonderdeelnummer = $array[0];
+$vraagonderdeelnummer = $maxvraagonderdeelnummer + 1;
+echo $vraagonderdeelnummer;
 
-
-if (isset($_POST['geslotenvraag_toevoegen'])) {
-try {
+if (isset($_POST['geslotenvraag_toevoegen']) || isset($_POST['geslotenvraag_afronden'])) {
+    try {
     $e_sql = 'EXEC dbo.usp_Vraagonderdeel_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @VRAAGONDERDEEL = \'' . $_POST['VRAAG'] . '\', @VRAAGSOORT = \'' . $_SESSION['VRAAGSOORT'] . '\'';
     $e_query = $conn->prepare($e_sql);
     $e_query->execute();
-} catch(Exception $e) {
+    } catch(Exception $e) {
         echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
 
@@ -42,15 +33,20 @@ try {
         }
 
         $e_sql2 = 'EXEC dbo.usp_Antwoord_Insert @VRAAG_NAAM = \'' . $vraagnaam . '\', @VRAAGONDERDEELNUMMER = \'' . $vraagonderdeelnummer . '\', @ANTWOORD = \'' . $_POST['ANTWOORDOPTIE' . $huidige_antwoordoptie . ''] . '\', @PUNTEN = \'' . $punten . '\'';
-        echo $e_sql;
-        $e_query = $conn->prepare($e_sql);
-        $e_query->execute();
+        echo $e_sql2;
+        $e_query2 = $conn->prepare($e_sql2);
+        $e_query2->execute();
         $huidige_antwoordoptie++;
-
-        $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
+    }
+    $_SESSION['AANTALANTWOORDOPTIES'] = $_POST['AANTALANTWOORDOPTIES'];
+    if (isset($_POST['geslotenvraag_afronden'])) {
+        header('Location:vragenOverzicht.php');
+    } else {
         header("Location:bepaal_vraagtype.php");
     }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,16 +136,15 @@ try {
                                     <div class="form-group">
                                         <label for="inputSuccess">Aantal Vraagopties</label>
                                         <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
-                                            <option>Ik wil een open vraag toevoegen</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
+                                            <option value="OPEN">Ik wil een open vraag toevoegen</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary" name="geslotenvraag_toevoegen">Nog Een Vraag Toevoegen</button>
-                                    <a class="btn btn-danger" href="evenement.php">Aanmaken Afronden</a>
+                                    <button type="submit" class="btn btn-danger" name="geslotenvraag_afronden">Aanmaken Afronden</button>
                                 </form>
                             </div>
                         </section>

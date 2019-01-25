@@ -27,8 +27,8 @@ if (isset($_POST['toevoegen'])) {
 
     $e_sql2 = 'EXEC dbo.usp_Thema_Bij_Vraag_Insert @VRAAG_NAAM = \'' . $_POST['VRAAGNAAM'] . '\', @THEMA = \'' . $vraagthema . '\'';
     echo $e_sql2;
-    $e_query = $conn->prepare($e_sql2);
-    $e_query->execute();
+    $e_query2 = $conn->prepare($e_sql2);
+    $e_query2->execute();
 
     header("Location:bepaal_vraagtype.php");
 }
@@ -115,7 +115,6 @@ if (isset($_POST['toevoegen'])) {
                                         <label for="inputSuccess">Aantal Antwoordopties</label>
                                             <select class="form-control m-bot15" name="AANTALANTWOORDOPTIES">
                                                 <option value="OPEN">Ik wil een open vraag toevoegen</option>
-                                                <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
